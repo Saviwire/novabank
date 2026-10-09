@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#04070f" />
+<title>Savi Bank — Your money. Your future. Made Savi.</title>
+<meta name="description" content="Savi Bank — modern accounts, intelligent insights, and tools built around you." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'] },
+        colors: {
+          navy: { 950: '#04070f', 900: '#070c1a', 800: '#0b1224', 700: '#111a33', 600: '#1a2647' },
+          royal: { DEFAULT: '#2563eb', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+          electric: { DEFAULT: '#38bdf8' }
+        },
+        keyframes: {
+          fadeUp: { '0%': { opacity: 0, transform: 'translateY(14px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+          fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+          tickerScroll: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+          floaty: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+          shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } }
+        },
+        animation: {
+          fadeUp: 'fadeUp .5s cubic-bezier(.22,1,.36,1) both',
+          fadeIn: 'fadeIn .35s ease-out both',
+          tickerScroll: 'tickerScroll 34s linear infinite',
+          floaty: 'floaty 7s ease-in-out infinite',
+          shimmer: 'shimmer 1.6s linear infinite'
+        }
+      }
+    }
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    background:
+      radial-gradient(1200px 780px at 12% -12%, #0e2f55 0%, transparent 56%),
+      radial-gradient(1000px 700px at 96% 3%, #06322c 0%, transparent 52%),
+      #04070f;
+    min-height: 100vh;
+  }
+  ::selection { background: #38bdf8; color: #04121f; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #070c1a; }
+  ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 999px; border: 2px solid #070c1a; }
+  ::-webkit-scrollbar-thumb:hover { background: #334155; }
+  .glass { background: rgba(255,255,255,.045); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,.09); }
+  .glass-strong { background: rgba(255,255,255,.07); backdrop-filter: blur(26px); -webkit-backdrop-filter: blur(26px); border: 1px solid rgba(255,255,255,.13); }
+  .glow-hover { transition: transform .28s cubic-bezier(.22,1,.36,1), box-shadow .28s ease, border-color .28s ease, background-color .28s ease; }
+  .glow-hover:hover { transform: translateY(-4px) scale(1.012); box-shadow: 0 22px 50px -18px rgba(56,189,248,.42); border-color: rgba(56,189,248,.4); }
+  .glow-hover:active { transform: translateY(-1px) scale(1.004); }
+  .num { font-variant-numeric: tabular-nums; }
+  select option { background: #0b1224; color: #e2e8f0; }
+  input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type="number"] { -moz-appearance: textfield; }
+  input[type="range"] { height: 6px; border-radius: 999px; background: rgba(255,255,255,.14); appearance: none; -webkit-appearance: none; outline: none; }
+  input[type="range"]::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #38bdf8; border: 3px solid #04121f; box-shadow: 0 0 0 2px rgba(56,189,248,.5); cursor: pointer; }
+  input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #38bdf8; border: 3px solid #04121f; cursor: pointer; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  .skip-link { position: absolute; left: 50%; top: -100px; transform: translateX(-50%); z-index: 100; }
+  .skip-link:focus { top: 12px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  }
+</style>
+</head>
+<body class="font-sans text-slate-100 antialiased">
+<a href="#main" class="skip-link rounded-xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950">Skip to main content</a>
+<div id="root">
+  <div style="min-height:60vh;display:grid;place-items:center;color:#64748b;font-size:14px">Loading Savi Bank…</div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js" crossorigin></script>
+<script src="https://unpkg.com/lucide@0.451.0/dist/umd/lucide.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js" crossorigin></script>
+
+<script type="text/babel" data-presets="react">
+/* ==========================================================================
+   SAVI BANK — single-file demo application
+   React 18 + Tailwind (CDN) + Recharts + Lucide + Babel in-browser
+   All data is mock. No network calls. No real financial actions.
+   ========================================================================== */
+const { useState, useEffect, useMemo } = React;
+const RC = window.Recharts || {};
+const ResponsiveContainer = RC.ResponsiveContainer;
+const AreaChart = RC.AreaChart, Area = RC.Area;
+const BarChart = RC.BarChart, Bar = RC.Bar;
+const XAxis = RC.XAxis, YAxis = RC.YAxis, CartesianGrid = RC.CartesianGrid;
+const Tooltip = RC.Tooltip;
+const PieChart = RC.PieChart, Pie = RC.Pie, Cell = RC.Cell;
+
+/* ------------------------------- utilities ------------------------------- */
+const fmt = (n) => {
+  const v = Number(n) || 0;
+  return (v < 0 ? '-$' : '$') + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+const fmt0 = (n) => {
+  const v = Number(n) || 0;
+  return (v < 0 ? '-$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US');
+};
+const pascal = (s) => String(s).split('-').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join('');
+const prettyDate = (iso) => {
+  try { return new Date(iso + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); }
+  catch (e) { return iso; }
+};
+const todayISO = () => new Date().toISOString().slice(0, 10);
+let _seq = 0;
+const uid = () => 'id-' + (++_seq) + '-' + Math.random().toString(36).slice(2, 7);
+
+/* --------------------------- icon component ------------------------------ */
+function Icon({ name, className = 'w-5 h-5', strokeWidth = 2 }) {
+  const icons = (typeof window !== 'undefined' && window.lucide && window.lucide.icons) ? window.lucide.icons : null;
+  const node = icons ? (icons[name] || icons[pascal(name)] || null) : null;
+  if (!node || !Array.isArray(node)) {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor"
+        strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 8v8M8 12h8" />
+      </svg>
+    );
+  }
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"
+      className={className} aria-hidden="true" focusable="false">
+      {node.map((pair, i) => React.createElement(pair[0], { key: i, ...pair[1] }))}
+    </svg>
+  );
+}
+
+/* ------------------------------ brand marks ------------------------------ */
+function Logo({ size = 40 }) {
+  return (
+    <span
+      className="inline-grid shrink-0 place-items-center rounded-xl bg-gradient-to-br from-sky-400 via-royal-600 to-emerald-400 shadow-lg shadow-sky-500/25"
+      style={{ width: size, height: size }} aria-hidden="true">
+      <svg viewBox="0 0 24 24" width={size * 0.62} height={size * 0.62} fill="none"
+        stroke="#04121f" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17.2 6.7c-1.4-1.6-3.2-2.4-5.1-2.4-2.7 0-4.6 1.4-4.6 3.4 0 2.3 2.2 3 4.7 3.5 2.9.6 4.8 1.5 4.8 3.7 0 2.3-2.2 3.7-5.2 3.7-2.1 0-4-.7-5.5-2.3" />
+      </svg>
+    </span>
+  );
+}
+function Wordmark({ size = 40, className = '' }) {
+  return (
+    <span className={'flex items-center gap-3 ' + className}>
+      <Logo size={size} />
+      <span className="text-xl font-bold tracking-tight text-white">
+        Savi<span className="bg-gradient-to-r from-sky-400 to-emerald-400 bg-clip-text text-transparent"> Bank</span>
+      </span>
+    </span>
+  );
+}
+
+/* ------------------------------- mock data ------------------------------- */
+const START_ACCOUNTS = [
+  { id: 'checking', name: 'Everyday Checking', short: 'Checking', kind: 'deposit', balance: 8420.55, number: '4521', routing: '021000021', accent: 'from-sky-400 to-royal-600', icon: 'wallet' },
+  { id: 'savings', name: 'High-Yield Savings', short: 'Savings', kind: 'deposit', balance: 24310.00, number: '8890', routing: '021000021', accent: 'from-emerald-400 to-teal-600', icon: 'piggy-bank' },
+  { id: 'credit', name: 'Rewards Credit Card', short: 'Credit Card', kind: 'credit', balance: -1240.32, number: '3312', routing: null, accent: 'from-fuchsia-400 to-rose-600', icon: 'credit-card' }
+];
+
+const START_TX = [
+  { id: 1,  account: 'checking', date: '2025-01-16', merchant: 'Payroll — Northwind Labs',  category: 'Income',        amount: 4820.00 },
+  { id: 2,  account: 'checking', date: '2025-01-15', merchant: 'Whole Foods Market',       category: 'Groceries',     amount: -128.44 },
+  { id: 3,  account: 'credit',   date: '2025-01-15', merchant: 'Spotify Premium',          category: 'Entertainment', amount: -11.99 },
+  { id: 4,  account: 'checking', date: '2025-01-14', merchant: 'City Utilities',           category: 'Utilities',     amount: -96.30 },
+  { id: 5,  account: 'credit',   date: '2025-01-13', merchant: 'Delta Air Lines',          category: 'Travel',        amount: -412.80 },
+  { id: 6,  account: 'checking', date: '2025-01-12', merchant: 'Transfer to High-Yield Savings',   category: 'Transfer', amount: -1500.00 },
+  { id: 7,  account: 'savings',  date: '2025-01-12', merchant: 'Transfer from Everyday Checking', category: 'Transfer', amount: 1500.00 },
+  { id: 8,  account: 'credit',   date: '2025-01-11', merchant: 'Blue Bottle Coffee',       category: 'Coffee',        amount: -6.75 },
+  { id: 9,  account: 'checking', date: '2025-01-10', merchant: 'Shell Gas Station',        category: 'Transport',     amount: -58.20 },
+  { id: 10, account: 'credit',   date: '2025-01-09', merchant: 'Apple Store',              category: 'Shopping',      amount: -249.00 },
+  { id: 11, account: 'checking', date: '2025-01-08', merchant: 'Vitality Fitness',         category: 'Health',        amount: -45.00 },
+  { id: 12, account: 'credit',   date: '2025-01-07', merchant: 'Uber',                     category: 'Transport',     amount: -23.40 },
+  { id: 13, account: 'checking', date: '2025-01-05', merchant: "Trader Joe's",             category: 'Groceries',     amount: -87.16 },
+  { id: 14, account: 'savings',  date: '2025-01-03', merchant: 'Interest Payment',         category: 'Income',        amount: 62.14 },
+  { id: 15, account: 'credit',   date: '2025-01-02', merchant: 'Netflix',                  category: 'Entertainment', amount: -15.49 }
+];
+
+const START_CARDS = [
+  { id: 'classic-debit', name: 'Classic Debit',  last4: '4521', kind: 'Debit',  grad: 'from-sky-500 via-royal-600 to-indigo-700',   apr: 'Not applicable', annualFee: '$0',   perks: ['No monthly fees', 'Fee-free ATM network', 'Instant card freeze'], frozen: false, spendLimit: 2500,  spendUsed: 860 },
+  { id: 'rewards',       name: 'Rewards Credit', last4: '3312', kind: 'Credit', grad: 'from-emerald-500 via-teal-600 to-cyan-700',  apr: '19.24%', annualFee: '$0',   perks: ['2% cash back everywhere', 'Bonus on groceries', 'Cell phone protection'], frozen: false, spendLimit: 8000,  spendUsed: 3410 },
+  { id: 'travel',        name: 'Travel Credit',  last4: '7743', kind: 'Credit', grad: 'from-indigo-500 via-violet-600 to-purple-700', apr: '21.49%', annualFee: '$95',  perks: ['3x points on travel', 'No foreign transaction fees', 'Airport lounge access'], frozen: false, spendLimit: 12000, spendUsed: 2980 },
+  { id: 'premium',       name: 'Premium Credit', last4: '2210', kind: 'Credit', grad: 'from-amber-400 via-orange-500 to-rose-600',   apr: '22.99%', annualFee: '$395', perks: ['5x points on travel', 'Global concierge', 'Priority Pass lounge'], frozen: false, spendLimit: 20000, spendUsed: 7450 },
+  { id: 'student',       name: 'Student Credit', last4: '9087', kind: 'Credit', grad: 'from-pink-500 via-rose-500 to-red-600',      apr: '17.99%', annualFee: '$0',   perks: ['Build credit safely', 'No co-signer required', 'Automatic limit reviews'], frozen: false, spendLimit: 1500,  spendUsed: 320 },
+  { id: 'business',      name: 'Business Credit',last4: '5560', kind: 'Credit', grad: 'from-slate-500 via-navy-600 to-royal-700',    apr: '20.15%', annualFee: '$0',   perks: ['Employee spend controls', 'Unlimited virtual cards', 'Accounting integrations'], frozen: false, spendLimit: 25000, spendUsed: 9120 }
+];
+
+const CATEGORY_META = {
+  Income:        { icon: 'briefcase',     color: '#34d399' },
+  Groceries:     { icon: 'shopping-cart', color: '#38bdf8' },
+  Entertainment: { icon: 'film',          color: '#a78bfa' },
+  Utilities:     { icon: 'zap',           color: '#fbbf24' },
+  Travel:        { icon: 'plane',         color: '#f472b6' },
+  Transfer:      { icon: 'arrow-left-right', color: '#94a3b8' },
+  Coffee:        { icon: 'coffee',        color: '#fb923c' },
+  Transport:     { icon: 'car',           color: '#22d3ee' },
+  Shopping:      { icon: 'shopping-bag',  color: '#c084fc' },
+  Health:        { icon: 'heart-pulse',   color: '#4ade80' },
+  Bills:         { icon: 'receipt',       color: '#f59e0b' }
+};
+
+const BALANCE_HISTORY = [
+  { m: 'Jun', v: 21340 }, { m: 'Jul', v: 23180 }, { m: 'Aug', v: 24950 }, { m: 'Sep', v: 26410 },
+  { m: 'Oct', v: 28120 }, { m: 'Nov', v: 29940 }, { m: 'Dec', v: 31080 }, { m: 'Jan', v: 32730 }
+];
+
+const MONTHLY_SPEND = [
+  { m: 'Aug', v: 2140 }, { m: 'Sep', v: 2380 }, { m: 'Oct', v: 1980 },
+  { m: 'Nov', v: 2610 }, { m: 'Dec', v: 3120 }, { m: 'Jan', v: 2240 }
+];
+
+const MARKET = [
+  { sym: 'BTC',  name: 'Bitcoin',   price: 64210.55, chg: 1.84 },
+  { sym: 'ETH',  name: 'Ethereum',  price: 3184.20,  chg: -0.72 },
+  { sym: 'SOL',  name: 'Solana',    price: 168.44,   chg: 4.31 },
+  { sym: 'ADA',  name: 'Cardano',   price: 0.612,    chg: -1.15 },
+  { sym: 'DOT',  name: 'Polkadot',  price: 7.92,     chg: 0.48 },
+  { sym: 'XRP',  name: 'XRP',       price: 0.548,    chg: 2.06 },
+  { sym: 'LINK', name: 'Chainlink', price: 18.31,    chg: -2.44 },
+  { sym: 'AVAX', name: 'Avalanche', price: 41.77,    chg: 3.12 }
+];
+
+const FAQS = [
+  { q: 'How do I open a Savi Bank account?', a: 'Choose a product, complete the secure application and verify your identity. Most accounts open in under five minutes with no paperwork.' },
+  { q: 'Are my deposits protected?', a: 'Deposits are held with our partner banking network and insured up to applicable limits. Every balance shown here is simulated for demonstration purposes.' },
+  { q: 'How do transfers between accounts work?', a: 'Transfers between Savi Bank accounts post instantly and are fee-free. Transfers to external institutions typically settle within one to two business days.' },
+  { q: 'What should I do if I lose my card?', a: 'Open the Cards page, switch on Freeze Card to block new charges immediately, then use Report Lost to order a replacement. Your card number stays the same.' },
+  { q: 'Do you charge foreign transaction fees?', a: 'Classic Debit and Travel Credit carry no foreign transaction fees. Premium Credit also waives them worldwide, with no markup on exchange rates.' },
+  { q: 'How is my savings interest calculated?', a: 'Interest accrues daily on your High-Yield Savings balance and is paid at the start of each month. The current rate shown in the app is 4.35% APY.' },
+  { q: 'Can I set spending limits?', a: 'Yes. Each card has its own spend limit you can review in Cards, and you can freeze or unfreeze any card instantly from the same screen.' },
+  { q: 'How do I reach customer support?', a: 'Start a chat, send a message from the Support page, or call us any time. Average first response time is under two minutes.' }
+];
+
+const BILLERS    = ['City Utilities', 'Verizon Wireless', 'State Farm Insurance', 'Metro Water District'];
+const RECIPIENTS = ['alex.reyes@example.com', 'jamie.chen@example.com', 'sam.okafor@example.com'];
+const DEPOSIT_SOURCES = ['Linked bank •••• 7791', 'Mobile check deposit', 'External debit card'];
+
+/* ============================ UI PRIMITIVES ============================== */
+function Glass({ className = '', as: Tag = 'div', children, ...rest }) {
+  return <Tag className={'glass rounded-2xl shadow-xl shadow-black/20 ' + className} {...rest}>{children}</Tag>;
+}
+
+function Btn({ children, variant = 'primary', className = '', ...rest }) {
+  const base = 'inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 disabled:cursor-not-allowed disabled:opacity-60';
+  const variants = {
+    primary: 'bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-sky-500/30 active:translate-y-0',
+    royal:   'bg-gradient-to-r from-royal-600 to-electric text-white hover:-translate-y-0.5 hover:shadow-lg hover:shadow-royal-600/35 active:translate-y-0',
+    ghost:   'border border-white/15 bg-white/5 text-slate-100 hover:-translate-y-0.5 hover:bg-white/12 hover:border-white/25',
+    soft:    'bg-white/10 text-slate-100 hover:bg-white/18',
+    danger:  'bg-rose-500/90 text-white hover:-translate-y-0.5 hover:bg-rose-500'
+  };
+  return <button className={base + ' px-5 py-3 text-sm ' + variants[variant] + ' ' + className} {...rest}>{children}</button>;
+}
+
+function Toggle({ checked, onChange, label }) {
+  return (
+    <button type="button" role="switch" aria-checked={!!checked} aria-label={label}
+      onClick={() => onChange(!checked)}
+      className={'relative h-7 w-12 shrink-0 rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ' + (checked ? 'bg-emerald-400' : 'bg-white/20')}>
+      <span className={'absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-all duration-300 ' + (checked ? 'left-6' : 'left-1')} />
+    </button>
+  );
+}
+
+function Field({ label, id, icon, hint, error, right, className = '', ...rest }) {
+  const inputId = id || (label ? 'f-' + label.replace(/\W+/g, '-').toLowerCase() : undefined);
+  return (
+    <div className={className}>
+      {label && <label htmlFor={inputId} className="mb-2 block text-sm font-medium text-slate-300">{label}</label>}
+      <span className="relative block">
+        {icon && <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"><Icon name={icon} className="w-5 h-5" /></span>}
+        <input id={inputId} aria-invalid={error ? 'true' : undefined}
+          className={'w-full rounded-xl border bg-slate-950/60 py-3 text-sm text-white placeholder-slate-500 transition focus:outline-none focus:ring-2 focus:ring-sky-500/60 ' +
+            (icon ? 'pl-11 ' : 'pl-4 ') + (right ? 'pr-11 ' : 'pr-4 ') + (error ? 'border-rose-500/60' : 'border-white/12')} {...rest} />
+        {right && <span className="absolute right-2 top-1/2 -translate-y-1/2">{right}</span>}
+      </span>
+      {hint && !error && <p className="mt-1.5 text-xs text-slate-500">{hint}</p>}
+      {error && <p className="mt-1.5 text-xs text-rose-400" role="alert">{error}</p>}
+    </div>
+  );
+}
+
+function Select({ label, id, value, onChange, options, hint, className = '' }) {
+  const selectId = id || (label ? 's-' + label.replace(/\W+/g, '-').toLowerCase() : undefined);
+  return (
+    <div className={className}>
+      {label && <label htmlFor={selectId} className="mb-2 block text-sm font-medium text-slate-300">{label}</label>}
+      <span className="relative block">
+        <select id={selectId} value={value} onChange={onChange}
+          className="w-full appearance-none rounded-xl border border-white/12 bg-slate-950/60 py-3 pl-4 pr-10 text-sm text-white transition focus:outline-none focus:ring-2 focus:ring-sky-500/60">
+          {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+        </select>
+        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-500"><Icon name="chevron-down" className="w-4 h-4" /></span>
+      </span>
+      {hint && <p className="mt-1.5 text-xs text-slate-500">{hint}</p>}
+    </div>
+  );
+}
+
+function Note({ tone = 'error', children }) {
+  const tones = {
+    error: 'border-rose-500/30 bg-rose-500/10 text-rose-300',
+    ok: 'border-emerald-400/30 bg-emerald-500/10 text-emerald-300',
+    info: 'border-sky-400/30 bg-sky-500/10 text-sky-200'
+  };
+  const icons = { error: 'alert-circle', ok: 'check-circle-2', info: 'info' };
+  return (
+    <p role={tone === 'error' ? 'alert' : 'status'}
+      className={'flex items-start gap-2 rounded-xl border px-4 py-3 text-sm ' + tones[tone]}>
+      <Icon name={icons[tone]} className="mt-0.5 w-4 h-4 shrink-0" />
+      <span>{children}</span>
+    </p>
+  );
+}
+
+function Modal({ open, onClose, title, subtitle, children, footer, wide }) {
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
+  }, [open, onClose]);
+
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-[70] grid place-items-center overflow-y-auto p-4" role="dialog" aria-modal="true" aria-label={title}>
+      <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm animate-fadeIn" onClick={onClose} />
+      <div className={'relative my-auto w-full animate-fadeUp rounded-2xl border border-white/12 bg-slate-900/95 p-6 shadow-2xl ' + (wide ? 'max-w-2xl' : 'max-w-lg')}>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-lg font-semibold text-white">{title}</h2>
+            {subtitle && <p className="mt-1 text-sm text-slate-400">{subtitle}</p>}
+          </div>
+          <button onClick={onClose} aria-label="Close dialog"
+            className="rounded-lg p-2 text-slate-400 transition hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+            <Icon name="x" className="w-5 h-5" />
+          </button>
+        </div>
+        <div className="mt-5">{children}</div>
+        {footer && <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">{footer}</div>}
+      </div>
+    </div>
+  );
+}
+
+function Toast({ toast }) {
+  if (!toast) return null;
+  const ok = toast.tone !== 'error';
+  return (
+    <div className="pointer-events-none fixed bottom-6 left-1/2 z-[80] w-[min(92vw,26rem)] -translate-x-1/2 animate-fadeUp" role="status" aria-live="polite">
+      <div className={'flex items-center gap-3 rounded-2xl border px-4 py-3 shadow-2xl backdrop-blur-xl ' + (ok ? 'border-emerald-400/30 bg-emerald-500/15' : 'border-rose-400/30 bg-rose-500/15')}>
+        <span className={'grid h-8 w-8 shrink-0 place-items-center rounded-full ' + (ok ? 'bg-emerald-400/20 text-emerald-300' : 'bg-rose-400/20 text-rose-300')}>
+          <Icon name={ok ? 'check' : 'alert-circle'} className="w-4 h-4" />
+        </span>
+        <p className="text-sm font-medium text-white">{toast.msg}</p>
+      </div>
+    </div>
+  );
+}
+
+/* Resilient image: falls back to a styled placeholder if the photo fails */
+function Img({ src, alt, className, fallback = 'Savi Bank' }) {
+  const [failed, setFailed] = useState(false);
+  const safe = failed
+    ? 'https://placehold.co/1200x800/0b1224/7dd3fc?text=' + encodeURIComponent(fallback)
+    : src;
+  return <img src={safe} alt={alt} loading="lazy" decoding="async" onError={() => setFailed(true)} className={className} />;
+}
+
+/* Simple sparkline helper */
+function Sparkline({ data, color = '#38bdf8', height = 48 }) {
+  if (!ResponsiveContainer) return <div style={{ height }} />;
+  const gid = 'spark-' + color.replace('#', '');
+  return (
+    <div style={{ height }} aria-hidden="true">
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={data} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
+          <defs>
+            <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={color} stopOpacity={0.5} />
+              <stop offset="100%" stopColor={color} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <Area type="monotone" dataKey="v" stroke={color} strokeWidth={2} fill={'url(#' + gid + ')'} />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+function ChartTooltip({ active, payload, percent }) {
+  if (!active || !payload || !payload.length) return null;
+  const p = payload[0];
+  const row = p.payload || {};
+  return (
+    <div className="rounded-xl border border-white/15 bg-slate-900/95 px-3 py-2 text-xs shadow-2xl backdrop-blur">
+      <p className="text-slate-400">{row.m || row.name || ''}</p>
+      <p className="num font-semibold text-white">
+        {percent && typeof row.pct === 'number' ? row.pct.toFixed(1) + '%' : fmt(p.value)}
+      </p>
+    </div>
+  );
+}
+
+/* Card artwork rendered fully in code */
+function CardArt({ card, size = 'lg' }) {
+  const pad = size === 'lg' ? 'p-5 h-48' : 'p-4 h-36';
+  return (
+    <div className={'glow-hover relative flex flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br ' + card.grad + ' ' + pad}>
+      <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/15 blur-2xl" />
+      <div className="pointer-events-none absolute -bottom-12 -left-8 h-32 w-32 rounded-full bg-black/20 blur-2xl" />
+      <div className="relative flex items-start justify-between">
+        <div>
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-white/75">Savi Bank</p>
+          <p className="mt-0.5 text-sm font-semibold text-white">{card.name}</p>
+        </div>
+        <span className="rounded-md bg-black/25 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/85">{card.kind}</span>
+      </div>
+      <div className="relative">
+        <div className="mb-3 h-7 w-10 rounded-md bg-gradient-to-br from-amber-200 to-amber-500 opacity-90" />
+        <p className="num text-base font-semibold tracking-[0.14em] text-white sm:text-lg">•••• •••• •••• {card.last4}</p>
+        <div className="mt-2 flex items-center justify-between text-[11px] text-white/80">
+          <span>SAVI MEMBER</span>
+          <span>09/28</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================ MARKET TICKER ============================== */
+function CryptoTicker() {
+  const [playing, setPlaying] = useState(true);
+  const loop = MARKET.concat(MARKET);
+  return (
+    <section className="glass overflow-hidden rounded-2xl" aria-labelledby="ticker-heading">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
+        <div className="flex items-center gap-3">
+          <span className="grid h-9 w-9 place-items-center rounded-lg bg-sky-400/15 text-sky-300"><Icon name="line-chart" className="w-4 h-4" /></span>
+          <div>
+            <h3 id="ticker-heading" className="text-sm font-semibold text-white">Market watch</h3>
+            <p className="text-[11px] text-slate-400">Learn how crypto markets move</p>
+          </div>
+        </div>
+        <button onClick={() => setPlaying(p => !p)} aria-pressed={playing}
+          aria-label={playing ? 'Pause market ticker' : 'Play market ticker'}
+          className="grid h-9 w-9 place-items-center rounded-lg border border-white/15 text-slate-300 transition hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+          <Icon name={playing ? 'pause' : 'play'} className="w-4 h-4" />
+        </button>
+      </div>
+      <div className="relative overflow-hidden py-3">
+        <div className="flex w-max animate-tickerScroll gap-4 px-4" style={{ animationPlayState: playing ? 'running' : 'paused' }}>
+          {loop.map((c, i) => (
+            <div key={c.sym + i} className="flex min-w-[10.5rem] items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5" aria-hidden={i >= MARKET.length}>
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-sky-400/30 to-emerald-400/30 text-[11px] font-bold text-white">{c.sym.slice(0, 2)}</span>
+              <div className="leading-tight">
+                <p className="text-xs font-semibold text-white">{c.sym}</p>
+                <p className="num text-[11px] text-slate-300">${c.price.toLocaleString('en-US', { maximumFractionDigits: 2 })}</p>
+              </div>
+              <span className={'num ml-auto text-[11px] font-semibold ' + (c.chg >= 0 ? 'text-emerald-400' : 'text-rose-400')}>
+                {c.chg >= 0 ? '+' : ''}{c.chg.toFixed(2)}%
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ================================ FOOTER ================================= */
+function Footer({ onNavigate }) {
+  const go = (e, target) => {
+    if (!onNavigate) return;
+    e.preventDefault();
+    onNavigate(target);
+  };
+  const links = [
+    { t: 'Banking',  l: [['Checking', 'checking'], ['Savings', 'savings'], ['Credit Cards', 'cards'], ['Debit Cards', 'cards'], ['Global Banking', 'global']] },
+    { t: 'Borrow',   l: [['Home Loans', 'loans'], ['Auto Loans', 'loans'], ['Student Banking', 'students'], ['Business Banking', 'business'], ['Calculators', 'calc']] },
+    { t: 'Company',  l: [['Security', 'security'], ['Customer Support', 'support'], ['About Savi', 'home'], ['Accessibility', 'security'], ['Merchant Services', 'business']] }
+  ];
+  return (
+    <footer className="mt-4 border-t border-white/10 bg-slate-950/70 px-5 py-14 sm:px-8">
+      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-4">
+        <div>
+          <Wordmark />
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
+            Banking built around you. Modern accounts, intelligent insights and tools that help your money grow.
+          </p>
+          <div className="mt-5 flex gap-2">
+            {[['twitter', 'Twitter'], ['instagram', 'Instagram'], ['linkedin', 'LinkedIn'], ['youtube', 'YouTube']].map(([s, label]) => (
+              <a key={s} href="#footer" aria-label={'Savi Bank on ' + label}
+                onClick={(e) => e.preventDefault()}
+                className="grid h-9 w-9 place-items-center rounded-lg border border-white/12 text-slate-400 transition hover:-translate-y-0.5 hover:border-sky-400/40 hover:text-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                <Icon name={s} className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
+        </div>
+        {links.map(col => (
+          <nav key={col.t} aria-label={col.t}>
+            <h3 className="text-sm font-semibold text-white">{col.t}</h3>
+            <ul className="mt-4 space-y-2.5 text-sm text-slate-400">
+              {col.l.map(([label, target]) => (
+                <li key={label}>
+                  <a href={'#footer'} onClick={(e) => go(e, target)}
+                    className="transition hover:text-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
+      </div>
+      <div className="mx-auto mt-12 max-w-6xl border-t border-white/10 pt-6">
+        <p className="text-center text-[10px] tracking-wide text-gray-500/50">Demo — Not a real bank</p>
+      </div>
+    </footer>
+  );
+}
+
+/* ============================== LANDING PAGE ============================= */
+function SavingsTeaser() {
+  const [monthly, setMonthly] = useState(300);
+  const [months, setMonths] = useState(36);
+  const rate = 0.0435 / 12;
+  const projected = useMemo(() => {
+    let total = 0;
+    for (let i = 0; i < months; i++) total = (total + monthly) * (1 + rate);
+    return total;
+  }, [monthly, months]);
+  return (
+    <div className="w-full max-w-xs rounded-2xl border border-white/12 bg-slate-950/50 p-5">
+      <label htmlFor="teaserMonthly" className="block text-xs font-medium text-slate-400">Monthly deposit</label>
+      <input id="teaserMonthly" type="range" min="25" max="1500" step="25" value={monthly}
+        onChange={e => setMonthly(+e.target.value)} className="mt-3 w-full accent-emerald-400" />
+      <div className="flex items-center justify-between text-xs text-slate-400">
+        <span className="num font-semibold text-white">${monthly}</span>
+        <span>{months} months</span>
+      </div>
+      <label htmlFor="teaserMonths" className="mt-4 block text-xs font-medium text-slate-400">Time frame</label>
+      <input id="teaserMonths" type="range" min="6" max="120" step="6" value={months}
+        onChange={e => setMonths(+e.target.value)} className="mt-3 w-full accent-sky-400" />
+      <div className="mt-5 rounded-xl border border-emerald-400/25 bg-emerald-400/10 p-4">
+        <p className="text-xs text-emerald-200/80">Projected balance</p>
+        <p className="num text-2xl font-bold text-white">{fmt0(projected)}</p>
+        <p className="mt-1 text-[11px] text-emerald-200/70">Assumes 4.35% APY, compounded monthly</p>
+      </div>
+    </div>
+  );
+}
+
+function Landing({ onSignIn, onNavigate }) {
+  const [menu, setMenu] = useState(false);
+
+  const IMG = {
+    hero:     'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80',
+    travel:   'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80',
+    students: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
+    business: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80',
+    global:   'https://images.unsplash.com/photo-1499591934245-40b55745b905?auto=format&fit=crop&w=1200&q=80'
+  };
+
+  const navLinks = [
+    ['Checking', 'checking'], ['Savings', 'savings'], ['Cards', 'cards'],
+    ['Loans', 'loans'], ['Security', 'security'], ['Support', 'support']
+  ];
+
+  const products = [
+    { icon: 'wallet', title: 'Everyday Checking', text: 'No monthly fees, fee-free ATMs and instant transfers between your Savi accounts.', tag: '$200 welcome bonus for new members' },
+    { icon: 'piggy-bank', title: 'High-Yield Savings', text: 'Set goals, automate deposits and watch your balance grow at 4.35% APY.', tag: 'Goal-based saving built in' },
+    { icon: 'credit-card', title: 'Credit & Debit Cards', text: 'Six cards tuned for everyday, travel, students and business — all with instant freeze.', tag: 'Compare every card side by side' },
+    { icon: 'home', title: 'Home & Auto Loans', text: 'Estimate your payment with transparent calculators before you ever speak to a specialist.', tag: 'Calculators with live results' },
+    { icon: 'graduation-cap', title: 'Student Banking', text: 'No-fee student checking, automatic savings rules and a card built for first-time credit builders.', tag: 'No co-signer required' },
+    { icon: 'building-2', title: 'Business & Merchants', text: 'Business checking with no minimums, employee cards and payment acceptance tools.', tag: 'Unlimited virtual cards' }
+  ];
+
+  return (
+    <div>
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-950/75 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+          <a href="#top" className="rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"><Wordmark /><span className="sr-only">Savi Bank home</span></a>
+          <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+            {navLinks.map(([label, target]) => (
+              <a key={label} href={'#' + target}
+                className="text-sm font-medium text-slate-300 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded">
+                {label}
+              </a>
+            ))}
+          </nav>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button onClick={onSignIn}
+              className="hidden rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-200 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 sm:block">
+              Sign In
+            </button>
+            <Btn onClick={onSignIn} className="px-4 py-2.5">Open an Account</Btn>
+            <button onClick={() => setMenu(m => !m)} aria-label="Toggle navigation menu" aria-expanded={menu} aria-controls="mobile-menu"
+              className="grid h-10 w-10 place-items-center rounded-xl border border-white/12 text-slate-200 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 lg:hidden">
+              <Icon name={menu ? 'x' : 'menu'} className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+        {menu && (
+          <nav id="mobile-menu" aria-label="Mobile" className="border-t border-white/10 bg-slate-950/95 px-5 py-4 lg:hidden">
+            <div className="grid gap-1">
+              {navLinks.map(([label, target]) => (
+                <a key={label} href={'#' + target} onClick={() => setMenu(false)}
+                  className="rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/8 hover:text-white">
+                  {label}
+                </a>
+              ))}
+              <button onClick={() => { setMenu(false); onSignIn(); }}
+                className="mt-2 rounded-xl px-4 py-3 text-left text-sm font-semibold text-sky-300 transition hover:bg-white/8">
+                Sign In
+              </button>
+            </div>
+          </nav>
+        )}
+      </header>
+
+      <main id="main">
+        {/* HERO */}
+        <section id="top" className="relative overflow-hidden px-5 pb-20 pt-14 sm:px-8 sm:pt-24">
+          <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2">
+            <div className="animate-fadeUp">
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-xs font-semibold text-emerald-300">
+                <Icon name="sparkles" className="w-3.5 h-3.5" /> $200 welcome bonus on Everyday Checking
+              </span>
+              <h1 className="mt-6 text-4xl font-extrabold leading-[1.06] tracking-tight text-white sm:text-6xl">
+                Your money.<br />Your future.<br />
+                <span className="bg-gradient-to-r from-sky-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">Made Savi.</span>
+              </h1>
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+                Banking built around you — modern accounts, real-time insight and tools that make every dollar work
+                harder. Open an account in minutes, with no hidden fees and no minimums.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Btn onClick={onSignIn} className="px-7 py-3.5 text-base">
+                  Open an Account <Icon name="arrow-right" className="w-4 h-4" />
+                </Btn>
+                <Btn variant="ghost" onClick={() => onNavigate('calc')} className="px-7 py-3.5 text-base">Explore Calculators</Btn>
+              </div>
+              <dl className="mt-12 grid max-w-lg grid-cols-3 gap-5">
+                {[['No monthly fees', 'Everyday Checking'], ['4.35% APY', 'High-Yield Savings'], ['55,000+ ATMs', 'Fee-free network']].map(([a, b]) => (
+                  <div key={a}>
+                    <dt className="text-sm font-bold text-white sm:text-base">{a}</dt>
+                    <dd className="mt-1 text-xs text-slate-400 sm:text-sm">{b}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            <div className="relative animate-fadeUp">
+              <div className="glass-strong relative overflow-hidden rounded-3xl p-3 shadow-2xl">
+                <Img src={IMG.hero} alt="Sunlit coastline representing financial freedom and travel"
+                  className="h-72 w-full rounded-2xl object-cover sm:h-96" fallback="Your money. Your future." />
+                <div className="glass-strong absolute bottom-6 left-6 right-6 rounded-2xl p-4 animate-floaty">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-slate-300">Total balance</p>
+                      <p className="num text-2xl font-bold text-white">$32,730.55</p>
+                    </div>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-semibold text-emerald-300">
+                      <Icon name="trending-up" className="w-3.5 h-3.5" /> +4.8%
+                    </span>
+                  </div>
+                  <div className="mt-3"><Sparkline data={BALANCE_HISTORY} color="#38bdf8" height={40} /></div>
+                </div>
+              </div>
+              <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-sky-500/20 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -left-10 h-56 w-56 rounded-full bg-emerald-500/20 blur-3xl" />
+            </div>
+          </div>
+        </section>
+
+        {/* PRODUCTS */}
+        <section id="checking" className="px-5 py-20 sm:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-400">Products</p>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Everything you need, nothing you don't</h2>
+              <p className="mt-4 text-slate-400">Transparent pricing, real tools, and one app for saving, spending, borrowing and growing.</p>
+            </div>
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {products.map(p => (
+                <Glass key={p.title} className="glow-hover p-7">
+                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-sky-400/25 to-emerald-400/25 text-sky-300">
+                    <Icon name={p.icon} className="w-6 h-6" />
+                  </span>
+                  <h3 className="mt-5 text-lg font-semibold text-white">{p.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{p.text}</p>
+                  <p className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-emerald-300">
+                    <Icon name="check-circle-2" className="w-4 h-4" /> {p.tag}
+                  </p>
+                </Glass>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SAVINGS + LOANS */}
+        <section id="savings" className="px-5 pb-20 sm:px-8">
+          <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-3">
+            <Glass className="glow-hover p-7 lg:col-span-2">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+                <div className="max-w-md">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">High-Yield Savings</p>
+                  <h2 className="mt-3 text-2xl font-bold text-white">How much sooner could you hit your goal?</h2>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-400">
+                    Slide your monthly deposit and time frame to see the projected balance, compounding monthly at
+                    4.35% APY.
+                  </p>
+                  <ul className="mt-5 space-y-2 text-sm text-slate-300">
+                    {['No minimum opening deposit', 'Automate transfers weekly or monthly', 'Withdraw any time, no penalties'].map(i => (
+                      <li key={i} className="flex items-start gap-2"><Icon name="check" className="mt-0.5 w-4 h-4 text-emerald-400" /><span>{i}</span></li>
+                    ))}
+                  </ul>
+                </div>
+                <SavingsTeaser />
+              </div>
+            </Glass>
+
+            <Glass id="loans" className="glow-hover p-7">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-400">Home & Auto</p>
+              <h2 className="mt-3 text-xl font-bold text-white">Know the payment before you apply</h2>
+              <ul className="mt-5 space-y-3 text-sm text-slate-300">
+                {['Transparent rate estimates', 'No prepayment penalties', 'Digital-first approval process', 'Fixed and variable options'].map(i => (
+                  <li key={i} className="flex items-start gap-2"><Icon name="check" className="mt-0.5 w-4 h-4 text-emerald-400" /><span>{i}</span></li>
+                ))}
+              </ul>
+              <Btn variant="ghost" className="mt-6 w-full" onClick={() => onNavigate('calc')}>
+                <Icon name="calculator" className="w-4 h-4" /> Open loan calculators
+              </Btn>
+            </Glass>
+          </div>
+        </section>
+
+        {/* CARDS */}
+        <section id="cards" className="px-5 pb-20 sm:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-400">Cards</p>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">A card for every chapter</h2>
+              <p className="mt-4 text-slate-400">Freeze instantly, set limits, and compare rewards — all from one place.</p>
+            </div>
+            <div className="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+              {START_CARDS.map(c => (
+                <div key={c.id}>
+                  <CardArt card={c} />
+                  <div className="mt-4 flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-sm font-semibold text-white">{c.name}</h3>
+                      <p className="mt-0.5 text-xs text-slate-400">APR {c.apr} · Annual fee {c.annualFee}</p>
+                    </div>
+                    <span className="shrink-0 rounded-lg bg-white/8 px-2.5 py-1 text-[11px] font-semibold uppercase text-slate-300">{c.kind}</span>
+                  </div>
+                  <p className="mt-2 text-xs text-slate-500">{c.perks[0]}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* LIFESTYLE STORYTELLING */}
+        <section className="px-5 pb-20 sm:px-8">
+          <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-2">
+            <Glass className="glow-hover overflow-hidden">
+              <Img src={IMG.travel} alt="Traveler planning an international trip" className="h-56 w-full object-cover" fallback="Vacation savings" />
+              <div className="p-7">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">Vacation lifestyle</p>
+                <h2 className="mt-3 text-xl font-bold text-white">Turn spare change into plane tickets</h2>
+                <p className="mt-3 text-sm leading-relaxed text-slate-400">
+                  Round up everyday purchases into a dedicated travel goal, then track progress with weekly insights
+                  and a projected completion date.
+                </p>
+              </div>
+            </Glass>
+            <Glass id="students" className="glow-hover overflow-hidden">
+              <Img src={IMG.students} alt="Students collaborating on campus" className="h-56 w-full object-cover" fallback="Student banking" />
+              <div className="p-7">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-400">Student banking</p>
+                <h2 className="mt-3 text-xl font-bold text-white">Built to grow with you</h2>
+                <p className="mt-3 text-sm leading-relaxed text-slate-400">
+                  No-fee student checking, automatic savings rules, and a credit card designed for first-time
+                  credit builders — with no co-signer required.
+                </p>
+              </div>
+            </Glass>
+          </div>
+        </section>
+
+        {/* BUSINESS + GLOBAL + SECURITY */}
+        <section id="security" className="px-5 pb-20 sm:px-8">
+          <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-3">
+            <Glass id="business" className="glow-hover overflow-hidden lg:col-span-2">
+              <div className="grid sm:grid-cols-2">
+                <Img src={IMG.business} alt="Business owners reviewing finances together"
+                  className="h-full min-h-[17rem] w-full object-cover" fallback="Business banking" />
+                <div className="p-7">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-400">Business & merchants</p>
+                  <h2 className="mt-3 text-xl font-bold text-white">Accept payments, pay teams, move fast</h2>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-400">
+                    Business checking with no minimums, merchant tools, and employee cards with granular spend
+                    controls.
+                  </p>
+                  <ul className="mt-5 space-y-2 text-sm text-slate-300">
+                    {['Same-day transfers', 'Employee spend controls', 'Accounting integrations'].map(i => (
+                      <li key={i} className="flex items-center gap-2"><Icon name="check" className="w-4 h-4 text-emerald-400" /><span>{i}</span></li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </Glass>
+
+            <Glass className="glow-hover p-7">
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-sky-400/25 to-emerald-400/25 text-sky-300">
+                <Icon name="shield-check" className="w-6 h-6" />
+              </span>
+              <h2 className="mt-5 text-xl font-bold text-white">Security that never sleeps</h2>
+              <ul className="mt-5 space-y-3 text-sm text-slate-300">
+                {['256-bit encryption in transit', 'Biometric and 2FA sign-in', 'Instant card freeze and alerts', '24/7 fraud monitoring'].map(i => (
+                  <li key={i} className="flex items-start gap-2"><Icon name="lock" className="mt-0.5 w-4 h-4 text-emerald-400" /><span>{i}</span></li>
+                ))}
+              </ul>
+            </Glass>
+          </div>
+        </section>
+
+        {/* GLOBAL BANKING */}
+        <section id="global" className="px-5 pb-20 sm:px-8">
+          <Glass className="mx-auto max-w-6xl overflow-hidden">
+            <div className="grid lg:grid-cols-2">
+              <div className="p-8 sm:p-10">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">Global banking</p>
+                <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">Spend in 140+ countries without the markup</h2>
+                <p className="mt-4 text-sm leading-relaxed text-slate-400">
+                  Real exchange rates, no foreign transaction fees on eligible cards, and instant notifications the
+                  moment a purchase clears — wherever you are.
+                </p>
+                <div className="mt-7 grid grid-cols-2 gap-5">
+                  {[['140+', 'Countries supported'], ['0%', 'Foreign transaction fees'], ['24/7', 'Global support'], ['30+', 'Currencies held']].map(([a, b]) => (
+                    <div key={b}>
+                      <p className="num text-2xl font-bold text-white">{a}</p>
+                      <p className="mt-1 text-xs text-slate-400">{b}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <Img src={IMG.global} alt="Aerial view of an international city"
+                className="h-64 w-full object-cover lg:h-full" fallback="Global banking" />
+            </div>
+          </Glass>
+        </section>
+
+        {/* CRYPTO */}
+        <section className="px-5 pb-20 sm:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-6 max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-400">Crypto education</p>
+              <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">Understand the market before you move</h2>
+              <p className="mt-4 text-sm text-slate-400">
+                Savi Bank publishes plain-language guides on volatility, custody and risk. Follow the live ticker
+                below to see how prices move through a session.
+              </p>
+            </div>
+            <CryptoTicker />
+            <p className="mt-4 text-xs text-slate-500">Educational content only. Savi Bank does not offer trading or custody services.</p>
+          </div>
+        </section>
+
+        {/* SUPPORT CTA */}
+        <section id="support" className="px-5 pb-24 sm:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="glass-strong relative overflow-hidden rounded-3xl px-8 py-12 text-center sm:px-12">
+              <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-sky-500/20 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -right-16 h-56 w-56 rounded-full bg-emerald-500/20 blur-3xl" />
+              <h2 className="relative text-3xl font-bold tracking-tight text-white sm:text-4xl">Support from real people, around the clock</h2>
+              <p className="relative mx-auto mt-4 max-w-2xl text-slate-300">
+                Search the help centre, message our team or call any time. Average first response time is under two
+                minutes.
+              </p>
+              <div className="relative mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+                <Btn onClick={onSignIn} className="px-7 py-3.5">Open an Account</Btn>
+                <Btn variant="ghost" onClick={() => onNavigate('calc')} className="px-7 py-3.5">Try the Calculators</Btn>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer onNavigate={onNavigate} />
+    </div>
+  );
+}
+
+/* ================================= AUTH ================================= */
+function Auth({ onSignIn, onBack }) {
+  const [mode, setMode] = useState('login');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [show, setShow] = useState(false);
+  const [remember, setRemember] = useState(true);
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState('');
+
+  const submit = (e) => {
+    e.preventDefault();
+    setError('');
+    if (mode === 'signup' && !name.trim()) { setError('Please enter your full name.'); return; }
+    if (!email.trim() || !password.trim()) { setError('Please enter your email and password to continue.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { setError('That email address does not look right.'); return; }
+    if (password.length < 6) { setError('Passwords must be at least 6 characters.'); return; }
+
+    setBusy(true);
+    window.setTimeout(() => {
+      setBusy(false);
+      setDone(true);
+      window.setTimeout(() => onSignIn(name.trim() || email.trim().split('@')[0]), 700);
+    }, 900);
+  };
+
+  return (
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10">
+      <div className="pointer-events-none absolute -left-32 top-10 h-96 w-96 rounded-full bg-royal-600/20 blur-3xl" />
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-emerald-500/20 blur-3xl" />
+
+      <div className="relative w-full max-w-md animate-fadeUp">
+        <button onClick={onBack}
+          className="mb-6 inline-flex items-center gap-2 rounded-lg text-sm text-slate-400 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+          <Icon name="arrow-left" className="w-4 h-4" /> Back to Savi Bank
+        </button>
+
+        <div className="text-center">
+          <div className="flex justify-center"><Logo size={64} /></div>
+          <h1 className="mt-5 text-3xl font-bold tracking-tight text-white">Welcome to Savi Bank</h1>
+          <p className="mt-2 text-sm text-slate-400">
+            {mode === 'login' ? 'Sign in to manage your accounts.' : 'Create your Savi Bank profile in under a minute.'}
+          </p>
+        </div>
+
+        <Glass className="mt-8 p-7">
+          <div className="mb-6 grid grid-cols-2 gap-1 rounded-xl bg-slate-950/60 p-1" role="tablist" aria-label="Authentication mode">
+            {[['login', 'Sign In'], ['signup', 'Create Account']].map(([m, label]) => (
+              <button key={m} role="tab" aria-selected={mode === m} onClick={() => { setMode(m); setError(''); }}
+                className={'rounded-lg py-2.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ' +
+                  (mode === m ? 'bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950' : 'text-slate-400 hover:text-white')}>
+                {label}
+              </button>
+            ))}
+          </div>
+
+          <form onSubmit={submit} className="space-y-5" noValidate>
+            {mode === 'signup' && (
+              <Field label="Full name" icon="user" type="text" value={name} autoComplete="name"
+                onChange={e => setName(e.target.value)} placeholder="Nova Reyes" />
+            )}
+            <Field label="Email address" icon="mail" type="email" value={email} autoComplete="email"
+              onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
+            <Field label="Password" icon="lock" type={show ? 'text' : 'password'} value={password}
+              autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+              onChange={e => setPassword(e.target.value)} placeholder="••••••••"
+              hint={mode === 'signup' ? 'Use at least 6 characters.' : undefined}
+              right={
+                <button type="button" onClick={() => setShow(s => !s)} aria-label={show ? 'Hide password' : 'Show password'}
+                  className="grid h-9 w-9 place-items-center rounded-lg text-slate-400 transition hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                  <Icon name={show ? 'eye-off' : 'eye'} className="w-4 h-4" />
+                </button>
+              } />
+
+            {mode === 'login' && (
+              <div className="flex items-center justify-between text-sm">
+                <label className="flex cursor-pointer items-center gap-2 text-slate-400">
+                  <input type="checkbox" checked={remember} onChange={e => setRemember(e.target.checked)}
+                    className="h-4 w-4 rounded accent-sky-500" />
+                  Remember me
+                </label>
+                <button type="button" onClick={() => setError('Password reset is disabled in this demonstration.')}
+                  className="rounded font-medium text-sky-400 transition hover:text-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                  Forgot password?
+                </button>
+              </div>
+            )}
+
+            {error && <Note tone="error">{error}</Note>}
+
+            <Btn type="submit" variant="royal" disabled={busy || done} className="w-full py-3.5">
+              {busy ? (<><Icon name="loader-circle" className="w-4 h-4 animate-spin" /> Verifying…</>)
+                : done ? (<><Icon name="check" className="w-4 h-4" /> Signed in</>)
+                : mode === 'login' ? 'Sign In' : 'Create Account'}
+            </Btn>
+          </form>
+
+          <p className="mt-6 flex items-center justify-center gap-2 text-xs text-slate-500">
+            <Icon name="shield-check" className="w-3.5 h-3.5" /> Secured with 256-bit encryption
+          </p>
+        </Glass>
+
+        <p className="mt-6 text-center text-xs text-slate-500">
+          Any email and password will sign you in. Nothing is stored or sent anywhere.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* =============================== APP SHELL ============================== */
+const NAV = [
+  { id: 'dashboard',   label: 'Dashboard',         icon: 'layout-dashboard' },
+  { id: 'accounts',    label: 'Accounts',          icon: 'wallet' },
+  { id: 'cards',       label: 'Cards',             icon: 'credit-card' },
+  { id: 'transfers',   label: 'Transfers',         icon: 'arrow-left-right' },
+  { id: 'insights',    label: 'Spending Insights', icon: 'pie-chart' },
+  { id: 'calculators', label: 'Calculators',       icon: 'calculator' },
+  { id: 'support',     label: 'Support',           icon: 'life-buoy' }
+];
+
+function AppShell({ view, setView, user, onSignOut, onGoLanding, children }) {
+  const [drawer, setDrawer] = useState(false);
+  const [bell, setBell] = useState(false);
+  const [notifs, setNotifs] = useState([
+    { id: 1, t: 'Card transaction',   d: 'Whole Foods Market · $128.44',      when: '12 min ago' },
+    { id: 2, t: 'Transfer complete',  d: '$1,500.00 to High-Yield Savings',    when: '2 hours ago' },
+    { id: 3, t: 'Payroll deposited',  d: 'Northwind Labs · $4,820.00',         when: 'Yesterday' }
+  ]);
+
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+  const rawName = (user && user.name) ? user.name : 'Savi Member';
+  const first = rawName.split(/[\s._-]+/)[0] || 'Member';
+  const initials = (first.slice(0, 1) + (first.slice(1, 2) || '')).toUpperCase();
+
+  useEffect(() => { setDrawer(false); }, [view]);
+  useEffect(() => {
+    if (!drawer) return;
+    const onKey = (e) => { if (e.key === 'Escape') setDrawer(false); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [drawer]);
+
+  const navList = (
+    <nav className="flex-1 space-y-1 overflow-y-auto px-4 py-5" aria-label="App navigation">
+      {NAV.map(item => (
+        <button key={item.id} onClick={() => setView(item.id)}
+          aria-current={view === item.id ? 'page' : undefined}
+          className={'flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ' +
+            (view === item.id
+              ? 'border border-sky-400/30 bg-gradient-to-r from-sky-500/25 to-emerald-500/15 text-white shadow-lg shadow-sky-500/10'
+              : 'border border-transparent text-slate-400 hover:bg-white/8 hover:text-white')}>
+          <Icon name={item.icon} className="w-5 h-5" />
+          <span>{item.label}</span>
+          {view === item.id && <Icon name="chevron-right" className="ml-auto w-4 h-4 text-sky-300" />}
+        </button>
+      ))}
+    </nav>
+  );
+
+  const sidebarBottom = (
+    <div className="border-t border-white/10 p-4">
+      <div className="flex items-center gap-3 rounded-xl bg-white/[0.04] px-3 py-3">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-sky-400 to-emerald-400 text-sm font-bold text-slate-950">{initials}</span>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-semibold text-white">{first}</p>
+          <p className="truncate text-xs text-slate-500">Savi Bank member</p>
+        </div>
+      </div>
+      <button onClick={onGoLanding}
+        className="mt-2 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-400 transition hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+        <Icon name="globe" className="w-5 h-5" /> Visit public site
+      </button>
+      <button onClick={onSignOut}
+        className="mt-1 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-400 transition hover:bg-rose-500/10 hover:text-rose-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400">
+        <Icon name="log-out" className="w-5 h-5" /> Sign Out
+      </button>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen">
+      {/* Mobile header */}
+      <div className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-white/10 bg-slate-950/85 px-4 py-3 backdrop-blur-xl lg:hidden">
+        <Wordmark size={32} />
+        <div className="flex items-center gap-2">
+          <button onClick={() => setBell(b => !b)} aria-label="Notifications" aria-expanded={bell}
+            className="relative grid h-10 w-10 place-items-center rounded-xl border border-white/12 text-slate-300 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+            <Icon name="bell" className="w-5 h-5" />
+            {notifs.length > 0 && <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-emerald-400" />}
+          </button>
+          <button onClick={() => setDrawer(true)} aria-label="Open navigation" aria-expanded={drawer}
+            className="grid h-10 w-10 place-items-center rounded-xl border border-white/12 text-slate-300 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+            <Icon name="menu" className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile notification sheet */}
+      {bell && (
+        <div className="sticky top-[57px] z-30 mx-4 mt-3 lg:hidden">
+          <Glass className="p-3">
+            <div className="flex items-center justify-between px-2 py-1">
+              <p className="text-sm font-semibold text-white">Notifications</p>
+              <button onClick={() => setNotifs([])} className="rounded text-xs font-medium text-sky-400 hover:text-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">Clear all</button>
+            </div>
+            {notifs.length === 0
+              ? <p className="px-2 py-6 text-center text-sm text-slate-500">You're all caught up.</p>
+              : notifs.map(n => (
+                <div key={n.id} className="rounded-xl px-3 py-3">
+                  <p className="text-sm font-medium text-white">{n.t}</p>
+                  <p className="text-xs text-slate-400">{n.d}</p>
+                  <p className="mt-0.5 text-[11px] text-slate-500">{n.when}</p>
+                </div>
+              ))}
+          </Glass>
+        </div>
+      )}
+
+      <div className="flex">
+        {drawer && <div className="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm lg:hidden" onClick={() => setDrawer(false)} />}
+
+        <aside aria-label="Mobile sidebar"
+          className={'fixed left-0 top-0 z-50 flex h-screen w-72 flex-col border-r border-white/10 bg-slate-950/95 backdrop-blur-2xl transition-transform duration-300 lg:hidden ' + (drawer ? 'translate-x-0' : '-translate-x-full')}>
+          <div className="flex items-center justify-between border-b border-white/10 px-5 py-5">
+            <Wordmark size={36} />
+            <button onClick={() => setDrawer(false)} aria-label="Close navigation"
+              className="grid h-9 w-9 place-items-center rounded-lg text-slate-400 transition hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+              <Icon name="x" className="w-5 h-5" />
+            </button>
+          </div>
+          {navList}
+          {sidebarBottom}
+        </aside>
+
+        <aside aria-label="Sidebar" className="sticky top-0 hidden h-screen w-72 shrink-0 flex-col border-r border-white/10 bg-slate-950/60 backdrop-blur-xl lg:flex">
+          <div className="border-b border-white/10 px-5 py-5"><Wordmark size={36} /></div>
+          {navList}
+          {sidebarBottom}
+        </aside>
+
+        <div className="min-w-0 flex-1">
+          <header className="sticky top-0 z-20 hidden items-center justify-between gap-6 border-b border-white/10 bg-slate-950/70 px-8 py-4 backdrop-blur-xl lg:flex">
+            <div>
+              <p className="text-sm text-slate-400">{greeting},</p>
+              <h1 className="text-xl font-bold tracking-tight text-white">{first}</h1>
+            </div>
+            <div className="flex items-center gap-3">
+              <button onClick={() => setView('accounts')}
+                className="hidden items-center gap-2 rounded-xl border border-white/12 bg-white/5 px-4 py-2.5 text-sm text-slate-400 transition hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 xl:flex">
+                <Icon name="search" className="w-4 h-4" /> Search transactions
+              </button>
+              <div className="relative">
+                <button onClick={() => setBell(b => !b)} aria-label="Notifications" aria-expanded={bell}
+                  className="relative grid h-11 w-11 place-items-center rounded-xl border border-white/12 bg-white/5 text-slate-300 transition hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                  <Icon name="bell" className="w-5 h-5" />
+                  {notifs.length > 0 && <span className="absolute right-2.5 top-2.5 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950" />}
+                </button>
+                {bell && (
+                  <div className="absolute right-0 top-14 w-80 animate-fadeUp rounded-2xl border border-white/12 bg-slate-900/95 p-3 shadow-2xl backdrop-blur-xl">
+                    <div className="flex items-center justify-between px-2 py-1">
+                      <p className="text-sm font-semibold text-white">Notifications</p>
+                      <button onClick={() => setNotifs([])} className="rounded text-xs font-medium text-sky-400 hover:text-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">Clear all</button>
+                    </div>
+                    <div className="mt-2 space-y-1">
+                      {notifs.length === 0 && <p className="px-2 py-6 text-center text-sm text-slate-500">You're all caught up.</p>}
+                      {notifs.map(n => (
+                        <div key={n.id} className="rounded-xl px-3 py-3 transition hover:bg-white/5">
+                          <p className="text-sm font-medium text-white">{n.t}</p>
+                          <p className="text-xs text-slate-400">{n.d}</p>
+                          <p className="mt-0.5 text-[11px] text-slate-500">{n.when}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <span className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-sky-400 to-emerald-400 text-sm font-bold text-slate-950" aria-hidden="true">{initials}</span>
+            </div>
+          </header>
+
+          <main id="main" className="px-4 py-6 sm:px-8 sm:py-8">
+            <div key={view} className="animate-fadeUp">{children}</div>
+          </main>
+
+          <Footer onNavigate={(target) => setView('landing-' + target)} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================= DASHBOARD ================================ */
+function QuickAction({ icon, label, onClick, accent }) {
+  return (
+    <button onClick={onClick}
+      className="glow-hover flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-5 text-center transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+      <span className={'grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br text-slate-950 ' + accent}>
+        <Icon name={icon} className="w-6 h-6" />
+      </span>
+      <span className="text-sm font-semibold text-white">{label}</span>
+    </button>
+  );
+}
+
+function TxRow({ tx, accounts, dense }) {
+  const meta = CATEGORY_META[tx.category] || { icon: 'circle-dollar-sign', color: '#94a3b8' };
+  const acct = accounts.find(a => a.id === tx.account);
+  const credit = tx.amount > 0;
+  return (
+    <div className="flex items-center gap-4 px-4 py-3.5 transition hover:bg-white/[0.04] sm:px-5">
+      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full" style={{ background: meta.color + '22', color: meta.color }} aria-hidden="true">
+        <Icon name={meta.icon} className="w-5 h-5" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-semibold text-white">{tx.merchant}</p>
+        <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
+          <span className="rounded px-1.5 py-0.5 font-medium" style={{ background: meta.color + '1f', color: meta.color }}>{tx.category}</span>
+          {!dense && acct && <span>{acct.short} ·· {acct.number}</span>}
+          <span>{prettyDate(tx.date)}</span>
+        </p>
+      </div>
+      <p className={'num shrink-0 text-sm font-semibold ' + (credit ? 'text-emerald-400' : 'text-slate-200')}>
+        {credit ? '+' : ''}{fmt(tx.amount)}
+      </p>
+    </div>
+  );
+}
+
+function Dashboard({ accounts, txs, onNavigate, onAction }) {
+  const deposits = accounts.filter(a => a.kind === 'deposit');
+  const total = deposits.reduce((s, a) => s + a.balance, 0);
+  const creditAcct = accounts.find(a => a.kind === 'credit');
+  const debt = creditAcct ? Math.abs(creditAcct.balance) : 0;
+  const recent = txs.slice(0, 6);
+  const spendThisMonth = txs.filter(t => t.amount < 0 && t.category !== 'Transfer').reduce((s, t) => s + Math.abs(t.amount), 0);
+  const goalTarget = 6000;
+  const goalSaved = 4180;
+  const goalPct = Math.min(100, Math.round((goalSaved / goalTarget) * 100));
+
+  return (
+    <div className="mx-auto max-w-6xl space-y-6">
+      <div className="lg:hidden">
+        <h2 className="text-2xl font-bold tracking-tight text-white">Dashboard</h2>
+        <p className="mt-1 text-sm text-slate-400">A snapshot of your Savi Bank accounts.</p>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-3">
+        <Glass className="glow-hover p-6 lg:col-span-2">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="flex items-center gap-2 text-sm text-slate-400"><Icon name="wallet" className="w-4 h-4" /> Total balance</p>
+              <p className="num mt-2 text-4xl font-extrabold tracking-tight text-white">{fmt(total)}</p>
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-400/15 px-3 py-1 font-semibold text-emerald-300">
+                  <Icon name="trending-up" className="w-3.5 h-3.5" /> +4.8%
+                </span>
+                <span className="text-slate-400">vs last month</span>
+                <span className="hidden text-slate-600 sm:inline">·</span>
+                <span className="text-slate-400">Card balance <span className="num font-semibold text-rose-300">{fmt(-debt)}</span></span>
+              </div>
+            </div>
+            <span className="rounded-lg border border-white/12 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-300">Last 8 months</span>
+          </div>
+          <div className="mt-6 h-56">
+            {ResponsiveContainer ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={BALANCE_HISTORY} margin={{ top: 8, right: 8, bottom: 0, left: -14 }}>
+                  <defs>
+                    <linearGradient id="balFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#38bdf8" stopOpacity={0.45} />
+                      <stop offset="100%" stopColor="#38bdf8" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid stroke="rgba(255,255,255,0.06)" vertical={false} />
+                  <XAxis dataKey="m" stroke="#64748b" tickLine={false} axisLine={false} fontSize={12} />
+                  <YAxis stroke="#64748b" tickLine={false} axisLine={false} fontSize={12} tickFormatter={(v) => '$' + Math.round(v / 1000) + 'k'} />
+                  <Tooltip content={<ChartTooltip />} cursor={{ stroke: 'rgba(56,189,248,.35)' }} />
+                  <Area type="monotone" dataKey="v" stroke="#38bdf8" strokeWidth={3} fill="url(#balFill)"
+                    dot={false} activeDot={{ r: 5, fill: '#38bdf8', stroke: '#04070f', strokeWidth: 2 }} />
+                </AreaChart>
+              </ResponsiveContainer>
+            ) : <p className="text-sm text-slate-500">Chart library unavailable.</p>}
+          </div>
+        </Glass>
+
+        <div className="space-y-6">
+          <Glass className="glow-hover p-6">
+            <p className="text-sm text-slate-400">Spent this month</p>
+            <p className="num mt-2 text-3xl font-bold text-white">{fmt(spendThisMonth)}</p>
+            <p className="mt-1 text-xs text-emerald-300">12% below your monthly average</p>
+            <div className="mt-5 h-24" aria-hidden="true">
+              {ResponsiveContainer && (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={MONTHLY_SPEND} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                    <XAxis dataKey="m" hide />
+                    <YAxis hide />
+                    <Tooltip content={<ChartTooltip />} cursor={{ fill: 'rgba(255,255,255,.05)' }} />
+                    <Bar dataKey="v" radius={[4, 4, 0, 0]} fill="#34d399" />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </Glass>
+
+          <Glass className="glow-hover p-6">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-slate-400">Savings goal · Vacation fund</p>
+              <span className="num text-xs font-semibold text-emerald-300">{goalPct}%</span>
+            </div>
+            <div className="mt-3 flex items-end justify-between">
+              <p className="num text-2xl font-bold text-white">{fmt0(goalSaved)}</p>
+              <p className="text-xs text-slate-400">of {fmt0(goalTarget)}</p>
+            </div>
+            <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-white/10" role="progressbar"
+              aria-valuenow={goalPct} aria-valuemin="0" aria-valuemax="100" aria-label="Vacation fund progress">
+              <div className="h-full rounded-full bg-gradient-to-r from-sky-400 to-emerald-400 transition-all duration-700" style={{ width: goalPct + '%' }} />
+            </div>
+            <p className="mt-3 text-xs text-slate-500">On track to reach this goal by June.</p>
+          </Glass>
+        </div>
+      </div>
+
+      <Glass className="p-6">
+        <h2 className="text-lg font-semibold text-white">Quick actions</h2>
+        <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <QuickAction icon="arrow-left-right" label="Transfer" accent="from-sky-400 to-royal-600"  onClick={() => onNavigate('transfers')} />
+          <QuickAction icon="download"        label="Deposit"  accent="from-emerald-400 to-teal-600" onClick={() => onAction('deposit')} />
+          <QuickAction icon="receipt"         label="Pay Bill" accent="from-amber-400 to-orange-600" onClick={() => onAction('bill')} />
+          <QuickAction icon="send"            label="Send"     accent="from-fuchsia-400 to-rose-600" onClick={() => onAction('send')} />
+        </div>
+      </Glass>
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        {accounts.map(a => (
+          <button key={a.id} onClick={() => onNavigate('accounts')}
+            className="glow-hover glass rounded-2xl p-5 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+            <div className="flex items-center justify-between">
+              <span className={'grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br text-slate-950 ' + a.accent}>
+                <Icon name={a.icon} className="w-5 h-5" />
+              </span>
+              <span className="num text-xs text-slate-500">•••• {a.number}</span>
+            </div>
+            <p className="mt-4 text-sm text-slate-400">{a.short}</p>
+            <p className={'num mt-1 text-2xl font-bold ' + (a.balance < 0 ? 'text-rose-300' : 'text-white')}>{fmt(a.balance)}</p>
+          </button>
+        ))}
+      </div>
+
+      <Glass className="overflow-hidden">
+        <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+          <h2 className="text-lg font-semibold text-white">Recent transactions</h2>
+          <button onClick={() => onNavigate('accounts')}
+            className="inline-flex items-center gap-1 rounded text-sm font-semibold text-sky-400 transition hover:text-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+            View all <Icon name="chevron-right" className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="divide-y divide-white/5">
+          {recent.map(tx => <TxRow key={tx.id} tx={tx} accounts={accounts} dense />)}
+        </div>
+      </Glass>
+    </div>
+  );
+}
+
+/* ============================== ACCOUNTS ================================ */
+function AccountsView({ accounts, txs }) {
+  const [selected, setSelected] = useState('checking');
+  const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState('all');
+  const [visible, setVisible] = useState(5);
+
+  const acct = accounts.find(a => a.id === selected) || accounts[0];
+
+  const list = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return txs
+      .filter(t => t.account === selected)
+      .filter(t => filter === 'all' ? true : filter === 'credits' ? t.amount > 0 : t.amount < 0)
+      .filter(t => !q || (t.merchant + ' ' + t.category).toLowerCase().includes(q))
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
+  }, [txs, selected, filter, query]);
+
+  useEffect(() => { setVisible(5); }, [selected, filter, query]);
+
+  const shown = list.slice(0, visible);
+  const credits = list.filter(t => t.amount > 0).reduce((s, t) => s + t.amount, 0);
+  const debits = list.filter(t => t.amount < 0).reduce((s, t) => s + Math.abs(t.amount), 0);
+
+  return (
+    <div className="mx-auto max-w-6xl space-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-white">Accounts</h2>
+          <p className="mt-1 text-sm text-slate-400">Balances, activity and details for every Savi account.</p>
+        </div>
+        <span className="rounded-lg border border-white/12 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-300">Updated just now</span>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        {accounts.map(a => {
+          const active = selected === a.id;
+          return (
+            <button key={a.id} onClick={() => setSelected(a.id)} aria-pressed={active}
+              className={'glow-hover glass rounded-2xl p-5 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ' + (active ? 'ring-2 ring-sky-400/60' : '')}>
+              <div className="flex items-center justify-between">
+                <span className={'grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br text-slate-950 ' + a.accent}>
+                  <Icon name={a.icon} className="w-5 h-5" />
+                </span>
+                <span className="rounded-lg bg-white/8 px-2.5 py-1 text-[11px] font-semibold uppercase text-slate-300">
+                  {a.kind === 'credit' ? 'Credit' : 'Deposit'}
+                </span>
+              </div>
+              <p className="mt-4 text-sm text-slate-400">{a.name}</p>
+              <p className={'num mt-1 text-2xl font-bold ' + (a.balance < 0 ? 'text-rose-300' : 'text-white')}>{fmt(a.balance)}</p>
+              <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
+                <span className="num">•••• {a.number}</span>
+                <span>{a.kind === 'credit' ? 'Limit ' + fmt0(8000) : 'Available ' + fmt(a.balance)}</span>
+              </div>
+              <div className="mt-3">
+                <Sparkline data={BALANCE_HISTORY} color={a.id === 'savings' ? '#34d399' : a.id === 'credit' ? '#f472b6' : '#38bdf8'} height={36} />
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        {[['Account', acct.name], ['Credits in view', fmt(credits)], ['Debits in view', fmt(debits)]].map(([k, v]) => (
+          <Glass key={k} className="p-5">
+            <p className="text-sm text-slate-400">{k}</p>
+            <p className="num mt-1 text-lg font-semibold text-white">{v}</p>
+          </Glass>
+        ))}
+      </div>
+
+      <Glass className="overflow-hidden">
+        <div className="flex flex-col gap-4 border-b border-white/10 p-5 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h3 className="text-lg font-semibold text-white">{acct.name} activity</h3>
+            <p className="text-xs text-slate-400">{list.length} transaction{list.length === 1 ? '' : 's'} matched</p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="relative">
+              <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"><Icon name="search" className="w-4 h-4" /></span>
+              <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search transactions"
+                aria-label="Search transactions" type="search"
+                className="w-full rounded-xl border border-white/12 bg-slate-950/60 py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/60 sm:w-64" />
+            </div>
+            <div className="flex gap-1 rounded-xl bg-slate-950/60 p-1" role="group" aria-label="Filter transactions">
+              {[['all', 'All'], ['credits', 'Credits'], ['debits', 'Debits']].map(([v, l]) => (
+                <button key={v} onClick={() => setFilter(v)} aria-pressed={filter === v}
+                  className={'rounded-lg px-3.5 py-2 text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ' +
+                    (filter === v ? 'bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950' : 'text-slate-400 hover:text-white')}>
+                  {l}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {shown.length === 0 ? (
+          <p className="px-5 py-14 text-center text-sm text-slate-500">No transactions match your filters.</p>
+        ) : (
+          <div className="divide-y divide-white/5">
+            {shown.map(tx => <TxRow key={tx.id} tx={tx} accounts={accounts} />)}
+          </div>
+        )}
+
+        {visible < list.length && (
+          <div className="border-t border-white/10 p-4 text-center">
+            <Btn variant="ghost" onClick={() => setVisible(v => v + 5)}>
+              Load more ({list.length - visible} remaining)
+            </Btn>
+          </div>
+        )}
+      </Glass>
+    </div>
+  );
+}
+
+/* ================================ CARDS ================================= */
+function CardsView({ cards, setCards, notify }) {
+  const [selectedId, setSelectedId] = useState(cards[0].id);
+  const [details, setDetails] = useState(null);
+  const [compareMode, setCompareMode] = useState(false);
+  const [compareIds, setCompareIds] = useState([cards[0].id, cards[1].id]);
+  const [lost, setLost] = useState(false);
+
+  const card = cards.find(c => c.id === selectedId) || cards[0];
+
+  const setFrozen = (id, val) => {
+    const target = cards.find(c => c.id === id);
+    setCards(prev => prev.map(c => c.id === id ? { ...c, frozen: val } : c));
+    if (target) notify(target.name + (val ? ' frozen' : ' unfrozen'));
+  };
+
+  const toggleCompare = (id) => {
+    setCompareIds(prev => {
+      if (prev.includes(id)) return prev.filter(x => x !== id);
+      if (prev.length >= 3) { notify('You can compare up to three cards', 'error'); return prev; }
+      return [...prev, id];
+    });
+  };
+
+  useEffect(() => {
+    if (!compareMode && !compareIds.includes(selectedId)) setCompareIds(prev => [...prev.slice(0, 2), selectedId]);
+  }, [selectedId, compareMode]);
+
+  const compared = cards.filter(c => compareIds.includes(c.id));
+  const usedPct = Math.min(100, Math.round((card.spendUsed / card.spendLimit) * 100));
+
+  return (
+    <div className="mx-auto max-w-6xl space-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-white">Cards</h2>
+          <p className="mt-1 text-sm text-slate-400">Freeze, review and compare every card on your profile.</p>
+        </div>
+        <Btn variant="ghost" onClick={() => setCompareMode(m => !m)} aria-pressed={compareMode}>
+          <Icon name="columns-3" className="w-4 h-4" /> {compareMode ? 'Exit compare' : 'Compare cards'}
+        </Btn>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <div className="grid gap-5 sm:grid-cols-2">
+            {cards.map(c => {
+              const selected = selectedId === c.id && !compareMode;
+              return (
+                <button key={c.id} onClick={() => compareMode ? toggleCompare(c.id) : setSelectedId(c.id)}
+                  aria-pressed={compareMode ? compareIds.includes(c.id) : selected}
+                  aria-label={compareMode ? (compareIds.includes(c.id) ? 'Remove ' + c.name + ' from comparison' : 'Add ' + c.name + ' to comparison') : 'Select ' + c.name}
+                  className={'rounded-2xl text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ' + (selected ? 'ring-2 ring-sky-400/70' : '')}>
+                  <div className="relative">
+                    <CardArt card={c} size="sm" />
+                    {c.frozen && (
+                      <span className="absolute inset-0 grid place-items-center rounded-2xl bg-slate-950/60 backdrop-blur-[2px]">
+                        <span className="inline-flex items-center gap-2 rounded-full bg-sky-400/20 px-3 py-1.5 text-xs font-semibold text-sky-200">
+                          <Icon name="snowflake" className="w-3.5 h-3.5" /> Frozen
+                        </span>
+                      </span>
+                    )}
+                    {compareMode && (
+                      <span className={'absolute right-3 top-3 grid h-6 w-6 place-items-center rounded-full border transition ' +
+                        (compareIds.includes(c.id) ? 'border-emerald-400 bg-emerald-400 text-slate-950' : 'border-white/40 bg-black/30 text-transparent')}>
+                        <Icon name="check" className="w-4 h-4" />
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-3 text-sm font-semibold text-white">{c.name}</p>
+                  <p className="text-xs text-slate-500">•••• {c.last4} · APR {c.apr}</p>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="lg:col-span-2">
+          <Glass className="p-6">
+            <h3 className="text-lg font-semibold text-white">Card controls</h3>
+            <p className="mt-1 text-sm text-slate-400">Changes apply instantly to {card.name}.</p>
+
+            <div className="mt-5 space-y-3">
+              <div className="flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-4">
+                <div className="flex items-center gap-3">
+                  <span className={'grid h-10 w-10 shrink-0 place-items-center rounded-lg ' + (card.frozen ? 'bg-sky-400/15 text-sky-300' : 'bg-white/8 text-slate-300')}>
+                    <Icon name="snowflake" className="w-5 h-5" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-white">Freeze card</p>
+                    <p className="text-xs text-slate-500">{card.frozen ? 'New charges are blocked' : 'Card is active and usable'}</p>
+                  </div>
+                </div>
+                <Toggle checked={card.frozen} onChange={(v) => setFrozen(card.id, v)} label={'Freeze ' + card.name} />
+              </div>
+
+              <ControlRow icon="globe-lock" title="Online payments" subtitle="E-commerce and subscriptions"
+                checked={!card.frozen} onChange={() => notify('Online payment settings saved')} label="Online payments" />
+              <ControlRow icon="plane" title="Travel mode" subtitle="Notify us before you fly"
+                checked={false} onChange={() => notify('Travel mode saved')} label="Travel mode" />
+              <ControlRow icon="bell-ring" title="Transaction alerts" subtitle="Push alert on every purchase"
+                checked={true} onChange={() => notify('Alert preferences saved')} label="Transaction alerts" />
+            </div>
+
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <Btn variant="soft" onClick={() => setDetails(card)}><Icon name="eye" className="w-4 h-4" /> View details</Btn>
+              <Btn variant="soft" onClick={() => setLost(true)}><Icon name="alert-triangle" className="w-4 h-4" /> Report lost</Btn>
+            </div>
+
+            <div className="mt-5 rounded-xl border border-white/10 bg-slate-950/50 p-4">
+              <div className="flex items-center justify-between text-xs text-slate-400">
+                <span>Spend this cycle</span>
+                <span className="num text-slate-200">{fmt(card.spendUsed)} of {fmt(card.spendLimit)}</span>
+              </div>
+              <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10" role="progressbar"
+                aria-valuenow={usedPct} aria-valuemin="0" aria-valuemax="100" aria-label="Card spend limit used">
+                <div className="h-full rounded-full bg-gradient-to-r from-sky-400 to-emerald-400 transition-all duration-700" style={{ width: usedPct + '%' }} />
+              </div>
+              <div className="mt-4 space-y-1.5">
+                {card.perks.map(p => (
+                  <p key={p} className="flex items-center gap-2 text-xs text-slate-300">
+                    <Icon name="check" className="w-3.5 h-3.5 shrink-0 text-emerald-400" /> {p}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </Glass>
+        </div>
+      </div>
+
+      {compareMode && (
+        <Glass className="p-6">
+          <h3 className="text-lg font-semibold text-white">Compare cards</h3>
+          <p className="mt-1 text-sm text-slate-400">{compared.length} of 3 selected.</p>
+          {compared.length === 0 ? (
+            <p className="mt-6 text-sm text-slate-500">Select up to three cards above to compare them side by side.</p>
+          ) : (
+            <div className="mt-5 overflow-x-auto">
+              <table className="w-full min-w-[34rem] text-left text-sm">
+                <caption className="sr-only">Comparison of selected Savi Bank cards</caption>
+                <thead>
+                  <tr className="text-xs uppercase tracking-wider text-slate-500">
+                    <th scope="col" className="py-3 pr-4 font-semibold">Feature</th>
+                    {compared.map(c => <th key={c.id} scope="col" className="py-3 pr-4 font-semibold text-white">{c.name}</th>)}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/8">
+                  {[
+                    ['Type', c => c.kind],
+                    ['APR', c => c.apr],
+                    ['Annual fee', c => c.annualFee],
+                    ['Spend limit', c => fmt(c.spendLimit)],
+                    ['Top perk', c => c.perks[0]]
+                  ].map(([label, fn]) => (
+                    <tr key={label}>
+                      <th scope="row" className="py-3 pr-4 font-normal text-slate-400">{label}</th>
+                      {compared.map(c => <td key={c.id} className="num py-3 pr-4 text-slate-200">{fn(c)}</td>)}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </Glass>
+      )}
+
+      <Modal open={!!details} onClose={() => setDetails(null)}
+        title={details ? details.name + ' details' : ''}
+        subtitle="Card numbers are partially masked.">
+        {details && (
+          <div className="space-y-5">
+            <CardArt card={details} />
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                ['Card number', '•••• •••• •••• ' + details.last4],
+                ['Expiry', '09/28'],
+                ['CVV', '•••'],
+                ['Status', details.frozen ? 'Frozen' : 'Active'],
+                ['Card type', details.kind],
+                ['Annual fee', details.annualFee]
+              ].map(([k, v]) => (
+                <div key={k} className="rounded-xl border border-white/10 bg-slate-950/50 px-4 py-3">
+                  <p className="text-xs text-slate-500">{k}</p>
+                  <p className="num mt-0.5 text-sm font-semibold text-white">{v}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      <Modal open={lost} onClose={() => setLost(false)} title="Report card lost or stolen"
+        subtitle="We'll freeze this card immediately and ship a replacement."
+        footer={
+          <>
+            <Btn variant="ghost" onClick={() => setLost(false)}>Cancel</Btn>
+            <Btn variant="danger" onClick={() => {
+              setFrozen(card.id, true);
+              setLost(false);
+              notify('Replacement ordered — arriving in 3 to 5 days');
+            }}>Freeze & reorder</Btn>
+          </>
+        }>
+        <p className="text-sm leading-relaxed text-slate-300">
+          A replacement {card.name} ending in {card.last4} will arrive within three to five business days. Your card
+          number stays the same, so existing subscriptions keep working once you unfreeze it.
+        </p>
+      </Modal>
+    </div>
+  );
+}
+
+function ControlRow({ icon, title, subtitle, checked, onChange, label }) {
+  const [on, setOn] = useState(checked);
+  useEffect(() => { setOn(checked); }, [checked]);
+  return (
+    <div className="flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-4">
+      <div className="flex items-center gap-3">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-white/8 text-slate-300"><Icon name={icon} className="w-5 h-5" /></span>
+        <div>
+          <p className="text-sm font-semibold text-white">{title}</p>
+          <p className="text-xs text-slate-500">{subtitle}</p>
+        </div>
+      </div>
+      <Toggle checked={on} onChange={(v) => { setOn(v); onChange(v); }} label={label} />
+    </div>
+  );
+}
+
+/* ============================== TRANSFERS =============================== */
+function TransfersView({ accounts, txs, onTransfer, notify }) {
+  const [from, setFrom] = useState('checking');
+  const [to, setTo] = useState('savings');
+  const [amount, setAmount] = useState('');
+  const [memo, setMemo] = useState('');
+  const [when, setWhen] = useState('now');
+  const [error, setError] = useState('');
+  const [confirm, setConfirm] = useState(null);
+  const [done, setDone] = useState(null);
+
+  const fromAcct = accounts.find(a => a.id === from) || accounts[0];
+  const toAcct = accounts.find(a => a.id === to) || accounts[1];
+  const amountNum = parseFloat(amount) || 0;
+  const options = accounts.map(a => ({ value: a.id, label: a.name + ' · ' + fmt(a.balance) }));
+
+  const submit = (e) => {
+    e.preventDefault();
+    setError('');
+    if (from === to) { setError('Choose two different accounts to transfer between.'); return; }
+    if (!amountNum || amountNum <= 0) { setError('Enter an amount greater than zero.'); return; }
+    if (fromAcct.kind === 'deposit' && amountNum > fromAcct.balance) {
+      setError('That exceeds your available balance of ' + fmt(fromAcct.balance) + '.');
+      return;
+    }
+    setConfirm({ from: fromAcct, to: toAcct, amount: amountNum, memo, when });
+  };
+
+  const recentTransfers = txs.filter(t => t.category === 'Transfer').slice(0, 5);
+
+  return (
+    <div className="mx-auto max-w-5xl space-y-6">
+      <div>
+        <h2 className="text-2xl font-bold tracking-tight text-white">Transfers</h2>
+        <p className="mt-1 text-sm text-slate-400">Move money between your Savi accounts instantly, with no fees.</p>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-5">
+        <Glass className="p-6 lg:col-span-3">
+          <form onSubmit={submit} className="space-y-5" noValidate>
+            <Select label="From account" value={from} onChange={e => setFrom(e.target.value)} options={options}
+              hint={'Available ' + fmt(fromAcct.kind === 'credit' ? 8000 + fromAcct.balance : fromAcct.balance)} />
+
+            <div className="flex justify-center">
+              <button type="button" onClick={() => { const f = from; setFrom(to); setTo(f); }} aria-label="Swap from and to accounts"
+                className="grid h-11 w-11 place-items-center rounded-full border border-white/12 bg-white/5 text-slate-300 transition hover:rotate-180 hover:bg-white/12 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                <Icon name="arrow-down-up" className="w-5 h-5" />
+              </button>
+            </div>
+
+            <Select label="To account" value={to} onChange={e => setTo(e.target.value)} options={options} />
+
+            <div>
+              <label htmlFor="txAmount" className="mb-2 block text-sm font-medium text-slate-300">Amount</label>
+              <div className="relative">
+                <span className="num pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-lg font-semibold text-slate-500">$</span>
+                <input id="txAmount" type="number" min="0" step="0.01" inputMode="decimal" value={amount}
+                  onChange={e => setAmount(e.target.value)} placeholder="0.00"
+                  className="num w-full rounded-xl border border-white/12 bg-slate-950/60 py-3.5 pl-9 pr-4 text-lg font-semibold text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-sky-500/60" />
+              </div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {[25, 100, 500, 1000].map(v => (
+                  <button key={v} type="button" onClick={() => setAmount(String(v))}
+                    className="num rounded-lg border border-white/12 bg-white/5 px-3.5 py-2 text-xs font-semibold text-slate-300 transition hover:-translate-y-0.5 hover:bg-white/12 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                    ${v}
+                  </button>
+                ))}
+                <button type="button" onClick={() => setAmount(fromAcct.kind === 'deposit' ? fromAcct.balance.toFixed(2) : '8000.00')}
+                  className="rounded-lg border border-white/12 bg-white/5 px-3.5 py-2 text-xs font-semibold text-slate-300 transition hover:-translate-y-0.5 hover:bg-white/12 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                  Max
+                </button>
+              </div>
+            </div>
+
+            <Select label="When" value={when} onChange={e => setWhen(e.target.value)}
+              options={[{ value: 'now', label: 'Instantly' }, { value: 'tomorrow', label: 'Tomorrow' }, { value: 'payday', label: 'On next payday' }]} />
+
+            <Field label="Memo (optional)" icon="pencil" value={memo} onChange={e => setMemo(e.target.value)} placeholder="What is this for?" />
+
+            {error && <Note tone="error">{error}</Note>}
+
+            <Btn type="submit" variant="royal" className="w-full py-3.5">
+              <Icon name="send" className="w-4 h-4" /> Review transfer
+            </Btn>
+          </form>
+        </Glass>
+
+        <div className="space-y-6 lg:col-span-2">
+          <Glass className="p-6">
+            <h3 className="text-lg font-semibold text-white">Transfer summary</h3>
+            <dl className="mt-4 space-y-3 text-sm">
+              <div className="flex items-center justify-between gap-3"><dt className="text-slate-400">From</dt><dd className="text-right font-medium text-white">{fromAcct.name}</dd></div>
+              <div className="flex items-center justify-between gap-3"><dt className="text-slate-400">To</dt><dd className="text-right font-medium text-white">{toAcct.name}</dd></div>
+              <div className="flex items-center justify-between gap-3"><dt className="text-slate-400">Amount</dt><dd className="num font-semibold text-white">{fmt(amountNum)}</dd></div>
+              <div className="flex items-center justify-between gap-3"><dt className="text-slate-400">Fee</dt><dd className="num text-emerald-300">$0.00</dd></div>
+              <div className="flex items-center justify-between gap-3 border-t border-white/10 pt-3"><dt className="font-medium text-slate-300">Total</dt><dd className="num text-lg font-bold text-white">{fmt(amountNum)}</dd></div>
+            </dl>
+          </Glass>
+
+          <Glass className="overflow-hidden">
+            <div className="border-b border-white/10 px-5 py-4"><h3 className="text-lg font-semibold text-white">Recent transfers</h3></div>
+            {recentTransfers.length === 0
+              ? <p className="px-5 py-8 text-center text-sm text-slate-500">No transfers yet.</p>
+              : <div className="divide-y divide-white/5">{recentTransfers.map(t => <TxRow key={t.id} tx={t} accounts={accounts} dense />)}</div>}
+          </Glass>
+        </div>
+      </div>
+
+      <Modal open={!!confirm} onClose={() => setConfirm(null)} title="Confirm transfer" subtitle="Review the details before you send."
+        footer={
+          <>
+            <Btn variant="ghost" onClick={() => setConfirm(null)}>Back</Btn>
+            <Btn variant="royal" onClick={() => {
+              const c = confirm;
+              onTransfer(c.from.id, c.to.id, c.amount, c.memo);
+              setDone(c);
+              setConfirm(null);
+              setAmount('');
+              setMemo('');
+            }}>Confirm & send</Btn>
+          </>
+        }>
+        {confirm && (
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-5">
+              <p className="text-sm text-slate-400">Sending</p>
+              <p className="num text-3xl font-bold text-white">{fmt(confirm.amount)}</p>
+              <p className="mt-2 text-sm text-slate-400">{confirm.from.name} → {confirm.to.name}</p>
+              <p className="mt-1 text-xs text-slate-500">
+                {confirm.when === 'now' ? 'Arrives instantly' : confirm.when === 'tomorrow' ? 'Arrives tomorrow' : 'Arrives on your next payday'}
+              </p>
+              {confirm.memo && <p className="mt-2 text-xs text-slate-500">Memo: {confirm.memo}</p>}
+            </div>
+            <p className="flex items-center gap-2 text-xs text-slate-500">
+              <Icon name="shield-check" className="w-4 h-4 text-emerald-400" /> Protected by Savi Bank fraud monitoring.
+            </p>
+          </div>
+        )}
+      </Modal>
+
+      <Modal open={!!done} onClose={() => setDone(null)} title="Transfer complete"
+        footer={<Btn variant="royal" onClick={() => setDone(null)}>Done</Btn>}>
+        {done && (
+          <div className="text-center">
+            <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-emerald-400/15 text-emerald-300">
+              <Icon name="check" className="w-8 h-8" />
+            </span>
+            <p className="num mt-5 text-2xl font-bold text-white">{fmt(done.amount)}</p>
+            <p className="mt-1 text-sm text-slate-400">moved from {done.from.name} to {done.to.name}</p>
+            <p className="mt-4 text-xs text-slate-500">Reference SB-{String(Math.floor(Math.random() * 900000 + 100000))}</p>
+          </div>
+        )}
+      </Modal>
+    </div>
+  );
+}
+
+/* =============================== INSIGHTS =============================== */
+function InsightsView({ txs }) {
+  const [range, setRange] = useState('month');
+
+  const rangeFactor = range === 'month' ? 1 : range === 'quarter' ? 2.6 : 8.4;
+
+  const spend = useMemo(() => {
+    const map = {};
+    txs.filter(t => t.amount < 0 && t.category !== 'Transfer').forEach(t => {
+      map[t.category] = (map[t.category] || 0) + Math.abs(t.amount);
+    });
+    const total = Object.values(map).reduce((s, v) => s + v, 0) || 1;
+    return Object.entries(map).map(([name, value]) => ({
+      name, value, pct: (value / total) * 100, color: (CATEGORY_META[name] || {}).color || '#64748b'
+    })).sort((a, b) => b.value - a.value);
+  }, [txs]);
+
+  const totalSpend = spend.reduce((s, d) => s + d.value, 0);
+  const top = spend[0] || { name: 'No spending yet', value: 0 };
+  const debits = txs.filter(t => t.amount < 0 && t.category !== 'Transfer');
+
+  const merchants = useMemo(() => {
+    const map = {};
+    debits.forEach(t => { map[t.merchant] = (map[t.merchant] || 0) + Math.abs(t.amount); });
+    return Object.entries(map).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value).slice(0, 5);
+  }, [txs]);
+
+  const maxMerchant = (merchants[0] && merchants[0].value) || 1;
+  const avg = debits.length ? totalSpend / debits.length : 0;
+
+  const trend = MONTHLY_SPEND.map(r => ({ ...r, v: Math.round(r.v * (range === 'month' ? 1 : range === 'quarter' ? 1.05 : 0.98)) }));
+
+  return (
+    <div className="mx-auto max-w-6xl space-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-white">Spending insights</h2>
+          <p className="mt-1 text-sm text-slate-400">Where your money went, automatically categorised.</p>
+        </div>
+        <div className="flex gap-1 rounded-xl bg-slate-950/60 p-1" role="group" aria-label="Insights date range">
+          {[['month', 'This month'], ['quarter', '3 months'], ['year', '12 months']].map(([v, l]) => (
+            <button key={v} onClick={() => setRange(v)} aria-pressed={range === v}
+              className={'rounded-lg px-3.5 py-2 text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ' +
+                (range === v ? 'bg-gradient-to-r from-sky-500 to-emerald-400 text-slate-950' : 'text-slate-400 hover:text-white')}>
+              {l}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        {[
+          ['Total spent', fmt(totalSpend * rangeFactor), 'receipt'],
+          ['Top category', top.name + (top.value ? ' · ' + fmt(top.value * rangeFactor) : ''), 'pie-chart'],
+          ['Average transaction', fmt(avg), 'calculator']
+        ].map(([label, value, icon]) => (
+          <Glass key={label} className="glow-hover p-5">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-sm text-slate-400">{label}</p>
+              <Icon name={icon} className="w-4 h-4 shrink-0 text-slate-500" />
+            </div>
+            <p className="num mt-2 truncate text-xl font-bold text-white sm:text-2xl">{value}</p>
+          </Glass>
+        ))}
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Glass className="p-6">
+          <h3 className="text-lg font-semibold text-white">Spending by category</h3>
+          <div className="mt-4 h-72">
+            {ResponsiveContainer && spend.length > 0 ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie data={spend} dataKey="value" nameKey="name" innerRadius={66} outerRadius={104} paddingAngle={3} stroke="none">
+                    {spend.map((d, i) => <Cell key={i} fill={d.color} />)}
+                  </Pie>
+                  <Tooltip content={<ChartTooltip percent />} />
+                </PieChart>
+              </ResponsiveContainer>
+            ) : <p className="grid h-full place-items-center text-sm text-slate-500">Not enough data to chart.</p>}
+          </div>
+          <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+            {spend.map(d => (
+              <li key={d.name} className="flex items-center gap-2 text-sm">
+                <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: d.color }} aria-hidden="true" />
+                <span className="truncate text-slate-300">{d.name}</span>
+                <span className="num ml-auto text-slate-400">{fmt(d.value)}</span>
+                <span className="num w-10 text-right text-xs text-slate-500">{d.pct.toFixed(0)}%</span>
+              </li>
+            ))}
+          </ul>
+        </Glass>
+
+        <div className="space-y-6">
+          <Glass className="p-6">
+            <h3 className="text-lg font-semibold text-white">Monthly trend</h3>
+            <div className="mt-4 h-48">
+              {ResponsiveContainer && (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={trend} margin={{ top: 8, right: 8, bottom: 0, left: -16 }}>
+                    <CartesianGrid stroke="rgba(255,255,255,0.06)" vertical={false} />
+                    <XAxis dataKey="m" stroke="#64748b" tickLine={false} axisLine={false} fontSize={12} />
+                    <YAxis stroke="#64748b" tickLine={false} axisLine={false} fontSize={12} tickFormatter={v => '$' + v} />
+                    <Tooltip content={<ChartTooltip />} cursor={{ fill: 'rgba(255,255,255,.05)' }} />
+                    <Bar dataKey="v" radius={[6, 6, 0, 0]} fill="#34d399" />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </Glass>
+
+          <Glass className="p-6">
+            <h3 className="text-lg font-semibold text-white">Top merchants</h3>
+            <div className="mt-5 space-y-4">
+              {merchants.map(m => (
+                <div key={m.name}>
+                  <div className="flex items-center justify-between gap-3 text-sm">
+                    <span className="truncate text-slate-200">{m.name}</span>
+                    <span className="num shrink-0 font-semibold text-white">{fmt(m.value)}</span>
+                  </div>
+                  <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/8">
+                    <div className="h-full rounded-full bg-gradient-to-r from-sky-400 to-emerald-400 transition-all duration-700"
+                      style={{ width: (m.value / maxMerchant * 100) + '%' }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Glass>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================= CALCULATORS ============================== */
+function NumInput({ label, value, onChange, min = 0, max, step = 1, prefix = '$', suffix = '' }) {
+  return (
+    <div>
+      <label className="mb-2 block text-sm font-medium text-slate-300">{label}</label>
+      <div className="relative">
+        {prefix && <span className="num pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-slate-500">{prefix}</span>}
+        <input type="number" value={value} min={min} max={max} step={step} inputMode="decimal"
+          aria-label={label}
+          onChange={e => onChange(parseFloat(e.target.value) || 0)}
+          className={'num w-full rounded-xl border border-white/12 bg-slate-950/60 py-3 pr-4 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-sky-500/60 ' + (prefix ? 'pl-9' : 'pl-4')} />
+        {suffix && <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-slate-500">{suffix}</span>}
+      </div>
+    </div>
+  );
+}
+
+function StatRow({ label, value, tone }) {
+  return (
+    <div className="flex items-center justify-between gap-3 text-sm">
+      <span className="text-slate-400">{label}</span>
+      <span className={'num font-semibold ' + (tone === 'pos' ? 'text-emerald-300' : tone === 'neg' ? 'text-rose-300' : 'text-white')}>{value}</span>
+    </div>
+  );
+}
+
+function CalculatorsView() {
+  const [tab, setTab] = useState('savings');
+
+  /* Savings goal */
+  const [goal, setGoal] = useState(15000);
+  const [start, setStart] = useState(2000);
+  const [months, setMonths] = useState(36);
+  const monthlyRate = 0.0435 / 12;
+
+  const monthlyNeeded = useMemo(() => {
+    const n = Math.max(1, months);
+    const futureValue = (c) => c * ((Math.pow(1 + monthlyRate, n) - 1) / monthlyRate) + start * Math.pow(1 + monthlyRate, n);
+    if (futureValue(0) >= goal) return 0;
+    let lo = 0, hi = 100000;
+    for (let i = 0; i < 60; i++) {
+      const mid = (lo + hi) / 2;
+      if (futureValue(mid) < goal) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }, [goal, start, months]);
+
+  const projectedSavings = useMemo(() => {
+    let bal = start;
+    for (let i = 0; i < months; i++) bal = bal * (1 + monthlyRate) + monthlyNeeded;
+    return bal;
+  }, [start, months, monthlyNeeded]);
+
+  const totalDeposited = monthlyNeeded * months + start;
+  const interestEarned = Math.max(0, projectedSavings - totalDeposited);
+
+  /* Home loan */
+  const [homePrice, setHomePrice] = useState(420000);
+  const [deposit, setDeposit] = useState(84000);
+  const [homeRate, setHomeRate] = useState(6.25);
+  const [homeYears, setHomeYears] = useState(30);
+
+  const home = useMemo(() => {
+    const principal = Math.max(0, homePrice - deposit);
+    const r = homeRate / 100 / 12;
+    const n = Math.max(1, homeYears * 12);
+    const payment = r === 0 ? principal / n : principal * r / (1 - Math.pow(1 + r, -n));
+    const total = payment * n;
+    return { principal, payment, total, interest: Math.max(0, total - principal) };
+  }, [homePrice, deposit, homeRate, homeYears]);
+
+  /* Auto loan */
+  const [carPrice, setCarPrice] = useState(38000);
+  const [tradeIn, setTradeIn] = useState(6000);
+  const [autoRate, setAutoRate] = useState(7.4);
+  const [autoYears, setAutoYears] = useState(5);
+
+  const auto = useMemo(() => {
+    const principal = Math.max(0, carPrice - tradeIn);
+    const r = autoRate / 100 / 12;
+    const n = Math.max(1, autoYears * 12);
+    const payment = r === 0 ? principal / n : principal * r / (1 - Math.pow(1 + r, -n));
+    const total = payment * n;
+    return { principal, payment, total, interest: Math.max(0, total - principal) };
+  }, [carPrice, tradeIn, autoRate, autoYears]);
+
+  const tabs = [
+    { id: 'savings', label: 'Savings goal', icon: 'piggy-bank' },
+    { id: 'home', label: 'Home loan', icon: 'home' },
+    { id: 'auto', label: 'Auto loan', icon: 'car' }
+  ];
+
+  return (
+    <div className="mx-auto max-w-5xl space-y-6">
+      <div>
+        <h2 className="text-2xl font-bold tracking-tight text-white">Calculators</h2>
+        <p className="mt-1 text-sm text-slate-400">Plan with realistic numbers before you commit.</p>
+      </div>
+
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Calculator type">
+        {tabs.map(t => (
+          <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => setTab(t.id)}
+            className={'glow-hover inline-flex items-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ' +
+              (tab === t.id ? 'border-sky-400/40 bg-gradient-to-r from-sky-500/25 to-emerald-500/15 text-white' : 'border-white/12 bg-white/5 text-slate-400 hover:text-white')}>
+            <Icon name={t.icon} className="w-4 h-4" /> {t.label}
+          </button>
+        ))}
+      </div>
+
+      {tab === 'savings' && (
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Glass className="space-y-5 p-6">
+            <NumInput label="Savings goal" value={goal} onChange={setGoal} min={100} step={500} />
+            <NumInput label="Starting balance" value={start} onChange={setStart} min={0} step={100} />
+            <NumInput label="Time to reach goal" value={months} onChange={setMonths} min={1} max={360} step={1} prefix="" suffix="mo" />
+            <p className="text-xs text-slate-500">Assumes 4.35% APY with monthly compounding.</p>
+          </Glass>
+          <Glass className="p-6">
+            <p className="text-sm text-slate-400">Required monthly deposit</p>
+            <p className="num mt-2 text-4xl font-extrabold text-white">{fmt(monthlyNeeded)}</p>
+            <div className="mt-6 space-y-3">
+              <StatRow label="Projected balance" value={fmt(projectedSavings)} tone="pos" />
+              <StatRow label="Total deposited" value={fmt(totalDeposited)} />
+              <StatRow label="Interest earned" value={fmt(interestEarned)} tone="pos" />
+            </div>
+            <div className="mt-6 h-24" aria-hidden="true">
+              {ResponsiveContainer && (
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={BALANCE_HISTORY} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
+                    <defs>
+                      <linearGradient id="calcFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#34d399" stopOpacity={0.4} />
+                        <stop offset="100%" stopColor="#34d399" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <Area type="monotone" dataKey="v" stroke="#34d399" strokeWidth={2} fill="url(#calcFill)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </Glass>
+        </div>
+      )}
+
+      {tab === 'home' && (
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Glass className="space-y-5 p-6">
+            <NumInput label="Home price" value={homePrice} onChange={setHomePrice} min={0} step={5000} />
+            <NumInput label="Deposit" value={deposit} onChange={setDeposit} min={0} step={1000} />
+            <NumInput label="Interest rate" value={homeRate} onChange={setHomeRate} min={0} max={20} step={0.05} prefix="" suffix="% p.a." />
+            <NumInput label="Loan term" value={homeYears} onChange={setHomeYears} min={1} max={40} step={1} prefix="" suffix="yrs" />
+          </Glass>
+          <Glass className="p-6">
+            <p className="text-sm text-slate-400">Estimated monthly repayment</p>
+            <p className="num mt-2 text-4xl font-extrabold text-white">{fmt(home.payment)}</p>
+            <div className="mt-6 space-y-3">
+              <StatRow label="Loan amount" value={fmt(home.principal)} />
+              <StatRow label="Total repaid" value={fmt(home.total)} />
+              <StatRow label="Total interest" value={fmt(home.interest)} tone="neg" />
+              <StatRow label="Deposit ratio" value={((deposit / Math.max(1, homePrice)) * 100).toFixed(1) + '%'} />
+            </div>
+          </Glass>
+        </div>
+      )}
+
+      {tab === 'auto' && (
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Glass className="space-y-5 p-6">
+            <NumInput label="Vehicle price" value={carPrice} onChange={setCarPrice} min={0} step={1000} />
+            <NumInput label="Trade-in or deposit" value={tradeIn} onChange={setTradeIn} min={0} step={500} />
+            <NumInput label="Interest rate" value={autoRate} onChange={setAutoRate} min={0} max={25} step={0.1} prefix="" suffix="% p.a." />
+            <NumInput label="Loan term" value={autoYears} onChange={setAutoYears} min={1} max={8} step={1} prefix="" suffix="yrs" />
+          </Glass>
+          <Glass className="p-6">
+            <p className="text-sm text-slate-400">Estimated monthly repayment</p>
+            <p className="num mt-2 text-4xl font-extrabold text-white">{fmt(auto.payment)}</p>
+            <div className="mt-6 space-y-3">
+              <StatRow label="Amount financed" value={fmt(auto.principal)} />
+              <StatRow label="Total repaid" value={fmt(auto.total)} />
+              <StatRow label="Total interest" value={fmt(auto.interest)} tone="neg" />
+            </div>
+          </Glass>
+        </div>
+      )}
+
+      <Glass className="p-5">
+        <p className="flex items-start gap-2 text-xs leading-relaxed text-slate-500">
+          <Icon name="info" className="mt-0.5 w-4 h-4 shrink-0" />
+          Estimates are for illustration only and use the inputs above. Your actual rate and payment depend on
+          underwriting, credit history and market conditions.
+        </p>
+      </Glass>
+    </div>
+  );
+}
+
+/* ================================ SUPPORT =============================== */
+function SupportView({ notify }) {
+  const [q, setQ] = useState('');
+  const [open, setOpen] = useState(0);
+  const [form, setForm] = useState({ name: '', email: '', topic: 'General', message: '' });
+  const [sent, setSent] = useState(false);
+  const [err, setErr] = useState('');
+
+  const faqs = FAQS.filter(f => (f.q + ' ' + f.a).toLowerCase().includes(q.trim().toLowerCase()));
+
+  const submit = (e) => {
+    e.preventDefault();
+    setErr('');
+    if (!form.name.trim()) { setErr('Please add your name.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) { setErr('Please add a valid email address.'); return; }
+    if (form.message.trim().length < 10) { setErr('Please write a message of at least 10 characters.'); return; }
+    setSent(true);
+    notify('Message sent — we reply within two minutes');
+    setForm({ name: '', email: '', topic: 'General', message: '' });
+  };
+
+  return (
+    <div className="mx-auto max-w-5xl space-y-6">
+      <div>
+        <h2 className="text-2xl font-bold tracking-tight text-white">Support</h2>
+        <p className="mt-1 text-sm text-slate-400">Search answers or message a specialist — available 24/7.</p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        {[
+          ['Chat with us', 'Average reply under 2 minutes', 'message-circle'],
+          ['Call 24/7', '1-800-SAVI-BNK', 'phone'],
+          ['Email us', 'help@savibank.example', 'mail']
+        ].map(([t, d, icon]) => (
+          <Glass key={t} className="glow-hover flex items-center gap-4 p-5">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-sky-400/25 to-emerald-400/25 text-sky-300">
+              <Icon name={icon} className="w-5 h-5" />
+            </span>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-white">{t}</p>
+              <p className="truncate text-xs text-slate-400">{d}</p>
+            </div>
+          </Glass>
+        ))}
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Glass className="p-6">
+          <h3 className="text-lg font-semibold text-white">Help centre</h3>
+          <div className="relative mt-4">
+            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"><Icon name="search" className="w-4 h-4" /></span>
+            <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search frequently asked questions"
+              aria-label="Search frequently asked questions" type="search"
+              className="w-full rounded-xl border border-white/12 bg-slate-950/60 py-3 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/60" />
+          </div>
+          <div className="mt-4 space-y-2">
+            {faqs.length === 0 && <p className="py-10 text-center text-sm text-slate-500">No results. Try a different search term.</p>}
+            {faqs.map((f, i) => (
+              <div key={f.q} className="overflow-hidden rounded-xl border border-white/10 bg-white/[0.03]">
+                <h4>
+                  <button onClick={() => setOpen(open === i ? -1 : i)} aria-expanded={open === i}
+                    className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left text-sm font-semibold text-white transition hover:bg-white/[0.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                    <span>{f.q}</span>
+                    <Icon name={open === i ? 'minus' : 'plus'} className="w-4 h-4 shrink-0 text-sky-400" />
+                  </button>
+                </h4>
+                {open === i && <p className="animate-fadeIn px-4 pb-4 text-sm leading-relaxed text-slate-400">{f.a}</p>}
+              </div>
+            ))}
+          </div>
+        </Glass>
+
+        <Glass className="p-6">
+          <h3 className="text-lg font-semibold text-white">Send us a message</h3>
+          {sent && <div className="mt-4"><Note tone="ok">Thanks — your message is in our queue and a specialist will reply shortly.</Note></div>}
+          <form onSubmit={submit} className="mt-4 space-y-4" noValidate>
+            <Field label="Your name" icon="user" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Nova Reyes" autoComplete="name" />
+            <Field label="Email" icon="mail" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="you@example.com" autoComplete="email" />
+            <Select label="Topic" value={form.topic} onChange={e => setForm({ ...form, topic: e.target.value })}
+              options={['General', 'Cards', 'Transfers', 'Loans', 'Security', 'Business'].map(t => ({ value: t, label: t }))} />
+            <div>
+              <label htmlFor="supportMessage" className="mb-2 block text-sm font-medium text-slate-300">Message</label>
+              <textarea id="supportMessage" rows="4" value={form.message} onChange={e => setForm({ ...form, message: e.target.value })}
+                placeholder="How can we help?"
+                className="w-full resize-none rounded-xl border border-white/12 bg-slate-950/60 px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/60" />
+            </div>
+            {err && <Note tone="error">{err}</Note>}
+            <Btn type="submit" variant="royal" className="w-full">Send message</Btn>
+          </form>
+
+          <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-white/10 pt-5">
+            <span className="text-xs text-slate-500">Follow Savi Bank</span>
+            {[['twitter', 'Twitter'], ['instagram', 'Instagram'], ['linkedin', 'LinkedIn'], ['youtube', 'YouTube']].map(([s, label]) => (
+              <a key={s} href="#footer" aria-label={'Savi Bank on ' + label} onClick={(e) => e.preventDefault()}
+                className="grid h-9 w-9 place-items-center rounded-lg border border-white/12 text-slate-400 transition hover:-translate-y-0.5 hover:border-sky-400/40 hover:text-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                <Icon name={s} className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
+        </Glass>
+      </div>
+    </div>
+  );
+}
+
+/* ========================= QUICK ACTION MODAL =========================== */
+const ACTION_CONFIG = {
+  deposit: { title: 'Deposit funds', subtitle: 'Move money into your Everyday Checking account.', label: 'From', icon: 'download', sign: 1, sources: DEPOSIT_SOURCES },
+  bill:    { title: 'Pay a bill',    subtitle: 'Scheduled from Everyday Checking.',              label: 'Payee', icon: 'receipt',  sign: -1, sources: BILLERS },
+  send:    { title: 'Send money',    subtitle: 'Sent from Everyday Checking.',                   label: 'Recipient', icon: 'send', sign: -1, sources: RECIPIENTS }
+};
+
+function ActionModal({ type, accounts, onClose, onSubmit }) {
+  const config = ACTION_CONFIG[type];
+  const [amount, setAmount] = useState('');
+  const [target, setTarget] = useState(config ? config.sources[0] : '');
+  const [err, setErr] = useState('');
+
+  useEffect(() => {
+    setAmount('');
+    setErr('');
+    if (config) setTarget(config.sources[0]);
+  }, [type]);
+
+  if (!config) return null;
+  const checking = accounts.find(a => a.id === 'checking');
+
+  const submit = (e) => {
+    e.preventDefault();
+    const amt = parseFloat(amount);
+    if (!amt || amt <= 0) { setErr('Enter an amount greater than zero.'); return; }
+    if (config.sign < 0 && amt > checking.balance) {
+      setErr('That exceeds your Everyday Checking balance of ' + fmt(checking.balance) + '.');
+      return;
+    }
+    onSubmit({ type, amount: amt, target, sign: config.sign });
+    onClose();
+  };
+
+  return (
+    <Modal open onClose={onClose} title={config.title} subtitle={config.subtitle}>
+      <form onSubmit={submit} className="space-y-5" noValidate>
+        <Select label={config.label} value={target} onChange={e => setTarget(e.target.value)}
+          options={config.sources.map(s => ({ value: s, label: s }))} />
+        <div>
+          <label htmlFor="qaAmount" className="mb-2 block text-sm font-medium text-slate-300">Amount</label>
+          <div className="relative">
+            <span className="num pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-lg font-semibold text-slate-500">$</span>
+            <input id="qaAmount" type="number" min="0" step="0.01" inputMode="decimal" value={amount}
+              onChange={e => setAmount(e.target.value)} placeholder="0.00"
+              className="num w-full rounded-xl border border-white/12 bg-slate-950/60 py-3.5 pl-9 pr-4 text-lg font-semibold text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-sky-500/60" />
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {[20, 50, 100, 250, 1000].map(v => (
+              <button key={v} type="button" onClick={() => setAmount(String(v))}
+                className="num rounded-lg border border-white/12 bg-white/5 px-3.5 py-2 text-xs font-semibold text-slate-300 transition hover:bg-white/12 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                ${v}
+              </button>
+            ))}
+          </div>
+        </div>
+        {err && <Note tone="error">{err}</Note>}
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
+          <Btn type="submit" variant="royal"><Icon name={config.icon} className="w-4 h-4" /> {config.title}</Btn>
+        </div>
+      </form>
+    </Modal>
+  );
+}
+
+/* ================================ APP ROOT ============================== */
+function App() {
+  const [route, setRoute] = useState('landing');       // landing | auth | app
+  const [view, setView] = useState('dashboard');
+  const [accounts, setAccounts] = useState(START_ACCOUNTS);
+  const [txs, setTxs] = useState(START_TX);
+  const [cards, setCards] = useState(START_CARDS);
+  const [user, setUser] = useState({ name: 'Nova Reyes' });
+  const [toast, setToast] = useState(null);
+  const [action, setAction] = useState(null);
+
+  const notify = (msg, tone) => setToast({ msg, tone: tone || 'ok', key: uid() });
+
+  useEffect(() => {
+    if (!toast) return;
+    const t = window.setTimeout(() => setToast(null), 3600);
+    return () => window.clearTimeout(t);
+  }, [toast]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [view, route]);
+
+  const signIn = (name) => {
+    setUser({ name: name || 'Nova Reyes' });
+    setRoute('app');
+    setView('dashboard');
+    notify('Signed in to Savi Bank');
+  };
+
+  const signOut = () => {
+    setRoute('landing');
+    setView('dashboard');
+    setToast(null);
+  };
+
+  const pushTx = (tx) => setTxs(prev => [{ id: uid(), date: todayISO(), ...tx }, ...prev]);
+
+  const onTransfer = (fromId, toId, amount, memo) => {
+    setAccounts(prev => prev.map(a => {
+      if (a.id === fromId) return { ...a, balance: a.balance - amount };
+      if (a.id === toId) return { ...a, balance: a.balance + amount };
+      return a;
+    }));
+    const fromName = (accounts.find(a => a.id === fromId) || {}).name || 'Account';
+    const toName = (accounts.find(a => a.id === toId) || {}).name || 'Account';
+    pushTx({ account: fromId, merchant: 'Transfer to ' + toName, category: 'Transfer', amount: -amount, note: memo });
+    pushTx({ account: toId, merchant: 'Transfer from ' + fromName, category: 'Transfer', amount: amount, note: memo });
+    notify(fmt(amount) + ' transferred successfully');
+  };
+
+  const onQuickAction = ({ type, amount, target, sign }) => {
+    const signed = sign * amount;
+    setAccounts(prev => prev.map(a => a.id === 'checking' ? { ...a, balance: a.balance + signed } : a));
+    pushTx({
+      account: 'checking',
+      merchant: type === 'deposit' ? 'Deposit — ' + target : type === 'bill' ? target : 'Sent to ' + target,
+      category: type === 'bill' ? 'Bills' : type === 'deposit' ? 'Income' : 'Transfer',
+      amount: signed
+    });
+    notify(type === 'deposit'
+      ? fmt(amount) + ' deposited'
+      : type === 'bill'
+        ? 'Payment of ' + fmt(amount) + ' sent to ' + target
+        : fmt(amount) + ' sent to ' + target);
+  };
+
+  const goPublic = (target) => {
+    setRoute('landing');
+    setView('dashboard');
+    window.setTimeout(() => {
+      const el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 120);
+  };
+
+  const content = () => {
+    if (route === 'landing') return <Landing onSignIn={() => setRoute('auth')} onNavigate={goPublic} />;
+    if (route === 'auth')    return <Auth onSignIn={signIn} onBack={() => setRoute('landing')} />;
+
+    return (
+      <AppShell view={view} setView={setView} user={user}
+        onSignOut={signOut} onGoLanding={() => { setRoute('landing'); window.scrollTo({ top: 0 }); }}>
+        {view === 'dashboard'   && <Dashboard accounts={accounts} txs={txs} onNavigate={setView} onAction={setAction} />}
+        {view === 'accounts'    && <AccountsView accounts={accounts} txs={txs} />}
+        {view === 'cards'       && <CardsView cards={cards} setCards={setCards} notify={notify} />}
+        {view === 'transfers'   && <TransfersView accounts={accounts} txs={txs} onTransfer={onTransfer} notify={notify} />}
+        {view === 'insights'    && <InsightsView txs={txs} />}
+        {view === 'calculators' && <CalculatorsView />}
+        {view === 'support'     && <SupportView notify={notify} />}
+      </AppShell>
+    );
+  };
+
+  return (
+    <React.Fragment>
+      {content()}
+      {action && <ActionModal type={action} accounts={accounts} onClose={() => setAction(null)} onSubmit={onQuickAction} />}
+      <Toast toast={toast} />
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
