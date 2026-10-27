@@ -5,20 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Savi Bank | Premium Wealth</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- THIS IS WHAT WAS MISSING: The React Libraries -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              savi: { navy: '#0A192F', blue: '#1E3A8A', bright: '#2563EB', light: '#F8FAFC', grey: '#64748B', green: '#10B981', red: '#EF4444', card: '#111827', dark: '#0B1120' }
+              savi: { 
+                navy: '#0F172A',    // Deep text color
+                blue: '#38BDF8',    // Light Sky Blue
+                bright: '#0EA5E9',  // Vibrant Sky Blue
+                light: '#FFFFFF',   // Pure White
+                grey: '#64748B', 
+                green: '#10B981', 
+                red: '#EF4444', 
+                card: '#FFFFFF', 
+                dark: '#F0F9FF'     // Very soft sky blue background
+              }
             },
             fontFamily: { sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'] },
-            boxShadow: { premium: '0 20px 40px -10px rgba(14, 30, 37, 0.15)', glow: '0 0 20px rgba(37, 99, 235, 0.4)' }
+            boxShadow: { 
+              premium: '0 20px 40px -10px rgba(14, 165, 233, 0.15)', 
+              glow: '0 0 20px rgba(14, 165, 233, 0.4)' 
+            }
           }
         }
       }
@@ -27,7 +37,6 @@
 </head>
 <body>
     <div id="root"></div>
-    <!-- This loads your compiled App -->
     <script src="bundle.js"></script>
 </body>
 </html>

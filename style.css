@@ -1,27 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8FAFC; color: #0A192F; }
-.glass-light { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.4); }
-.glass-dark { background: rgba(21, 27, 43, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
-.grad-premium { background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%); }
-.grad-card-dark { background: linear-gradient(135deg, #111827 0%, #374151 100%); }
-.grad-blue { background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%); }
-.crypto-ticker-container { overflow: hidden; white-space: nowrap; background: #0A192F; padding: 10px 0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F0F9FF; color: #0F172A; }
+
+/* Light, crisp glassmorphism for the new theme */
+.glass-dark { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(14, 165, 233, 0.15); box-shadow: 0 8px 32px 0 rgba(14, 165, 233, 0.05); }
+
+/* Sky Blue Gradients */
+.grad-premium { background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 100%); }
+.grad-card-dark { background: linear-gradient(135deg, #0EA5E9 0%, #2563EB 100%); } /* Vivid Blue for the card */
+.grad-blue { background: linear-gradient(135deg, #0EA5E9 0%, #3B82F6 100%); }
+
+/* Animations */
+.crypto-ticker-container { overflow: hidden; white-space: nowrap; background: #0F172A; padding: 10px 0; }
 .crypto-ticker { display: inline-block; animation: ticker 30s linear infinite; }
 @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
 .fade-in { animation: fadeIn 0.3s ease-out; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8FAFC; color: #0A192F; }
-.glass-light { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.4); }
-.glass-dark { background: rgba(21, 27, 43, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
-.grad-premium { background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%); }
-.grad-card-dark { background: linear-gradient(135deg, #111827 0%, #374151 100%); }
-.grad-blue { background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%); }
-.crypto-ticker-container { overflow: hidden; white-space: nowrap; background: #0A192F; padding: 10px 0; }
-.crypto-ticker { display: inline-block; animation: ticker 30s linear infinite; }
-@keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
-.fade-in { animation: fadeIn 0.3s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: #BAE6FD; border-radius: 10px; }
