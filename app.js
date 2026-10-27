@@ -220,31 +220,38 @@ const LandingPage = ({ onNavigate }) => {
           </div>
         </nav>
 
-        <header className="relative z-10 pt-24 pb-32 px-6 max-w-7xl mx-auto flex flex-col items-center text-center lg:text-left lg:flex-row gap-16">
-          <div className="flex-1 space-y-8 z-20">
-            <h1 className="text-6xl md:text-8xl font-extrabold leading-[1.05] tracking-tight">
-              Your wealth.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-savi-bright to-savi-green">Reimagined.</span>
-            </h1>
-            <p className="text-xl text-slate-300 max-w-lg leading-relaxed mx-auto lg:mx-0">
-              Spend smartly, send quickly, sort your salary automatically, and watch your savings grow — all with a Savi bank account.
-            </p>
-            <div className="flex items-center justify-center lg:justify-start gap-6 pt-4">
-              <button onClick={() => onNavigate('signup')} className="bg-savi-bright text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:bg-blue-600 transition-all">Move your salary</button>
+        <header className="relative z-10 pt-24 pb-32 px-6 max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="flex-1 space-y-8 z-20 text-center lg:text-left">
+              <h1 className="text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight">
+                Your wealth.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-savi-bright to-savi-green">Reimagined.</span>
+              </h1>
+              <p className="text-xl text-slate-300 max-w-lg leading-relaxed mx-auto lg:mx-0">
+                Spend smartly, send quickly, sort your salary automatically, and watch your savings grow — all with a Savi bank account.
+              </p>
+              <div className="flex items-center justify-center lg:justify-start gap-6 pt-4">
+                <button onClick={() => onNavigate('signup')} className="bg-savi-bright text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:bg-blue-600 transition-all">Move your salary</button>
+              </div>
             </div>
-          </div>
-          
-          <div className="flex-1 relative w-full max-w-md mx-auto h-[400px] md:h-[500px] mt-12 lg:mt-0">
-            <div className="absolute inset-0 bg-savi-bright rounded-full blur-[100px] opacity-20"></div>
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Lifestyle" className="absolute inset-0 w-full h-full object-cover rounded-[2rem] shadow-2xl border border-white/10" />
-            <div className="absolute -left-4 top-8 glass-dark p-4 rounded-2xl shadow-2xl w-48 backdrop-blur-xl border border-white/20 transform -rotate-6 z-30">
-              <p className="text-xs text-slate-400 mb-1">Personal · EUR</p>
-              <p className="text-2xl font-bold mb-2">€3,126</p>
-              <div className="bg-white/10 rounded-lg p-2 flex justify-between items-center text-[10px]"><span>☕ Coffee</span><span className="text-savi-red">-€3.25</span></div>
-            </div>
-            <div className="absolute -right-4 bottom-12 glass-dark p-4 rounded-2xl shadow-2xl w-52 backdrop-blur-xl border border-white/20 transform rotate-3 z-30">
-              <p className="text-xs text-slate-400 mb-1">Personal · GBP</p>
-              <p className="text-2xl font-bold mb-2">£6,012</p>
-              <div className="bg-white/10 rounded-lg p-2 flex justify-between items-center text-[10px]"><span>🏠 House bills</span><span className="text-savi-red">-£225</span></div>
+            
+            <div className="flex-1 relative w-full max-w-md mx-auto mt-12 lg:mt-0">
+              <div className="absolute inset-0 bg-savi-bright rounded-full blur-[100px] opacity-20"></div>
+              
+              <div className="relative w-full h-[350px] md:h-[450px] rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 bg-slate-800">
+                 <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Lifestyle" className="w-full h-full object-cover" />
+              </div>
+
+              <div className="absolute -left-2 md:-left-6 top-8 glass-dark p-3 md:p-4 rounded-2xl shadow-2xl w-40 md:w-48 backdrop-blur-xl border border-white/20 transform -rotate-6 z-30">
+                <p className="text-[10px] md:text-xs text-slate-400 mb-1">Personal · EUR</p>
+                <p className="text-xl md:text-2xl font-bold mb-2">€3,126</p>
+                <div className="bg-white/10 rounded-lg p-1.5 md:p-2 flex justify-between items-center text-[9px] md:text-[10px]"><span>☕ Coffee</span><span className="text-savi-red">-€3.25</span></div>
+              </div>
+
+              <div className="absolute -right-2 md:-right-4 bottom-8 glass-dark p-3 md:p-4 rounded-2xl shadow-2xl w-44 md:w-52 backdrop-blur-xl border border-white/20 transform rotate-3 z-30">
+                <p className="text-[10px] md:text-xs text-slate-400 mb-1">Personal · GBP</p>
+                <p className="text-xl md:text-2xl font-bold mb-2">£6,012</p>
+                <div className="bg-white/10 rounded-lg p-1.5 md:p-2 flex justify-between items-center text-[9px] md:text-[10px]"><span>🏠 House bills</span><span className="text-savi-red">-£225</span></div>
+              </div>
             </div>
           </div>
         </header>
@@ -267,7 +274,7 @@ const LandingPage = ({ onNavigate }) => {
                 </div>
               </div>
               <div className="flex-1 flex justify-center">
-                <div className={`w-80 aspect-[1.586/1] rounded-2xl p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden ${activeTab === 'physical' ? 'grad-card-dark' : activeTab === 'virtual' ? 'grad-blue' : 'bg-savi-green'}`}>
+                <div className={`w-full max-w-xs md:w-80 aspect-[1.586/1] rounded-2xl p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden ${activeTab === 'physical' ? 'grad-card-dark' : activeTab === 'virtual' ? 'grad-blue' : 'bg-savi-green'}`}>
                    <div className="flex justify-between items-center"><Icon name="Logo" size={24} className="text-white/80"/><span className="font-bold italic text-white/90 text-xl">VISA</span></div>
                    <div><p className="text-white/60 text-xs tracking-widest mb-1">CARD NUMBER</p><p className="text-xl tracking-[0.15em] font-mono text-white">•••• •••• •••• 4821</p></div>
                 </div>
