@@ -17,12 +17,6 @@ const MOCK_PAYEES = [
   { id: 3, name: 'Geico Auto', due: 'Nov 15', amount: 120.50, status: 'Scheduled' },
 ];
 
-const MARKET_NEWS = [
-  { title: "Fed signals potential rate cut in Q4", source: "Bloomberg", time: "2h ago" },
-  { title: "Tech stocks rally as AI sector surges", source: "CNBC", time: "4h ago" },
-  { title: "Oil prices steady amid global supply shifts", source: "Reuters", time: "5h ago" }
-];
-
 const MUSEUMS = [
   { name: "The Metropolitan Museum of Art", location: "New York, NY" },
   { name: "Art Institute of Chicago", location: "Chicago, IL" },
@@ -62,7 +56,11 @@ const Icon = ({ name, size = 20, className = "" }) => {
     BookOpen: <g><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></g>,
     TrendingUp: <g><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></g>,
     Award: <g><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></g>,
-    Landmark: <g><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></g>
+    Landmark: <g><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></g>,
+    MapPin: <g><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></g>,
+    Phone: <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>,
+    HelpCircle: <g><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></g>,
+    Calendar: <g><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></g>
   };
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{paths[name] || <circle cx="12" cy="12" r="10"/>}</svg>;
 };
@@ -267,7 +265,6 @@ const LandingPage = ({ onNavigate }) => {
              const zIndex = 10 - i;
              const scale = 1 - (Math.abs(i - 1.5) * 0.1);
              
-             // Text color hack for the white card
              const textColor = (!isPhysical && i === 0) || (isPhysical && i === 1) ? 'text-sky-900' : 'text-white';
              const textMuted = (!isPhysical && i === 0) || (isPhysical && i === 1) ? 'text-sky-600' : 'text-white/60';
 
@@ -312,31 +309,142 @@ const LandingPage = ({ onNavigate }) => {
         </div>
       </section>
 
-      <div className="bg-sky-50 py-12 border-t border-sky-100">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-2 cursor-pointer">
-            <div className="w-8 h-8 grad-blue rounded-lg flex items-center justify-center text-white"><Icon name="Logo" size={18}/></div>
-            <span className="text-xl font-bold tracking-tight text-savi-navy">Savi Bank</span>
-          </div>
-          <div className="flex gap-6 items-center">
-            <div className="relative">
-              <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-savi-navy transition-colors">
-                <Icon name="Globe" size={16} /> {selectedLang} <Icon name="ChevronDown" size={14} />
+      {/* EXPANSIVE FOOTER */}
+      <div className="bg-sky-50 border-t border-sky-100">
+        
+        <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12">
+          <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-sky-100 flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1">
+              <h3 className="text-2xl font-bold text-savi-navy mb-4">Level up your account security</h3>
+              <p className="text-slate-600 mb-6 text-sm leading-relaxed">
+                Watch your security meter rise as you take action to help protect against fraud. See it in the Security Center in Mobile and Online Banking.
+              </p>
+              <button className="bg-white text-savi-bright border-2 border-savi-bright px-6 py-2.5 rounded-full font-bold text-sm hover:bg-sky-50 transition-colors">
+                Check your level
               </button>
-              {langOpen && (
-                <div className="absolute bottom-full right-0 mb-4 w-60 bg-white border border-sky-100 rounded-2xl shadow-2xl max-h-64 overflow-y-auto z-50 p-2">
-                  {LANGUAGES.map((lang, i) => (
-                    <div key={i} onClick={() => { setSelectedLang(lang); setLangOpen(false); }} className="px-4 py-2 text-sm text-slate-600 hover:bg-sky-50 rounded-xl cursor-pointer">{lang}</div>
-                  ))}
-                </div>
-              )}
             </div>
-            <button onClick={() => onNavigate('login')} className="text-sm font-bold text-savi-bright border border-savi-bright px-6 py-2 rounded-full hover:bg-sky-100 transition-colors">Sign In</button>
+            <div className="w-48 h-64 bg-sky-50 rounded-2xl border-4 border-slate-200 relative overflow-hidden flex-shrink-0 shadow-inner">
+               <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
+                 <Icon name="Shield" size={48} className="text-savi-bright mb-4"/>
+                 <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-2">
+                   <div className="bg-savi-green h-full w-3/4"></div>
+                 </div>
+                 <p className="text-[10px] font-bold text-savi-navy text-center">Advanced Security<br/><span className="text-slate-400 font-normal">3 features to High</span></p>
+               </div>
+            </div>
+          </div>
+
+          <div className="bg-savi-navy rounded-3xl p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-center gap-8 text-white">
+             <div className="flex-1">
+              <h3 className="text-2xl font-bold mb-4">Convenient banking with our Mobile app</h3>
+              <p className="text-sky-200 mb-6 text-sm leading-relaxed">
+                Manage your accounts, deposit checks, and transfer money securely from anywhere in the world.
+              </p>
+              <button className="bg-white text-savi-navy px-6 py-2.5 rounded-full font-bold text-sm hover:bg-sky-50 transition-colors">
+                Explore our app
+              </button>
+            </div>
+            <div className="w-48 h-64 bg-slate-900 rounded-t-3xl border-4 border-slate-700 relative overflow-hidden flex-shrink-0 shadow-inner mt-8 md:mt-0">
+               <div className="absolute top-0 w-full h-6 bg-slate-700 rounded-b-xl"></div>
+               <div className="p-4 pt-8 space-y-3">
+                 <div className="h-2 bg-slate-700 rounded w-1/2"></div>
+                 <div className="h-10 bg-slate-800 rounded-lg flex items-center px-2 gap-2">
+                    <div className="w-6 h-6 bg-savi-bright rounded-full"></div>
+                    <div className="h-2 bg-slate-600 rounded w-1/2"></div>
+                 </div>
+                 <div className="h-10 bg-slate-800 rounded-lg flex items-center px-2 gap-2">
+                    <div className="w-6 h-6 bg-savi-green rounded-full"></div>
+                    <div className="h-2 bg-slate-600 rounded w-1/2"></div>
+                 </div>
+               </div>
+            </div>
           </div>
         </div>
-        <div className="text-center mt-8">
-          <p className="text-[10px] text-slate-400 uppercase tracking-widest">Demo — Not a real bank.</p>
+
+        <div className="max-w-7xl mx-auto px-6 py-16 border-t border-sky-200">
+          <h2 className="text-3xl font-bold text-center text-savi-navy mb-12">Connect with us</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { icon: 'Calendar', title: 'Schedule an appointment' },
+              { icon: 'MapPin', title: 'Find a location' },
+              { icon: 'Phone', title: 'Contact us' },
+              { icon: 'HelpCircle', title: 'Help center' }
+            ].map((item, i) => (
+              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-sky-100 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-md hover:-translate-y-1 transition-all group">
+                <Icon name={item.icon} size={32} className="text-savi-bright mb-4 group-hover:scale-110 transition-transform"/>
+                <p className="font-bold text-savi-navy text-sm">{item.title}</p>
+              </div>
+            ))}
+          </div>
         </div>
+
+        <div className="bg-white border-t border-sky-100 py-12 px-6">
+          <div className="max-w-7xl mx-auto">
+            <h4 className="text-sm font-bold text-slate-500 mb-4">Investment and insurance products:</h4>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+              {[
+                "Are Not FDIC Insured", "Are Not Bank Guaranteed", "May Lose Value",
+                "Are Not Deposits", "Are Not Insured by Any Federal Government Agency", "Are Not a Condition to Any Banking Service or Activity"
+              ].map((text, i) => (
+                <div key={i} className="border border-slate-200 p-3 text-center text-xs font-bold text-slate-600 bg-slate-50">
+                  {text}
+                </div>
+              ))}
+            </div>
+            
+            <div className="text-xs text-slate-500 space-y-4 leading-relaxed">
+              <p>
+                <strong>Savi Bank</strong> provides investment and insurance products through affiliated entities. Investing involves risks, and there is always the potential of losing money when you invest in securities. You should review any planned financial transactions that may have tax or legal implications with your personal tax or legal advisor.
+              </p>
+              <p>
+                Securities products are provided by Savi Securities LLC, a registered broker-dealer and a wholly-owned subsidiary of Savi Bank Corporation. Savi Securities makes available certain investment products sponsored, managed, distributed or provided by companies that are affiliates of Savi Bank Corporation.
+              </p>
+              <p>
+                Banking, credit card, automobile loans, mortgage and home equity products are provided by Savi Bank, N.A. and affiliated banks, Members FDIC and wholly owned subsidiaries of Savi Bank Corporation. Credit and collateral are subject to approval. Terms and rates are subject to change without notice. This is not a commitment to lend.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <footer className="bg-savi-navy text-white py-12 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-xs font-medium text-sky-200 mb-8 border-b border-sky-800 pb-8">
+              <a href="#" className="hover:text-white transition-colors">Locations</a>
+              <a href="#" className="hover:text-white transition-colors">Contact Us</a>
+              <a href="#" className="hover:text-white transition-colors">Help & Support</a>
+              <a href="#" className="hover:text-white transition-colors">Browse with Specialist</a>
+              <a href="#" className="hover:text-white transition-colors">Accessible Banking</a>
+              <a href="#" className="hover:text-white transition-colors">Privacy</a>
+              <a href="#" className="hover:text-white transition-colors">Children's Privacy</a>
+              <a href="#" className="hover:text-white transition-colors">Security</a>
+              <a href="#" className="hover:text-white transition-colors">Online Banking Service Agreement</a>
+              <a href="#" className="hover:text-white transition-colors">AdChoices</a>
+              <a href="#" className="hover:text-white transition-colors">Your Privacy Choices</a>
+              <a href="#" className="hover:text-white transition-colors">Site Map</a>
+              <a href="#" className="hover:text-white transition-colors">Careers</a>
+            </div>
+
+            <div className="flex flex-col items-center justify-center space-y-4 text-xs text-sky-300">
+              <p className="font-bold text-white mb-2">Connect with us</p>
+              <div className="flex gap-6 mb-4">
+                <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 cursor-pointer transition-colors"><span className="font-bold text-white">f</span></div>
+                <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 cursor-pointer transition-colors"><span className="font-bold text-white">X</span></div>
+                <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 cursor-pointer transition-colors"><span className="font-bold text-white">in</span></div>
+                <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 cursor-pointer transition-colors"><span className="font-bold text-white">ig</span></div>
+              </div>
+              <p>Savi Bank, N.A. Member FDIC. <span className="underline cursor-pointer hover:text-white">Equal Housing Lender</span></p>
+              <p>© 2026 Savi Bank Corporation. All rights reserved. <span className="text-[9px] text-sky-800/40 ml-2 font-normal">Demo — Not a real bank.</span></p>
+            </div>
+          </div>
+        </footer>
+
+        <div className="bg-sky-100 p-4 border-t border-sky-200 text-xs text-slate-600 flex justify-between items-center">
+          <p className="max-w-5xl">
+            We use cookies and other tracking technologies to collect data for advertising, fraud prevention, analytics, and other purposes. By using this website, you agree to the use of these tracking technologies to the use and disclosure of data in accordance with our <a href="#" className="underline text-savi-bright">Privacy Notices</a>.
+          </p>
+          <button className="text-slate-400 hover:text-slate-800 font-bold px-4">✕</button>
+        </div>
+
       </div>
     </div>
   );
@@ -380,6 +488,9 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
   const [modalData, setModalData] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+
   const [widgets, setWidgets] = useState({ spending: true, rewards: true, milestones: true });
   const [pockets, setPockets] = useState([{ name: 'Vacation Fund', target: 3000, saved: 1200 }]);
 
@@ -435,14 +546,51 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
 
       <main className="flex-1 h-screen overflow-y-auto overflow-x-hidden relative">
         <div className="relative z-10 p-6 md:p-10 max-w-7xl mx-auto">
-          <header className="flex justify-between items-center mb-10">
+          
+          <header className="flex justify-between items-center mb-10 relative z-50">
             <div>
               <h1 className="text-3xl font-bold mb-1 text-savi-navy">Welcome, {user.name.split(' ')[0]}</h1>
               <p className="text-slate-500">Here is your financial overview.</p>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-white border border-sky-100 rounded-full flex items-center justify-center text-slate-400 shadow-sm"><Icon name="Bell" size={20}/></div>
-              <div className="w-12 h-12 grad-blue rounded-full flex items-center justify-center text-white font-bold shadow-md">{user.name.charAt(0)}</div>
+            
+            <div className="flex items-center gap-4 relative">
+              <div className="relative">
+                <button 
+                  onClick={() => { setIsNotificationsOpen(!isNotificationsOpen); setIsProfileOpen(false); }} 
+                  className="w-12 h-12 bg-white border border-sky-100 rounded-full flex items-center justify-center text-slate-400 shadow-sm hover:text-savi-bright transition-colors"
+                >
+                  <Icon name="Bell" size={20}/>
+                </button>
+                {isNotificationsOpen && (
+                  <div className="absolute right-0 top-14 w-64 bg-white rounded-2xl shadow-xl border border-sky-100 z-50 p-4 fade-in">
+                     <h3 className="font-bold text-savi-navy mb-3 text-sm">Notifications</h3>
+                     <div className="space-y-3">
+                       <p className="text-xs text-slate-600 border-b border-sky-50 pb-2">New login from Lagos, NG (Just now)</p>
+                       <p className="text-xs text-slate-600">Password changed successfully (2 days ago)</p>
+                     </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="relative">
+                <button 
+                  onClick={() => { setIsProfileOpen(!isProfileOpen); setIsNotificationsOpen(false); }} 
+                  className="w-12 h-12 grad-blue rounded-full flex items-center justify-center text-white font-bold shadow-md hover:scale-105 transition-transform"
+                >
+                  {user.name.charAt(0)}
+                </button>
+                {isProfileOpen && (
+                  <div className="absolute right-0 top-14 w-48 bg-white rounded-2xl shadow-xl border border-sky-100 z-50 p-2 fade-in">
+                     <div className="px-4 py-3 border-b border-sky-50 mb-2">
+                       <p className="font-bold text-savi-navy text-sm truncate">{user.name}</p>
+                       <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                     </div>
+                     <button onClick={onLogout} className="w-full text-left px-4 py-2 text-sm text-savi-red hover:bg-red-50 rounded-xl font-semibold transition-colors flex items-center gap-2">
+                       <Icon name="LogOut" size={16}/> Sign Out
+                     </button>
+                  </div>
+                )}
+              </div>
             </div>
           </header>
 

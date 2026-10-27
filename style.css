@@ -1,12 +1,13 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F0F9FF; color: #0F172A; }
 
-/* Light, crisp glassmorphism for the new theme */
+/* Light, crisp glassmorphism */
 .glass-dark { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(14, 165, 233, 0.15); box-shadow: 0 8px 32px 0 rgba(14, 165, 233, 0.05); }
 
 /* Sky Blue Gradients */
 .grad-premium { background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 100%); }
-.grad-card-dark { background: linear-gradient(135deg, #0EA5E9 0%, #2563EB 100%); } /* Vivid Blue for the card */
+.grad-card-dark { background: linear-gradient(135deg, #0EA5E9 0%, #2563EB 100%); }
 .grad-blue { background: linear-gradient(135deg, #0EA5E9 0%, #3B82F6 100%); }
 
 /* Animations */
