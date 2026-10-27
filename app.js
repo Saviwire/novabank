@@ -2,6 +2,13 @@ const { useState, useEffect } = React;
 
 const LANGUAGES = ["English", "Español", "Français", "Deutsch", "中文", "日本語", "한국어", "Português", "Русский", "العربية", "Italiano", "Türkçe", "Nederlands", "Polski", "Svenska", "Norsk", "Dansk", "Suomi", "Ελληνικά", "Čeština", "Українська", "Română", "Magyar", "български", "עברית", "हिन्दी", "বাংলা", "Tiếng Việt", "ไทย", "Bahasa Indonesia", "Bahasa Melayu", "Filipino", "Kiswahili", "Afrikaans", "Amharic", "Zulu", "Yoruba", "Igbo", "Hausa", "Somali", "Persian", "Urdu", "Tamil", "Telugu", "Marathi", "Gujarati", "Punjabi", "Malayalam", "Kannada", "Sinhala"];
 
+// YOUR VIDEOS HAVE BEEN ADDED HERE
+const backgroundVideos = [
+  "https://pub-f6f968e7831d4f55b2739b673a975a15.r2.dev/hero-lifestyle-1.mp4",
+  "https://pub-f6f968e7831d4f55b2739b673a975a15.r2.dev/hero-lifestyle-2.mp4",
+  "https://pub-f6f968e7831d4f55b2739b673a975a15.r2.dev/hero-abstract-3.mp4"
+];
+
 const MOCK_TRANSACTIONS = [
   { id: 1, name: 'Apple Store', cat: 'Shopping', amount: -1299.00, date: 'Oct 24, 2026', icon: 'CreditCard' },
   { id: 2, name: 'Whole Foods Market', cat: 'Groceries', amount: -156.42, date: 'Oct 23, 2026', icon: 'Home' },
@@ -21,6 +28,12 @@ const MARKET_NEWS = [
   { title: "Fed signals potential rate cut in Q4", source: "Bloomberg", time: "2h ago" },
   { title: "Tech stocks rally as AI sector surges", source: "CNBC", time: "4h ago" },
   { title: "Oil prices steady amid global supply shifts", source: "Reuters", time: "5h ago" }
+];
+
+const MUSEUMS = [
+  { name: "The Metropolitan Museum of Art", location: "New York, NY" },
+  { name: "Art Institute of Chicago", location: "Chicago, IL" },
+  { name: "J. Paul Getty Museum", location: "Los Angeles, CA" }
 ];
 
 const Icon = ({ name, size = 20, className = "" }) => {
@@ -46,7 +59,11 @@ const Icon = ({ name, size = 20, className = "" }) => {
     LogOut: <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>,
     FileText: <g><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></g>,
     Building: <g><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="22.01"/><line x1="15" y1="22" x2="15" y2="22.01"/><line x1="12" y1="22" x2="12" y2="22.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/></g>,
-    Download: <g><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></g>
+    Download: <g><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></g>,
+    BookOpen: <g><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></g>,
+    TrendingUp: <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></g>,
+    Award: <g><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></g>,
+    Landmark: <g><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></g>
   };
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{paths[name] || <circle cx="12" cy="12" r="10"/>}</svg>;
 };
@@ -171,6 +188,10 @@ const LandingPage = ({ onNavigate }) => {
   const [activeTab, setActiveTab] = useState('physical');
   const [stockSymbol, setStockSymbol] = useState('AAPL');
   const [stockResult, setStockResult] = useState(null);
+  const [videoSource] = useState(() => {
+    const randomIndex = Math.floor(Math.random() * backgroundVideos.length);
+    return backgroundVideos[randomIndex];
+  });
 
   const handleStockSearch = (e) => {
     e.preventDefault();
@@ -181,7 +202,7 @@ const LandingPage = ({ onNavigate }) => {
     <div className="min-h-screen bg-savi-dark text-white font-sans overflow-hidden">
       <div className="absolute inset-0 z-0">
         <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30" poster="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1920&q=80">
-          <source src="https://cdn.pixabay.com/video/2026/10/07/380956-1087928452_large.mp4" type="video/mp4" />
+          <source src={videoSource} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-savi-dark/80 via-savi-dark/90 to-savi-dark"></div>
       </div>
@@ -286,7 +307,7 @@ const LandingPage = ({ onNavigate }) => {
         <section className="relative z-10 py-24 bg-slate-50 text-savi-navy">
           <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Market Watch</h2>
+              <h2 className="text-3xl font-bold mb-6 flex items-center gap-3"><Icon name="TrendingUp" className="text-savi-bright"/> Market Watch</h2>
               <div className="bg-white p-6 rounded-2xl shadow-lg border border-slate-100">
                 <form onSubmit={handleStockSearch} className="flex gap-2 mb-4">
                   <input type="text" placeholder="Enter Symbol (e.g. AAPL)" value={stockSymbol} onChange={e=>setStockSymbol(e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-savi-navy" />
@@ -304,7 +325,7 @@ const LandingPage = ({ onNavigate }) => {
               </div>
             </div>
             <div>
-              <h2 className="text-3xl font-bold mb-6">Latest News</h2>
+              <h2 className="text-3xl font-bold mb-6 flex items-center gap-3"><Icon name="BookOpen" className="text-savi-bright"/> Latest News</h2>
               <div className="space-y-4">
                 {MARKET_NEWS.map((news, i) => (
                   <div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 cursor-pointer hover:shadow-md transition-shadow">
@@ -312,6 +333,31 @@ const LandingPage = ({ onNavigate }) => {
                     <p className="text-xs text-slate-400 mt-1">{news.source} • {news.time}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="relative z-10 py-24 bg-white text-savi-navy">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100">
+                <div className="w-12 h-12 bg-savi-bright/10 rounded-2xl flex items-center justify-center text-savi-bright mb-6"><Icon name="Briefcase" size={24}/></div>
+                <h3 className="text-2xl font-bold mb-3">Wealth Management</h3>
+                <p className="text-savi-grey mb-6">Invest in ETFs with zero commission and get access to dedicated financial advisors.</p>
+                <button className="text-savi-bright font-bold flex items-center gap-2 hover:gap-3 transition-all">Explore Investing <Icon name="ArrowUpRight" size={16}/></button>
+              </div>
+              <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100">
+                <div className="w-12 h-12 bg-savi-green/10 rounded-2xl flex items-center justify-center text-savi-green mb-6"><Icon name="PieChart" size={24}/></div>
+                <h3 className="text-2xl font-bold mb-3">Citi Tools & Calculators</h3>
+                <p className="text-savi-grey mb-6">Access over 30 easy-to-use financial calculators for mortgages, loans, and savings.</p>
+                <button onClick={() => onNavigate('login')} className="text-savi-green font-bold flex items-center gap-2 hover:gap-3 transition-all">Open Tools <Icon name="ArrowUpRight" size={16}/></button>
+              </div>
+              <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100">
+                <div className="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-500 mb-6"><Icon name="BookOpen" size={24}/></div>
+                <h3 className="text-2xl font-bold mb-3">Living Smart</h3>
+                <p className="text-savi-grey mb-6">Enhance your financial literacy with articles, guides, and market insights.</p>
+                <button className="text-purple-500 font-bold flex items-center gap-2 hover:gap-3 transition-all">Read Articles <Icon name="ArrowUpRight" size={16}/></button>
               </div>
             </div>
           </div>
@@ -368,15 +414,21 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
   const [modalType, setModalType] = useState(null);
   const [modalData, setModalData] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  const [widgets, setWidgets] = useState({ spending: true, rewards: true, milestones: true });
+  const [pockets, setPockets] = useState([{ name: 'Vacation Fund', target: 3000, saved: 1200 }]);
 
+  const toggleWidget = (key) => setWidgets({ ...widgets, [key]: !widgets[key] });
   const openModal = (type, data = null) => { setModalType(type); setModalData(data); };
 
   const navItems = [
     { id: 'overview', label: 'Overview', icon: 'Home' },
     { id: 'transactions', label: 'Transactions', icon: 'FileText' },
     { id: 'transfers', label: 'Transfers & Wire', icon: 'Send' },
-    { id: 'billpay', label: 'Bill Pay', icon: 'Building' },
+    { id: 'tools', label: 'Tools & Calculators', icon: 'PieChart' },
+    { id: 'rewards', label: 'Rewards & Perks', icon: 'Award' },
     { id: 'cards', label: 'Manage Cards', icon: 'CreditCard' },
+    { id: 'security', label: 'Security Center', icon: 'Shield' },
   ];
 
   const filteredTx = MOCK_TRANSACTIONS.filter(tx => tx.name.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -395,7 +447,7 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
     <div className="min-h-screen bg-savi-dark flex text-white font-sans">
       <ActionModal type={modalType} data={modalData} onClose={() => setModalType(null)} />
 
-      <aside className="w-72 glass-dark border-r border-white/5 hidden lg:flex flex-col p-6 z-20">
+      <aside className="w-72 glass-dark border-r border-white/5 hidden lg:flex flex-col p-6 z-20 overflow-y-auto">
         <div className="flex items-center gap-3 mb-12 cursor-pointer" onClick={() => onNavigate('home')}>
           <div className="w-10 h-10 grad-blue rounded-xl flex items-center justify-center shadow-glow"><Icon name="Logo" size={20}/></div>
           <span className="text-xl font-bold tracking-tight">Savi Bank</span>
@@ -430,8 +482,8 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
           </header>
 
           {activeTab === 'overview' && (
-            <div className="fade-in">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <div className="fade-in space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 glass-dark rounded-[2rem] p-8 relative overflow-hidden">
                   <div className="flex justify-between items-start mb-8">
                     <div>
@@ -442,7 +494,6 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
                   <div className="flex gap-4 mt-12 flex-wrap">
                     <button onClick={() => openModal('Send Money')} className="bg-white text-savi-navy px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-slate-200 transition-colors"><Icon name="Send" size={18}/> Send</button>
                     <button onClick={() => openModal('Request Money')} className="glass-dark text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-white/10 transition-colors"><Icon name="ArrowDownLeft" size={18}/> Request</button>
-                    <button onClick={() => openModal('Wire Transfer')} className="glass-dark text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-white/10 transition-colors"><Icon name="Globe" size={18}/> Wire</button>
                   </div>
                 </div>
                 
@@ -463,7 +514,31 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
                    </div>
                 </div>
               </div>
-              
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="glass-dark rounded-[2rem] p-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="font-bold text-lg">Pockets & Vaults</h3>
+                    <button className="text-xs bg-white/10 px-3 py-1 rounded-lg">+ New</button>
+                  </div>
+                  {pockets.map((p, i) => (
+                    <div key={i} className="mb-4">
+                      <div className="flex justify-between text-sm mb-1"><span>{p.name}</span><span>${p.saved} / ${p.target}</span></div>
+                      <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden"><div className="bg-savi-green h-full" style={{width: `${(p.saved/p.target)*100}%`}}></div></div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="glass-dark rounded-[2rem] p-6">
+                  <h3 className="font-bold text-lg mb-4">Customize Widgets</h3>
+                  <div className="space-y-3">
+                    <label className="flex items-center justify-between text-sm"><span>Show Spending Chart</span><input type="checkbox" checked={widgets.spending} onChange={() => toggleWidget('spending')} /></label>
+                    <label className="flex items-center justify-between text-sm"><span>Show Rewards Points</span><input type="checkbox" checked={widgets.rewards} onChange={() => toggleWidget('rewards')} /></label>
+                    <label className="flex items-center justify-between text-sm"><span>Show Life Milestones</span><input type="checkbox" checked={widgets.milestones} onChange={() => toggleWidget('milestones')} /></label>
+                  </div>
+                </div>
+              </div>
+
               <div className="glass-dark rounded-[2rem] p-8">
                 <div className="flex justify-between items-center mb-6">
                   <h3 className="text-xl font-bold">Recent Transactions</h3>
@@ -504,7 +579,6 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
                       <p className={`font-bold text-lg ${tx.amount > 0 ? 'text-savi-green' : 'text-white'}`}>{tx.amount > 0 ? '+' : ''}{tx.amount.toFixed(2)}</p>
                     </div>
                   ))}
-                  {filteredTx.length === 0 && <p className="text-center text-slate-400 py-8">No transactions found.</p>}
                 </div>
               </div>
             </div>
@@ -534,23 +608,61 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
             </div>
           )}
 
-          {activeTab === 'billpay' && (
+          {activeTab === 'tools' && (
             <div className="fade-in">
-              <div className="flex justify-between items-center mb-6"><h2 className="text-2xl font-bold">Bill Pay</h2></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {MOCK_PAYEES.map((payee) => (
-                  <div key={payee.id} className="glass-dark rounded-[2rem] p-6 flex flex-col justify-between">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-savi-blue/20 flex items-center justify-center text-savi-blue"><Icon name="Building" size={24} /></div>
-                      <div><h3 className="font-bold text-lg">{payee.name}</h3><p className="text-xs text-slate-400">Due {payee.due}</p></div>
-                    </div>
-                    <div className="flex justify-between items-end mb-6">
-                      <div><p className="text-xs text-slate-400">Amount</p><p className="text-2xl font-bold">${payee.amount.toFixed(2)}</p></div>
-                      <span className={`text-xs font-bold px-2 py-1 rounded ${payee.status === 'Pending' ? 'bg-savi-red/10 text-savi-red' : 'bg-savi-green/10 text-savi-green'}`}>{payee.status}</span>
-                    </div>
-                    <button onClick={() => openModal('Pay Bill', payee)} className="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-2 rounded-xl transition-colors">Pay Now</button>
+              <h2 className="text-2xl font-bold mb-6">Citi Tools & Calculators</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {['Mortgage Calculator', 'Auto Loan', 'Savings Goal', 'Retirement Planner', 'Debt Payoff', 'Investment Yield', 'Currency Converter', 'Budget Builder'].map((tool, i) => (
+                  <div key={i} className="glass-dark p-6 rounded-2xl flex flex-col justify-between hover:bg-white/5 cursor-pointer transition-colors border border-white/5">
+                    <Icon name="PieChart" size={28} className="text-savi-bright mb-4" />
+                    <h3 className="font-bold">{tool}</h3>
+                    <p className="text-xs text-slate-400 mt-2">Open tool</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'rewards' && (
+            <div className="fade-in space-y-6">
+               <h2 className="text-2xl font-bold mb-6">BofA Rewards & Loyalty</h2>
+               <div className="glass-dark p-8 rounded-3xl border border-white/10 flex justify-between items-center">
+                 <div>
+                   <h3 className="text-xl font-bold">Platinum Honors Tier</h3>
+                   <p className="text-slate-400 text-sm mt-1">You have 12,450 points. 2,550 points until next tier.</p>
+                 </div>
+                 <div className="text-4xl font-extrabold text-savi-green">+25% <span className="text-sm text-slate-400 font-normal">bonus</span></div>
+               </div>
+               
+               <h3 className="text-xl font-bold mt-8 mb-4">Museums on Us</h3>
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                 {MUSEUMS.map((m, i) => (
+                   <div key={i} className="glass-dark p-6 rounded-2xl">
+                     <Icon name="Landmark" size={24} className="text-purple-400 mb-3"/>
+                     <h4 className="font-bold">{m.name}</h4>
+                     <p className="text-xs text-slate-400">{m.location}</p>
+                   </div>
+                 ))}
+               </div>
+            </div>
+          )}
+
+          {activeTab === 'security' && (
+            <div className="fade-in">
+              <h2 className="text-2xl font-bold mb-6">Security Center</h2>
+              <div className="glass-dark p-8 rounded-3xl border border-white/10 space-y-6">
+                 <div className="flex items-center gap-4">
+                   <div className="w-12 h-12 bg-savi-green/10 text-savi-green rounded-full flex items-center justify-center"><Icon name="Shield" size={24}/></div>
+                   <div><h3 className="font-bold text-lg">Fraud Monitoring Active</h3><p className="text-sm text-slate-400">Your account is protected 24/7.</p></div>
+                 </div>
+                 <div className="h-px bg-white/5 w-full"></div>
+                 <div>
+                   <h4 className="font-bold mb-2">Recent Alerts</h4>
+                   <div className="space-y-2 text-sm">
+                     <div className="flex justify-between text-slate-300"><span>New login from Lagos, NG</span><span>Just now</span></div>
+                     <div className="flex justify-between text-slate-300"><span>Password successfully changed</span><span>2 days ago</span></div>
+                   </div>
+                 </div>
               </div>
             </div>
           )}
