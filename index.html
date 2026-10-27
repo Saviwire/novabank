@@ -13,23 +13,10 @@
       theme: {
         extend: {
           colors: {
-            savi: {
-              navy: '#0A192F',
-              blue: '#1E3A8A',
-              bright: '#2563EB',
-              light: '#F8FAFC',
-              grey: '#64748B',
-              green: '#10B981',
-              red: '#EF4444',
-              card: '#111827',
-              dark: '#0B1120'
-            }
+            savi: { navy: '#0A192F', blue: '#1E3A8A', bright: '#2563EB', light: '#F8FAFC', grey: '#64748B', green: '#10B981', red: '#EF4444', card: '#111827', dark: '#0B1120' }
           },
           fontFamily: { sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'] },
-          boxShadow: {
-            'premium': '0 20px 40px -10px rgba(14, 30, 37, 0.15)',
-            'glow': '0 0 20px rgba(37, 99, 235, 0.4)'
-          }
+          boxShadow: { premium: '0 20px 40px -10px rgba(14, 30, 37, 0.15)', glow: '0 0 20px rgba(37, 99, 235, 0.4)' }
         }
       }
     }
@@ -37,20 +24,16 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8FAFC; color: #0A192F; }
-    
     .glass-light { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.4); }
     .glass-dark { background: rgba(21, 27, 43, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
     .grad-premium { background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%); }
     .grad-card-dark { background: linear-gradient(135deg, #111827 0%, #374151 100%); }
     .grad-blue { background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%); }
-
     .crypto-ticker-container { overflow: hidden; white-space: nowrap; background: #0A192F; padding: 10px 0; }
     .crypto-ticker { display: inline-block; animation: ticker 30s linear infinite; }
     @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
-
     .fade-in { animation: fadeIn 0.3s ease-out; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
@@ -80,6 +63,7 @@
       { id: 3, name: 'Geico Auto', due: 'Nov 15', amount: 120.50, status: 'Scheduled' },
     ];
 
+    // Fixed SVG syntax errors for Wallet and Bell
     const Icon = ({ name, size = 20, className = "" }) => {
       const paths = {
         Logo: <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>,
@@ -87,9 +71,9 @@
         CreditCard: <g><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></g>,
         Send: <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>,
         PieChart: <path d="M21.21 15.89A10 10 0 1 1 8 2.83M22 12A10 10 0 0 0 12 2v10z"/>,
-        Wallet: <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>,
+        Wallet: <g><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></g>,
         Settings: <g><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></g>,
-        Bell: <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>,
+        Bell: <g><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></g>,
         Globe: <g><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></g>,
         ChevronDown: <polyline points="6 9 12 15 18 9"/>,
         ArrowUpRight: <path d="M7 17L17 7M7 7h10v10"/>,
@@ -107,10 +91,12 @@
       return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{paths[name] || <circle cx="12" cy="12" r="10"/>}</svg>;
     };
 
-    // Universal Action Modal (Send, Wire, Bill Pay)
+    // Fixed Hook order in ActionModal
     const ActionModal = ({ type, data, onClose }) => {
       const [amount, setAmount] = useState('');
       const [success, setSuccess] = useState(false);
+
+      if (!type) return null;
 
       const handleSubmit = (e) => {
         e.preventDefault();
@@ -135,26 +121,22 @@
               <>
                 <h3 className="text-2xl font-bold text-savi-navy mb-6">{type}</h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  
                   {type === 'Wire Transfer' && (
                     <>
                       <input type="text" placeholder="Routing Number" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-savi-navy focus:outline-none focus:border-savi-bright" required />
                       <input type="text" placeholder="Account Number" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-savi-navy focus:outline-none focus:border-savi-bright" required />
                     </>
                   )}
-
                   {type === 'Pay Bill' && data && (
                      <div className="mb-4">
                        <p className="text-sm font-bold text-savi-grey">Paying:</p>
                        <p className="text-lg font-bold text-savi-navy">{data.name}</p>
                      </div>
                   )}
-
                   <div>
                     <label className="text-sm font-bold text-savi-grey mb-1 block">Amount ($)</label>
                     <input type="number" value={amount} onChange={e=>setAmount(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-lg font-bold text-savi-navy focus:outline-none focus:border-savi-bright" required placeholder="0.00"/>
                   </div>
-                  
                   <button type="submit" className="w-full grad-blue text-white font-bold py-3 rounded-xl shadow-lg mt-4">Confirm Transaction</button>
                 </form>
               </>
@@ -164,7 +146,6 @@
       );
     };
 
-    // --- LANDING PAGE (Same as before) ---
     const LandingPage = ({ onNavigate }) => {
       const [menuOpen, setMenuOpen] = useState(false);
       const [langOpen, setLangOpen] = useState(false);
@@ -253,7 +234,6 @@
       );
     };
 
-    // --- FULL DASHBOARD ---
     const Dashboard = ({ user, onLogout, onNavigate }) => {
       const [activeTab, setActiveTab] = useState('overview');
       const [isLocked, setIsLocked] = useState(false);
@@ -271,20 +251,17 @@
         { id: 'cards', label: 'Manage Cards', icon: 'CreditCard' },
       ];
 
-      // Filter transactions based on search
       const filteredTx = MOCK_TRANSACTIONS.filter(tx => tx.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
       return (
         <div className="min-h-screen bg-savi-dark flex text-white font-sans">
           <ActionModal type={modalType} data={modalData} onClose={() => setModalType(null)} />
 
-          {/* Sidebar */}
           <aside className="w-72 glass-dark border-r border-white/5 hidden lg:flex flex-col p-6 z-20">
             <div className="flex items-center gap-3 mb-12 cursor-pointer" onClick={() => onNavigate('home')}>
               <div className="w-10 h-10 grad-blue rounded-xl flex items-center justify-center shadow-glow"><Icon name="Logo" size={20}/></div>
               <span className="text-xl font-bold tracking-tight">Savi Bank</span>
             </div>
-            
             <nav className="space-y-2 flex-1">
               {navItems.map(item => (
                 <div key={item.id} onClick={() => setActiveTab(item.id)} className={`flex items-center gap-4 px-4 py-3.5 rounded-xl cursor-pointer transition-all ${activeTab === item.id ? 'bg-savi-bright text-white shadow-lg' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}>
@@ -293,7 +270,6 @@
                 </div>
               ))}
             </nav>
-            
             <div className="pt-6 border-t border-white/5">
               <div onClick={onLogout} className="flex items-center gap-4 px-4 py-3 text-savi-red hover:bg-savi-red/10 rounded-xl cursor-pointer">
                 <Icon name="LogOut" size={20} />
@@ -302,10 +278,8 @@
             </div>
           </aside>
 
-          {/* Main Content */}
           <main className="flex-1 h-screen overflow-y-auto overflow-x-hidden relative">
             <div className="relative z-10 p-6 md:p-10 max-w-7xl mx-auto">
-              
               <header className="flex justify-between items-center mb-10">
                 <div>
                   <h1 className="text-3xl font-bold mb-1">Welcome, {user.name.split(' ')[0]}</h1>
@@ -317,7 +291,6 @@
                 </div>
               </header>
 
-              {/* VIEW: OVERVIEW */}
               {activeTab === 'overview' && (
                 <div className="fade-in">
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -327,7 +300,6 @@
                           <p className="text-slate-400 font-medium mb-2">Total Net Worth</p>
                           <h2 className="text-5xl md:text-6xl font-extrabold tracking-tight">$12,450<span className="text-3xl text-slate-500">.75</span></h2>
                         </div>
-                        <span className="bg-savi-green/10 text-savi-green px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1"><Icon name="ArrowUpRight" size={14}/> +2.4%</span>
                       </div>
                       <div className="flex gap-4 mt-12 flex-wrap">
                         <button onClick={() => openModal('Send Money')} className="bg-white text-savi-navy px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-slate-200 transition-colors"><Icon name="Send" size={18}/> Send</button>
@@ -374,7 +346,6 @@
                 </div>
               )}
 
-              {/* VIEW: TRANSACTIONS */}
               {activeTab === 'transactions' && (
                 <div className="fade-in">
                   <div className="flex justify-between items-center mb-6">
@@ -403,7 +374,6 @@
                 </div>
               )}
 
-              {/* VIEW: TRANSFERS & WIRE */}
               {activeTab === 'transfers' && (
                 <div className="fade-in grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="glass-dark rounded-[2rem] p-8">
@@ -428,12 +398,10 @@
                 </div>
               )}
 
-              {/* VIEW: BILL PAY */}
               {activeTab === 'billpay' && (
                 <div className="fade-in">
                   <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold">Bill Pay</h2>
-                    <button onClick={() => openModal('Add Payee')} className="grad-blue text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2"><Icon name="Plus" size={16}/> Add Payee</button>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {MOCK_PAYEES.map((payee) => (
@@ -456,7 +424,6 @@
                 </div>
               )}
 
-              {/* VIEW: CARDS */}
               {activeTab === 'cards' && (
                 <div className="fade-in">
                   <h2 className="text-2xl font-bold mb-6">Manage Cards</h2>
@@ -482,12 +449,6 @@
                           <div className={`w-6 h-6 bg-white rounded-full absolute top-1 transition-transform ${isLocked ? 'translate-x-7' : 'translate-x-1'}`}></div>
                         </button>
                       </div>
-                      <div className="glass-dark p-6 rounded-2xl flex items-center justify-between cursor-pointer hover:bg-white/5">
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center"><Icon name="Settings" size={24}/></div>
-                          <div><p className="font-bold">Set PIN</p><p className="text-xs text-slate-400">Change security PIN</p></div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -502,8 +463,12 @@
 
     const App = () => {
       const [user, setUser] = useState(() => {
-        const saved = localStorage.getItem('savi_user');
-        return saved ? JSON.parse(saved) : null;
+        try {
+          const saved = localStorage.getItem('savi_user');
+          return saved ? JSON.parse(saved) : null;
+        } catch (e) {
+          return null;
+        }
       });
       const [currentPage, setCurrentPage] = useState(user ? 'dashboard' : 'home');
 
