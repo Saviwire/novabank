@@ -96,21 +96,104 @@ const ActionModal = ({ type, data, onClose }) => {
   );
 };
 
+const SmartAssistant = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { text: "Hi! I'm Savi Smart, your AI financial assistant. How can I help you today?", isBot: true }
+  ]);
+  const [input, setInput] = useState('');
+
+  const handleSend = (e) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    const newMessages = [...messages, { text: input, isBot: false }];
+    setMessages(newMessages);
+    setInput('');
+
+    setTimeout(() => {
+      let botResponse = "I can help you check your balance, transfer money, or view recent transactions. What would you like to do?";
+      const lowerInput = input.toLowerCase();
+
+      if (lowerInput.includes('balance') || lowerInput.includes('money')) {
+        botResponse = "Your total net worth is currently $12,450.75. Your checking account is looking healthy!";
+      } else if (lowerInput.includes('transfer') || lowerInput.includes('send')) {
+        botResponse = "You can initiate a transfer by clicking the 'Send' button on your dashboard. Would you like me to open that for you?";
+      } else if (lowerInput.includes('bill') || lowerInput.includes('pay')) {
+        botResponse = "You have 3 upcoming bills, including Con Edison for $145.00 due on Oct 28th. Would you like to review them?";
+      } else if (lowerInput.includes('hello') || lowerInput.includes('hi')) {
+        botResponse = "Hello! I'm here to help. What financial task can I assist you with today?";
+      }
+
+      setMessages(prev => [...prev, { text: botResponse, isBot: true }]);
+    }, 600);
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end">
+      {isOpen && (
+        <div className="bg-white w-80 md:w-96 rounded-2xl shadow-2xl border border-slate-200 mb-4 overflow-hidden fade-in flex flex-col" style={{ height: '400px' }}>
+          <div className="grad-blue p-4 text-white flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-bold">S</div>
+              <div>
+                <p className="font-bold text-sm">Savi Smart</p>
+                <p className="text-[10px] text-white/80">Online</p>
+              </div>
+            </div>
+            <button onClick={() => setIsOpen(false)} className="text-white/80 hover:text-white"><Icon name="Menu" size={20} className="rotate-45"/></button>
+          </div>
+          
+          <div className="flex-1 p-4 overflow-y-auto bg-slate-50 space-y-4">
+            {messages.map((msg, i) => (
+              <div key={i} className={`flex ${msg.isBot ? 'justify-start' : 'justify-end'}`}>
+                <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.isBot ? 'bg-white border border-slate-100 text-savi-navy rounded-tl-sm' : 'bg-savi-bright text-white rounded-tr-sm'}`}>
+                  {msg.text}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-100 flex gap-2">
+            <input 
+              type="text" 
+              value={input} 
+              onChange={(e) => setInput(e.target.value)} 
+              placeholder="Ask Savi..." 
+              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm text-savi-navy focus:outline-none focus:border-savi-bright"
+            />
+            <button type="submit" className="bg-savi-bright text-white p-2 rounded-xl hover:bg-blue-600 transition-colors"><Icon name="Send" size={18}/></button>
+          </form>
+        </div>
+      )}
+
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="bg-savi-bright text-white w-14 h-14 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center hover:scale-105 transition-transform"
+      >
+        <Icon name={isOpen ? "Menu" : "Bell"} size={24} className={isOpen ? "rotate-45" : ""}/>
+      </button>
+    </div>
+  );
+};
+
 const LandingPage = ({ onNavigate }) => {
   const [langOpen, setLangOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState('English');
+  const [activeTab, setActiveTab] = useState('physical');
 
   return (
     <div className="min-h-screen bg-savi-dark text-white font-sans overflow-hidden">
+      
       <div className="absolute inset-0 z-0">
-        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-40">
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-white-lines-2034-large.mp4" type="video/mp4" />
+        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30">
+          <source src="https://cdn.pixabay.com/video/2023/10/22/185974-877737394_large.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-t from-savi-dark via-savi-dark/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-savi-dark/80 via-savi-dark/90 to-savi-dark"></div>
       </div>
 
       <div className="relative z-10">
-        <div className="crypto-ticker-container border-b border-white/10 relative z-20">
+        <div className="crypto-ticker-container border-b border-white/10 relative z-20 bg-savi-dark/80 backdrop-blur-md">
           <div className="crypto-ticker text-xs font-semibold tracking-widest uppercase opacity-80">
             <span className="mx-8 text-savi-green">BTC $64,230.50 ▲ 2.4%</span>
             <span className="mx-8 text-savi-red">ETH $3,120.10 ▼ 1.2%</span>
@@ -145,68 +228,94 @@ const LandingPage = ({ onNavigate }) => {
           </div>
         </nav>
 
-        <header className="relative z-10 pt-32 pb-40 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
-          <div className="space-y-8 max-w-4xl">
+        <header className="relative z-10 pt-24 pb-32 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+          <div className="flex-1 space-y-8">
             <h1 className="text-6xl md:text-8xl font-extrabold leading-[1.05] tracking-tight">
               Your wealth.<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-savi-bright to-savi-green">Reimagined.</span>
             </h1>
-            <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-slate-300 max-w-lg leading-relaxed">
               Spend smartly, send quickly, sort your salary automatically, and watch your savings grow — all with a Savi bank account.
             </p>
-            <div className="flex items-center justify-center gap-6 pt-4">
-              <button onClick={() => onNavigate('signup')} className="bg-savi-bright text-white px-10 py-4 rounded-2xl font-bold text-lg shadow-[0_0_40px_rgba(37,99,235,0.5)] hover:bg-blue-600 transition-all hover:-translate-y-1">Move your salary</button>
-              <button onClick={() => onNavigate('login')} className="glass-dark border border-white/20 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-white/10 transition-all">Log in</button>
+            <div className="flex items-center gap-6 pt-4">
+              <button onClick={() => onNavigate('signup')} className="bg-savi-bright text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:bg-blue-600 transition-all">Move your salary</button>
+              <div className="flex items-center gap-2 text-sm font-medium text-slate-400">
+                <Icon name="Check" size={18} className="text-savi-green"/> No monthly fees
+              </div>
             </div>
           </div>
+          
+          <div className="flex-1 relative w-full h-[500px]">
+            <div className="absolute inset-0 bg-savi-bright rounded-full blur-[120px] opacity-20"></div>
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Lifestyle" className="absolute inset-0 w-full h-full object-cover rounded-[2rem] shadow-2xl border border-white/10" />
+            
+            <div className="absolute -left-6 top-12 glass-dark p-4 rounded-2xl shadow-xl w-48 backdrop-blur-xl border border-white/20 transform -rotate-6">
+              <p className="text-xs text-slate-400 mb-1">Personal · EUR</p>
+              <p className="text-2xl font-bold mb-2">€3,126</p>
+              <div className="bg-white/10 rounded-lg p-2 flex justify-between items-center text-[10px]"><span>☕ Coffee</span><span className="text-savi-red">-€3.25</span></div>
+            </div>
 
-          <div className="mt-24 w-full max-w-5xl glass-dark rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 border border-white/10 shadow-2xl backdrop-blur-xl">
-            <div className="flex items-center gap-6">
-               <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center"><Icon name="Shield" size={32} className="text-savi-green"/></div>
-               <div className="text-left">
-                 <p className="text-3xl font-bold">$250,000</p>
-                 <p className="text-sm text-slate-400">FDIC Insured</p>
-               </div>
-            </div>
-            <div className="h-12 w-px bg-white/10 hidden md:block"></div>
-            <div className="flex items-center gap-6">
-               <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center"><Icon name="CreditCard" size={32} className="text-savi-bright"/></div>
-               <div className="text-left">
-                 <p className="text-3xl font-bold">4.25% APY</p>
-                 <p className="text-sm text-slate-400">High-Yield Savings</p>
-               </div>
-            </div>
-            <div className="h-12 w-px bg-white/10 hidden md:block"></div>
-            <div className="flex items-center gap-6">
-               <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center"><Icon name="Globe" size={32} className="text-purple-400"/></div>
-               <div className="text-left">
-                 <p className="text-3xl font-bold">0% Fees</p>
-                 <p className="text-sm text-slate-400">Global Transactions</p>
-               </div>
+            <div className="absolute -right-4 bottom-16 glass-dark p-4 rounded-2xl shadow-xl w-52 backdrop-blur-xl border border-white/20 transform rotate-3">
+              <p className="text-xs text-slate-400 mb-1">Personal · GBP</p>
+              <p className="text-2xl font-bold mb-2">£6,012</p>
+              <div className="bg-white/10 rounded-lg p-2 flex justify-between items-center text-[10px]"><span>🏠 House bills</span><span className="text-savi-red">-£225</span></div>
             </div>
           </div>
         </header>
 
-        <section className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 className="text-4xl md:text-5xl font-bold leading-tight">Live life on your terms.</h2>
-              <p className="text-lg text-slate-400">Whether you're traveling the world or building your future, Savi gives you the tools to manage your money effortlessly.</p>
-              <ul className="space-y-4 pt-4">
-                <li className="flex items-center gap-3 text-lg"><Icon name="Check" className="text-savi-green"/> No hidden fees, ever.</li>
-                <li className="flex items-center gap-3 text-lg"><Icon name="Check" className="text-savi-green"/> Instant transfers globally.</li>
-                <li className="flex items-center gap-3 text-lg"><Icon name="Check" className="text-savi-green"/> Premium metal cards.</li>
-              </ul>
+        <section className="relative z-10 py-24 bg-savi-dark border-t border-white/5">
+          <div className="max-w-7xl mx-auto px-6">
+            <h2 className="text-4xl font-bold text-center mb-12">Built for every aspect of your life.</h2>
+            
+            <div className="flex justify-center gap-4 mb-8">
+              {['physical', 'virtual', 'savings'].map(tab => (
+                <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-2 rounded-full text-sm font-bold capitalize transition-colors ${activeTab === tab ? 'bg-savi-bright text-white' : 'glass-dark text-slate-400 hover:text-white'}`}>
+                  {tab} Cards
+                </button>
+              ))}
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-savi-bright blur-[100px] opacity-20"></div>
-              <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80" alt="Lifestyle" className="rounded-[2rem] shadow-2xl border border-white/10 relative z-10 object-cover h-[500px] w-full" />
+
+            <div className="glass-dark rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-12 border border-white/10">
+              <div className="flex-1 space-y-6">
+                <h3 className="text-3xl font-bold capitalize">{activeTab} Cards</h3>
+                <p className="text-slate-400 text-lg">Experience the ultimate flexibility with Savi {activeTab} cards. Designed for premium security and global acceptance.</p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center"><Icon name="Shield" size={24} className="text-savi-green"/></div>
+                  <div><p className="font-bold">Fraud Monitoring</p><p className="text-xs text-slate-400">24/7 Security Alerts</p></div>
+                </div>
+              </div>
+              <div className="flex-1 flex justify-center">
+                <div className={`w-80 aspect-[1.586/1] rounded-2xl p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden ${activeTab === 'physical' ? 'grad-card-dark' : activeTab === 'virtual' ? 'grad-blue' : 'bg-savi-green'}`}>
+                   <div className="flex justify-between items-center"><Icon name="Logo" size={24} className="text-white/80"/><span className="font-bold italic text-white/90 text-xl">VISA</span></div>
+                   <div>
+                     <p className="text-white/60 text-xs tracking-widest mb-1">CARD NUMBER</p>
+                     <p className="text-xl tracking-[0.15em] font-mono text-white">•••• •••• •••• 4821</p>
+                   </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <div className="relative z-10 py-12 text-center border-t border-white/5">
-          <p className="text-[10px] text-slate-600 uppercase tracking-[0.2em]">Demo — Not a real bank. All data is simulated.</p>
+        <section className="relative z-10 py-12 border-t border-white/5 bg-savi-dark/50">
+          <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+             <div className="text-center">
+               <p className="text-2xl font-bold mb-1">80M+</p>
+               <p className="text-xs">Customers</p>
+             </div>
+             <div className="text-center">
+               <p className="text-2xl font-bold text-savi-green mb-1">4.7/5</p>
+               <p className="text-xs">Trustpilot</p>
+             </div>
+             <div className="text-center">
+               <p className="text-2xl font-bold mb-1">#1</p>
+               <p className="text-xs">Digital Bank</p>
+             </div>
+          </div>
+        </section>
+
+        <div className="relative z-10 py-8 text-center border-t border-white/5">
+          <p className="text-[8px] text-slate-600 uppercase tracking-[0.2em]">Demo — Not a real bank. All data is simulated.</p>
         </div>
       </div>
     </div>
@@ -499,6 +608,8 @@ const App = () => {
       {currentPage === 'home' && <LandingPage onNavigate={setCurrentPage} />}
       {(currentPage === 'login' || currentPage === 'signup') && <AuthPage mode={currentPage} onAuth={handleAuth} onNavigate={setCurrentPage} />}
       {currentPage === 'dashboard' && user && <Dashboard user={user} onLogout={handleLogout} onNavigate={setCurrentPage} />}
+      
+      <SmartAssistant /> 
     </div>
   );
 };
