@@ -3,18 +3,24 @@ const { useState, useEffect } = React;
 const LANGUAGES = ["English", "Español", "Français", "Deutsch", "中文", "日本語", "한국어", "Português", "Русский", "العربية", "Italiano", "Türkçe", "Nederlands", "Polski", "Svenska", "Norsk", "Dansk", "Suomi", "Ελληνικά", "Čeština", "Українська", "Română", "Magyar", "български", "עברית", "हिन्दी", "বাংলা", "Tiếng Việt", "ไทย", "Bahasa Indonesia", "Bahasa Melayu", "Filipino", "Kiswahili", "Afrikaans", "Amharic", "Zulu", "Yoruba", "Igbo", "Hausa", "Somali", "Persian", "Urdu", "Tamil", "Telugu", "Marathi", "Gujarati", "Punjabi", "Malayalam", "Kannada", "Sinhala"];
 
 const MOCK_TRANSACTIONS = [
-  { id: 1, name: 'Apple Store', cat: 'Shopping', amount: -1299.00, date: 'Today, 10:24 AM', icon: 'CreditCard' },
-  { id: 2, name: 'Whole Foods Market', cat: 'Groceries', amount: -156.42, date: 'Yesterday', icon: 'Home' },
-  { id: 3, name: 'Direct Deposit - TechCorp', cat: 'Income', amount: 4250.00, date: 'Oct 22', icon: 'Wallet' },
-  { id: 4, name: 'Uber', cat: 'Transport', amount: -24.50, date: 'Oct 21', icon: 'Send' },
-  { id: 5, name: 'Starbucks', cat: 'Dining', amount: -8.75, date: 'Oct 20', icon: 'Home' },
-  { id: 6, name: 'Amazon.com', cat: 'Shopping', amount: -112.30, date: 'Oct 19', icon: 'CreditCard' },
+  { id: 1, name: 'Apple Store', cat: 'Shopping', amount: -1299.00, date: 'Oct 24, 2026', icon: 'CreditCard' },
+  { id: 2, name: 'Whole Foods Market', cat: 'Groceries', amount: -156.42, date: 'Oct 23, 2026', icon: 'Home' },
+  { id: 3, name: 'Direct Deposit - TechCorp', cat: 'Income', amount: 4250.00, date: 'Oct 22, 2026', icon: 'Wallet' },
+  { id: 4, name: 'Uber', cat: 'Transport', amount: -24.50, date: 'Oct 21, 2026', icon: 'Send' },
+  { id: 5, name: 'Starbucks', cat: 'Dining', amount: -8.75, date: 'Oct 20, 2026', icon: 'Home' },
+  { id: 6, name: 'Amazon.com', cat: 'Shopping', amount: -112.30, date: 'Oct 19, 2026', icon: 'CreditCard' },
 ];
 
 const MOCK_PAYEES = [
   { id: 1, name: 'Con Edison', due: 'Oct 28', amount: 145.00, status: 'Pending' },
   { id: 2, name: 'Verizon Fios', due: 'Nov 02', amount: 89.99, status: 'Scheduled' },
   { id: 3, name: 'Geico Auto', due: 'Nov 15', amount: 120.50, status: 'Scheduled' },
+];
+
+const MARKET_NEWS = [
+  { title: "Fed signals potential rate cut in Q4", source: "Bloomberg", time: "2h ago" },
+  { title: "Tech stocks rally as AI sector surges", source: "CNBC", time: "4h ago" },
+  { title: "Oil prices steady amid global supply shifts", source: "Reuters", time: "5h ago" }
 ];
 
 const Icon = ({ name, size = 20, className = "" }) => {
@@ -39,7 +45,8 @@ const Icon = ({ name, size = 20, className = "" }) => {
     Shield: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>,
     LogOut: <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>,
     FileText: <g><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></g>,
-    Building: <g><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="22.01"/><line x1="15" y1="22" x2="15" y2="22.01"/><line x1="12" y1="22" x2="12" y2="22.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/></g>
+    Building: <g><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="22.01"/><line x1="15" y1="22" x2="15" y2="22.01"/><line x1="12" y1="22" x2="12" y2="22.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/></g>,
+    Download: <g><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></g>
   };
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{paths[name] || <circle cx="12" cy="12" r="10"/>}</svg>;
 };
@@ -106,13 +113,12 @@ const SmartAssistant = () => {
   const handleSend = (e) => {
     e.preventDefault();
     if (!input.trim()) return;
-
     const newMessages = [...messages, { text: input, isBot: false }];
     setMessages(newMessages);
     setInput('');
 
     setTimeout(() => {
-      let botResponse = "I can help you check your balance, transfer money, or view recent transactions. What would you like to do?";
+      let botResponse = "I can help you check your balance, transfer money, view recent transactions, or calculate loan payments. What would you like to do?";
       const lowerInput = input.toLowerCase();
 
       if (lowerInput.includes('balance') || lowerInput.includes('money')) {
@@ -121,10 +127,9 @@ const SmartAssistant = () => {
         botResponse = "You can initiate a transfer by clicking the 'Send' button on your dashboard. Would you like me to open that for you?";
       } else if (lowerInput.includes('bill') || lowerInput.includes('pay')) {
         botResponse = "You have 3 upcoming bills, including Con Edison for $145.00 due on Oct 28th. Would you like to review them?";
-      } else if (lowerInput.includes('hello') || lowerInput.includes('hi')) {
-        botResponse = "Hello! I'm here to help. What financial task can I assist you with today?";
+      } else if (lowerInput.includes('loan') || lowerInput.includes('calculator')) {
+        botResponse = "You can access our loan calculators by navigating to the Tools section in your dashboard.";
       }
-
       setMessages(prev => [...prev, { text: botResponse, isBot: true }]);
     }, 600);
   };
@@ -136,41 +141,24 @@ const SmartAssistant = () => {
           <div className="grad-blue p-4 text-white flex justify-between items-center">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-bold">S</div>
-              <div>
-                <p className="font-bold text-sm">Savi Smart</p>
-                <p className="text-[10px] text-white/80">Online</p>
-              </div>
+              <div><p className="font-bold text-sm">Savi Smart</p><p className="text-[10px] text-white/80">Online</p></div>
             </div>
             <button onClick={() => setIsOpen(false)} className="text-white/80 hover:text-white"><Icon name="Menu" size={20} className="rotate-45"/></button>
           </div>
-          
           <div className="flex-1 p-4 overflow-y-auto bg-slate-50 space-y-4">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.isBot ? 'justify-start' : 'justify-end'}`}>
-                <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.isBot ? 'bg-white border border-slate-100 text-savi-navy rounded-tl-sm' : 'bg-savi-bright text-white rounded-tr-sm'}`}>
-                  {msg.text}
-                </div>
+                <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.isBot ? 'bg-white border border-slate-100 text-savi-navy rounded-tl-sm' : 'bg-savi-bright text-white rounded-tr-sm'}`}>{msg.text}</div>
               </div>
             ))}
           </div>
-
           <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-100 flex gap-2">
-            <input 
-              type="text" 
-              value={input} 
-              onChange={(e) => setInput(e.target.value)} 
-              placeholder="Ask Savi..." 
-              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm text-savi-navy focus:outline-none focus:border-savi-bright"
-            />
+            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask Savi..." className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm text-savi-navy focus:outline-none focus:border-savi-bright"/>
             <button type="submit" className="bg-savi-bright text-white p-2 rounded-xl hover:bg-blue-600 transition-colors"><Icon name="Send" size={18}/></button>
           </form>
         </div>
       )}
-
-      <button 
-        onClick={() => setIsOpen(!isOpen)} 
-        className="bg-savi-bright text-white w-14 h-14 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center hover:scale-105 transition-transform"
-      >
+      <button onClick={() => setIsOpen(!isOpen)} className="bg-savi-bright text-white w-14 h-14 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center hover:scale-105 transition-transform">
         <Icon name={isOpen ? "Menu" : "Bell"} size={24} className={isOpen ? "rotate-45" : ""}/>
       </button>
     </div>
@@ -181,13 +169,19 @@ const LandingPage = ({ onNavigate }) => {
   const [langOpen, setLangOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState('English');
   const [activeTab, setActiveTab] = useState('physical');
+  const [stockSymbol, setStockSymbol] = useState('AAPL');
+  const [stockResult, setStockResult] = useState(null);
+
+  const handleStockSearch = (e) => {
+    e.preventDefault();
+    setStockResult({ symbol: stockSymbol.toUpperCase(), price: (Math.random() * 200 + 50).toFixed(2), change: (Math.random() * 5 - 2).toFixed(2) });
+  };
 
   return (
     <div className="min-h-screen bg-savi-dark text-white font-sans overflow-hidden">
-      
       <div className="absolute inset-0 z-0">
-        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30">
-          <source src="https://cdn.pixabay.com/video/2023/10/22/185974-877737394_large.mp4" type="video/mp4" />
+        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30" poster="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1920&q=80">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-white-lines-2034-large.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-savi-dark/80 via-savi-dark/90 to-savi-dark"></div>
       </div>
@@ -215,9 +209,7 @@ const LandingPage = ({ onNavigate }) => {
                 {langOpen && (
                   <div className="absolute right-0 mt-4 w-60 glass-dark border border-white/10 rounded-2xl shadow-2xl max-h-64 overflow-y-auto z-50 p-2">
                     {LANGUAGES.map((lang, i) => (
-                      <div key={i} onClick={() => { setSelectedLang(lang); setLangOpen(false); }} className="px-4 py-2.5 text-sm text-slate-300 hover:bg-white/10 hover:text-white rounded-xl cursor-pointer">
-                        {lang}
-                      </div>
+                      <div key={i} onClick={() => { setSelectedLang(lang); setLangOpen(false); }} className="px-4 py-2.5 text-sm text-slate-300 hover:bg-white/10 hover:text-white rounded-xl cursor-pointer">{lang}</div>
                     ))}
                   </div>
                 )}
@@ -228,34 +220,28 @@ const LandingPage = ({ onNavigate }) => {
           </div>
         </nav>
 
-        <header className="relative z-10 pt-24 pb-32 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
-          <div className="flex-1 space-y-8">
+        <header className="relative z-10 pt-24 pb-32 px-6 max-w-7xl mx-auto flex flex-col items-center text-center lg:text-left lg:flex-row gap-16">
+          <div className="flex-1 space-y-8 z-20">
             <h1 className="text-6xl md:text-8xl font-extrabold leading-[1.05] tracking-tight">
-              Your wealth.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-savi-bright to-savi-green">Reimagined.</span>
+              Your wealth.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-savi-bright to-savi-green">Reimagined.</span>
             </h1>
-            <p className="text-xl text-slate-300 max-w-lg leading-relaxed">
+            <p className="text-xl text-slate-300 max-w-lg leading-relaxed mx-auto lg:mx-0">
               Spend smartly, send quickly, sort your salary automatically, and watch your savings grow — all with a Savi bank account.
             </p>
-            <div className="flex items-center gap-6 pt-4">
+            <div className="flex items-center justify-center lg:justify-start gap-6 pt-4">
               <button onClick={() => onNavigate('signup')} className="bg-savi-bright text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:bg-blue-600 transition-all">Move your salary</button>
-              <div className="flex items-center gap-2 text-sm font-medium text-slate-400">
-                <Icon name="Check" size={18} className="text-savi-green"/> No monthly fees
-              </div>
             </div>
           </div>
           
-          <div className="flex-1 relative w-full h-[500px]">
-            <div className="absolute inset-0 bg-savi-bright rounded-full blur-[120px] opacity-20"></div>
+          <div className="flex-1 relative w-full max-w-md mx-auto h-[400px] md:h-[500px] mt-12 lg:mt-0">
+            <div className="absolute inset-0 bg-savi-bright rounded-full blur-[100px] opacity-20"></div>
             <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Lifestyle" className="absolute inset-0 w-full h-full object-cover rounded-[2rem] shadow-2xl border border-white/10" />
-            
-            <div className="absolute -left-6 top-12 glass-dark p-4 rounded-2xl shadow-xl w-48 backdrop-blur-xl border border-white/20 transform -rotate-6">
+            <div className="absolute -left-4 top-8 glass-dark p-4 rounded-2xl shadow-2xl w-48 backdrop-blur-xl border border-white/20 transform -rotate-6 z-30">
               <p className="text-xs text-slate-400 mb-1">Personal · EUR</p>
               <p className="text-2xl font-bold mb-2">€3,126</p>
               <div className="bg-white/10 rounded-lg p-2 flex justify-between items-center text-[10px]"><span>☕ Coffee</span><span className="text-savi-red">-€3.25</span></div>
             </div>
-
-            <div className="absolute -right-4 bottom-16 glass-dark p-4 rounded-2xl shadow-xl w-52 backdrop-blur-xl border border-white/20 transform rotate-3">
+            <div className="absolute -right-4 bottom-12 glass-dark p-4 rounded-2xl shadow-2xl w-52 backdrop-blur-xl border border-white/20 transform rotate-3 z-30">
               <p className="text-xs text-slate-400 mb-1">Personal · GBP</p>
               <p className="text-2xl font-bold mb-2">£6,012</p>
               <div className="bg-white/10 rounded-lg p-2 flex justify-between items-center text-[10px]"><span>🏠 House bills</span><span className="text-savi-red">-£225</span></div>
@@ -266,15 +252,11 @@ const LandingPage = ({ onNavigate }) => {
         <section className="relative z-10 py-24 bg-savi-dark border-t border-white/5">
           <div className="max-w-7xl mx-auto px-6">
             <h2 className="text-4xl font-bold text-center mb-12">Built for every aspect of your life.</h2>
-            
             <div className="flex justify-center gap-4 mb-8">
               {['physical', 'virtual', 'savings'].map(tab => (
-                <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-2 rounded-full text-sm font-bold capitalize transition-colors ${activeTab === tab ? 'bg-savi-bright text-white' : 'glass-dark text-slate-400 hover:text-white'}`}>
-                  {tab} Cards
-                </button>
+                <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-2 rounded-full text-sm font-bold capitalize transition-colors ${activeTab === tab ? 'bg-savi-bright text-white' : 'glass-dark text-slate-400 hover:text-white'}`}>{tab} Cards</button>
               ))}
             </div>
-
             <div className="glass-dark rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-12 border border-white/10">
               <div className="flex-1 space-y-6">
                 <h3 className="text-3xl font-bold capitalize">{activeTab} Cards</h3>
@@ -287,11 +269,42 @@ const LandingPage = ({ onNavigate }) => {
               <div className="flex-1 flex justify-center">
                 <div className={`w-80 aspect-[1.586/1] rounded-2xl p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden ${activeTab === 'physical' ? 'grad-card-dark' : activeTab === 'virtual' ? 'grad-blue' : 'bg-savi-green'}`}>
                    <div className="flex justify-between items-center"><Icon name="Logo" size={24} className="text-white/80"/><span className="font-bold italic text-white/90 text-xl">VISA</span></div>
-                   <div>
-                     <p className="text-white/60 text-xs tracking-widest mb-1">CARD NUMBER</p>
-                     <p className="text-xl tracking-[0.15em] font-mono text-white">•••• •••• •••• 4821</p>
-                   </div>
+                   <div><p className="text-white/60 text-xs tracking-widest mb-1">CARD NUMBER</p><p className="text-xl tracking-[0.15em] font-mono text-white">•••• •••• •••• 4821</p></div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="relative z-10 py-24 bg-slate-50 text-savi-navy">
+          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">Market Watch</h2>
+              <div className="bg-white p-6 rounded-2xl shadow-lg border border-slate-100">
+                <form onSubmit={handleStockSearch} className="flex gap-2 mb-4">
+                  <input type="text" placeholder="Enter Symbol (e.g. AAPL)" value={stockSymbol} onChange={e=>setStockSymbol(e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-savi-navy" />
+                  <button type="submit" className="bg-savi-bright text-white px-4 py-2 rounded-xl font-bold">Lookup</button>
+                </form>
+                {stockResult && (
+                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p className="font-bold text-xl">{stockResult.symbol}</p>
+                    <p className="text-2xl font-extrabold text-savi-navy">${stockResult.price}</p>
+                    <p className={`text-sm font-bold ${parseFloat(stockResult.change) > 0 ? 'text-savi-green' : 'text-savi-red'}`}>
+                      {parseFloat(stockResult.change) > 0 ? '▲' : '▼'} {Math.abs(parseFloat(stockResult.change))}%
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div>
+              <h2 className="text-3xl font-bold mb-6">Latest News</h2>
+              <div className="space-y-4">
+                {MARKET_NEWS.map((news, i) => (
+                  <div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 cursor-pointer hover:shadow-md transition-shadow">
+                    <p className="font-bold text-savi-navy">{news.title}</p>
+                    <p className="text-xs text-slate-400 mt-1">{news.source} • {news.time}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -299,24 +312,13 @@ const LandingPage = ({ onNavigate }) => {
 
         <section className="relative z-10 py-12 border-t border-white/5 bg-savi-dark/50">
           <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-             <div className="text-center">
-               <p className="text-2xl font-bold mb-1">80M+</p>
-               <p className="text-xs">Customers</p>
-             </div>
-             <div className="text-center">
-               <p className="text-2xl font-bold text-savi-green mb-1">4.7/5</p>
-               <p className="text-xs">Trustpilot</p>
-             </div>
-             <div className="text-center">
-               <p className="text-2xl font-bold mb-1">#1</p>
-               <p className="text-xs">Digital Bank</p>
-             </div>
+             <div className="text-center"><p className="text-2xl font-bold mb-1">80M+</p><p className="text-xs">Customers</p></div>
+             <div className="text-center"><p className="text-2xl font-bold text-savi-green mb-1">4.7/5</p><p className="text-xs">Trustpilot</p></div>
+             <div className="text-center"><p className="text-2xl font-bold mb-1">#1</p><p className="text-xs">Digital Bank</p></div>
           </div>
         </section>
 
-        <div className="relative z-10 py-8 text-center border-t border-white/5">
-          <p className="text-[8px] text-slate-600 uppercase tracking-[0.2em]">Demo — Not a real bank. All data is simulated.</p>
-        </div>
+        <div className="relative z-10 py-8 text-center border-t border-white/5"><p className="text-[8px] text-slate-600 uppercase tracking-[0.2em]">Demo — Not a real bank. All data is simulated.</p></div>
       </div>
     </div>
   );
@@ -371,6 +373,16 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
   ];
 
   const filteredTx = MOCK_TRANSACTIONS.filter(tx => tx.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+  const handleDownload = () => {
+    const csvContent = "data:text/csv;charset=utf-8,Date,Description,Amount\n" + MOCK_TRANSACTIONS.map(e => `${e.date},${e.name},${e.amount}`).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "savi_transactions.csv");
+    document.body.appendChild(link);
+    link.click();
+  };
 
   return (
     <div className="min-h-screen bg-savi-dark flex text-white font-sans">
@@ -469,7 +481,10 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
             <div className="fade-in">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold">Transaction History</h2>
-                <input type="text" placeholder="Search transactions..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-savi-bright w-64" />
+                <div className="flex gap-4">
+                  <input type="text" placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-savi-bright w-48" />
+                  <button onClick={handleDownload} className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-colors"><Icon name="Download" size={16}/> Export CSV</button>
+                </div>
               </div>
               <div className="glass-dark rounded-[2rem] p-8">
                 <div className="space-y-6">
@@ -477,14 +492,9 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
                     <div key={i} className="flex items-center justify-between border-b border-white/5 pb-4 last:border-0 last:pb-0">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-slate-300"><Icon name={tx.icon} size={20} /></div>
-                        <div>
-                          <p className="font-bold text-lg">{tx.name}</p>
-                          <p className="text-sm text-slate-400">{tx.cat} • {tx.date}</p>
-                        </div>
+                        <div><p className="font-bold text-lg">{tx.name}</p><p className="text-sm text-slate-400">{tx.cat} • {tx.date}</p></div>
                       </div>
-                      <p className={`font-bold text-lg ${tx.amount > 0 ? 'text-savi-green' : 'text-white'}`}>
-                        {tx.amount > 0 ? '+' : ''}{tx.amount.toFixed(2)}
-                      </p>
+                      <p className={`font-bold text-lg ${tx.amount > 0 ? 'text-savi-green' : 'text-white'}`}>{tx.amount > 0 ? '+' : ''}{tx.amount.toFixed(2)}</p>
                     </div>
                   ))}
                   {filteredTx.length === 0 && <p className="text-center text-slate-400 py-8">No transactions found.</p>}
@@ -519,18 +529,13 @@ const Dashboard = ({ user, onLogout, onNavigate }) => {
 
           {activeTab === 'billpay' && (
             <div className="fade-in">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Bill Pay</h2>
-              </div>
+              <div className="flex justify-between items-center mb-6"><h2 className="text-2xl font-bold">Bill Pay</h2></div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {MOCK_PAYEES.map((payee) => (
                   <div key={payee.id} className="glass-dark rounded-[2rem] p-6 flex flex-col justify-between">
                     <div className="flex items-center gap-4 mb-4">
                       <div className="w-12 h-12 rounded-xl bg-savi-blue/20 flex items-center justify-center text-savi-blue"><Icon name="Building" size={24} /></div>
-                      <div>
-                        <h3 className="font-bold text-lg">{payee.name}</h3>
-                        <p className="text-xs text-slate-400">Due {payee.due}</p>
-                      </div>
+                      <div><h3 className="font-bold text-lg">{payee.name}</h3><p className="text-xs text-slate-400">Due {payee.due}</p></div>
                     </div>
                     <div className="flex justify-between items-end mb-6">
                       <div><p className="text-xs text-slate-400">Amount</p><p className="text-2xl font-bold">${payee.amount.toFixed(2)}</p></div>
@@ -585,9 +590,7 @@ const App = () => {
     try {
       const saved = localStorage.getItem('savi_user');
       return saved ? JSON.parse(saved) : null;
-    } catch (e) {
-      return null;
-    }
+    } catch (e) { return null; }
   });
   const [currentPage, setCurrentPage] = useState(user ? 'dashboard' : 'home');
 
@@ -608,7 +611,6 @@ const App = () => {
       {currentPage === 'home' && <LandingPage onNavigate={setCurrentPage} />}
       {(currentPage === 'login' || currentPage === 'signup') && <AuthPage mode={currentPage} onAuth={handleAuth} onNavigate={setCurrentPage} />}
       {currentPage === 'dashboard' && user && <Dashboard user={user} onLogout={handleLogout} onNavigate={setCurrentPage} />}
-      
       <SmartAssistant /> 
     </div>
   );
