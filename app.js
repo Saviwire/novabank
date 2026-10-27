@@ -181,7 +181,7 @@ const LandingPage = ({ onNavigate }) => {
     <div className="min-h-screen bg-savi-dark text-white font-sans overflow-hidden">
       <div className="absolute inset-0 z-0">
         <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30" poster="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1920&q=80">
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-white-lines-2034-large.mp4" type="video/mp4" />
+          <source src="https://cdn.pixabay.com/video/2026/10/07/380956-1087928452_large.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-savi-dark/80 via-savi-dark/90 to-savi-dark"></div>
       </div>
