@@ -47,7 +47,6 @@ const Icon = ({ name, size = 20, className = "" }) => {
 const ActionModal = ({ type, data, onClose }) => {
   const [amount, setAmount] = useState('');
   const [success, setSuccess] = useState(false);
-
   if (!type) return null;
 
   const handleSubmit = (e) => {
@@ -97,188 +96,119 @@ const ActionModal = ({ type, data, onClose }) => {
   );
 };
 
-    const LandingPage = ({ onNavigate }) => {
-      const [langOpen, setLangOpen] = useState(false);
-      const [selectedLang, setSelectedLang] = useState('English');
-
-      return (
-        <div className="min-h-screen bg-savi-dark text-white font-sans overflow-hidden">
-          {/* Ticker */}
-          <div className="crypto-ticker-container border-b border-white/10 relative z-20">
-            <div className="crypto-ticker text-xs font-semibold tracking-widest uppercase opacity-80">
-              <span className="mx-8 text-savi-green">BTC $64,230.50 ▲ 2.4%</span>
-              <span className="mx-8 text-savi-red">ETH $3,120.10 ▼ 1.2%</span>
-              <span className="mx-8 text-savi-green">SOL $145.20 ▲ 5.1%</span>
-              <span className="mx-8 text-savi-green">BTC $64,230.50 ▲ 2.4%</span>
-            </div>
-          </div>
-
-          {/* Navbar */}
-          <nav className="relative z-20 px-6 py-6 border-b border-white/5">
-            <div className="max-w-7xl mx-auto flex justify-between items-center">
-              <div className="flex items-center gap-3 cursor-pointer" onClick={() => onNavigate('home')}>
-                <div className="w-10 h-10 grad-blue rounded-xl flex items-center justify-center shadow-glow"><Icon name="Logo" size={24}/></div>
-                <span className="text-2xl font-extrabold tracking-tight">Savi Bank</span>
-              </div>
-              <div className="hidden lg:flex gap-8 items-center">
-                <div className="relative">
-                  <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-2 text-sm font-semibold text-slate-300 hover:text-white transition-colors">
-                    <Icon name="Globe" size={18} /> {selectedLang} <Icon name="ChevronDown" size={14} />
-                  </button>
-                  {langOpen && (
-                    <div className="absolute right-0 mt-4 w-60 glass-dark border border-white/10 rounded-2xl shadow-2xl max-h-64 overflow-y-auto z-50 p-2">
-                      {LANGUAGES.map((lang, i) => (
-                        <div key={i} onClick={() => { setSelectedLang(lang); setLangOpen(false); }} className="px-4 py-2.5 text-sm text-slate-300 hover:bg-white/10 hover:text-white rounded-xl cursor-pointer">
-                          {lang}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <button onClick={() => onNavigate('login')} className="text-sm font-bold text-white hover:text-savi-bright transition-colors">Sign In</button>
-                <button onClick={() => onNavigate('signup')} className="bg-white text-savi-dark px-6 py-2.5 rounded-full text-sm font-bold hover:scale-105 transition-transform">Open Account</button>
-              </div>
-            </div>
-          </nav>
-
-          {/* Hero Section */}
-          <header className="relative z-10 pt-20 pb-32 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
-            <div className="flex-1 space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-savi-bright/10 border border-savi-bright/20 text-savi-bright font-semibold text-sm">
-                <Icon name="Shield" size={16} /> Trusted by over 2M customers
-              </div>
-              <h1 className="text-6xl md:text-8xl font-extrabold leading-[1.05] tracking-tight">
-                Your salary,<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-savi-bright to-savi-green">reimagined.</span>
-              </h1>
-              <p className="text-xl text-slate-400 max-w-lg leading-relaxed">
-                Spend smartly, send quickly, sort your salary automatically, and watch your savings grow — all with a Savi bank account.
-              </p>
-              <div className="flex items-center gap-6 pt-4">
-                <button onClick={() => onNavigate('signup')} className="bg-savi-bright text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:bg-blue-600 transition-all hover:-translate-y-1">Move your salary</button>
-                <div className="flex items-center gap-2 text-sm font-medium text-slate-400">
-                  <Icon name="Check" size={18} className="text-savi-green"/> No monthly fees
-                </div>
-              </div>
-            </div>
-
-            {/* Premium Image Grid */}
-            <div className="flex-1 grid grid-cols-2 gap-4 relative">
-              <div className="absolute inset-0 bg-savi-bright rounded-full blur-[120px] opacity-20"></div>
-              
-              <div className="space-y-4 pt-12">
-                <div className="glass-dark rounded-3xl p-6 relative overflow-hidden group">
-                  <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=400&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity" />
-                  <div className="relative z-10">
-                    <p className="text-sm font-medium text-slate-300 mb-1">Personal · EUR</p>
-                    <p className="text-3xl font-bold mb-4">€3,126</p>
-                    <div className="bg-white/10 rounded-xl p-3 flex justify-between items-center backdrop-blur-sm">
-                      <div className="flex items-center gap-2 text-xs"><div className="w-6 h-6 bg-savi-bright rounded-full flex items-center justify-center">☕</div> Coffee in Paris</div>
-                      <span className="text-xs font-bold text-savi-red">-€3.25</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="glass-dark rounded-3xl p-6 relative overflow-hidden group">
-                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity" />
-                  <div className="relative z-10">
-                    <p className="text-sm font-medium text-slate-300 mb-1">Personal · GBP</p>
-                    <p className="text-3xl font-bold mb-4">£6,012</p>
-                    <div className="flex gap-2">
-                      <span className="bg-white/20 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold">PROTECTED</span>
-                      <span className="bg-white/20 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold">SAVINGS</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="glass-dark rounded-3xl p-6 relative overflow-hidden group">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity" />
-                  <div className="relative z-10">
-                    <p className="text-sm font-medium text-slate-300 mb-1">Personal · USD</p>
-                    <p className="text-3xl font-bold mb-4">$2,350</p>
-                    <div className="bg-white/10 rounded-xl p-3 flex justify-between items-center backdrop-blur-sm">
-                      <div className="flex items-center gap-2 text-xs"><div className="w-6 h-6 bg-savi-bright rounded-full flex items-center justify-center">🏠</div> House bills</div>
-                      <span className="text-xs font-bold text-savi-red">-$225</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </header>
-
-          {/* Trust Badges */}
-          <section className="relative z-10 border-t border-white/5 py-12 bg-savi-dark/50">
-            <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-               <div className="text-center">
-                 <p className="text-2xl font-bold mb-1">80M+</p>
-                 <p className="text-xs">Customers</p>
-               </div>
-               <div className="text-center">
-                 <p className="text-2xl font-bold text-savi-green mb-1">4.7/5</p>
-                 <p className="text-xs">Trustpilot</p>
-               </div>
-               <div className="text-center">
-                 <p className="text-2xl font-bold mb-1">#1</p>
-                 <p className="text-xs">Digital Bank</p>
-               </div>
-            </div>
-            <div className="text-center mt-8">
-              <p className="text-[8px] text-slate-600 uppercase tracking-[0.2em]">Demo — Not a real bank. All data is simulated.</p>
-            </div>
-          </section>
-        </div>
-      );
-    };
+const LandingPage = ({ onNavigate }) => {
+  const [langOpen, setLangOpen] = useState(false);
+  const [selectedLang, setSelectedLang] = useState('English');
 
   return (
-    <div className="min-h-screen bg-white relative">
-      <div className="crypto-ticker-container">
-        <div className="crypto-ticker text-sm font-semibold tracking-wide">
-          <span className="mx-8 text-green-400">BTC $64,230.50 ▲ 2.4%</span>
-          <span className="mx-8 text-red-400">ETH $3,120.10 ▼ 1.2%</span>
-          <span className="mx-8 text-green-400">SOL $145.20 ▲ 5.1%</span>
+    <div className="min-h-screen bg-savi-dark text-white font-sans overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-40">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-white-lines-2034-large.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-t from-savi-dark via-savi-dark/80 to-transparent"></div>
+      </div>
+
+      <div className="relative z-10">
+        <div className="crypto-ticker-container border-b border-white/10 relative z-20">
+          <div className="crypto-ticker text-xs font-semibold tracking-widest uppercase opacity-80">
+            <span className="mx-8 text-savi-green">BTC $64,230.50 ▲ 2.4%</span>
+            <span className="mx-8 text-savi-red">ETH $3,120.10 ▼ 1.2%</span>
+            <span className="mx-8 text-savi-green">SOL $145.20 ▲ 5.1%</span>
+          </div>
+        </div>
+
+        <nav className="relative z-20 px-6 py-6 border-b border-white/5 backdrop-blur-md bg-savi-dark/50">
+          <div className="max-w-7xl mx-auto flex justify-between items-center">
+            <div className="flex items-center gap-3 cursor-pointer" onClick={() => onNavigate('home')}>
+              <div className="w-10 h-10 grad-blue rounded-xl flex items-center justify-center shadow-glow"><Icon name="Logo" size={24}/></div>
+              <span className="text-2xl font-extrabold tracking-tight">Savi Bank</span>
+            </div>
+            <div className="hidden lg:flex gap-8 items-center">
+              <div className="relative">
+                <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-2 text-sm font-semibold text-slate-300 hover:text-white transition-colors">
+                  <Icon name="Globe" size={18} /> {selectedLang} <Icon name="ChevronDown" size={14} />
+                </button>
+                {langOpen && (
+                  <div className="absolute right-0 mt-4 w-60 glass-dark border border-white/10 rounded-2xl shadow-2xl max-h-64 overflow-y-auto z-50 p-2">
+                    {LANGUAGES.map((lang, i) => (
+                      <div key={i} onClick={() => { setSelectedLang(lang); setLangOpen(false); }} className="px-4 py-2.5 text-sm text-slate-300 hover:bg-white/10 hover:text-white rounded-xl cursor-pointer">
+                        {lang}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <button onClick={() => onNavigate('login')} className="text-sm font-bold text-white hover:text-savi-bright transition-colors">Sign In</button>
+              <button onClick={() => onNavigate('signup')} className="bg-white text-savi-dark px-6 py-2.5 rounded-full text-sm font-bold hover:scale-105 transition-transform">Open Account</button>
+            </div>
+          </div>
+        </nav>
+
+        <header className="relative z-10 pt-32 pb-40 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
+          <div className="space-y-8 max-w-4xl">
+            <h1 className="text-6xl md:text-8xl font-extrabold leading-[1.05] tracking-tight">
+              Your wealth.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-savi-bright to-savi-green">Reimagined.</span>
+            </h1>
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+              Spend smartly, send quickly, sort your salary automatically, and watch your savings grow — all with a Savi bank account.
+            </p>
+            <div className="flex items-center justify-center gap-6 pt-4">
+              <button onClick={() => onNavigate('signup')} className="bg-savi-bright text-white px-10 py-4 rounded-2xl font-bold text-lg shadow-[0_0_40px_rgba(37,99,235,0.5)] hover:bg-blue-600 transition-all hover:-translate-y-1">Move your salary</button>
+              <button onClick={() => onNavigate('login')} className="glass-dark border border-white/20 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-white/10 transition-all">Log in</button>
+            </div>
+          </div>
+
+          <div className="mt-24 w-full max-w-5xl glass-dark rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 border border-white/10 shadow-2xl backdrop-blur-xl">
+            <div className="flex items-center gap-6">
+               <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center"><Icon name="Shield" size={32} className="text-savi-green"/></div>
+               <div className="text-left">
+                 <p className="text-3xl font-bold">$250,000</p>
+                 <p className="text-sm text-slate-400">FDIC Insured</p>
+               </div>
+            </div>
+            <div className="h-12 w-px bg-white/10 hidden md:block"></div>
+            <div className="flex items-center gap-6">
+               <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center"><Icon name="CreditCard" size={32} className="text-savi-bright"/></div>
+               <div className="text-left">
+                 <p className="text-3xl font-bold">4.25% APY</p>
+                 <p className="text-sm text-slate-400">High-Yield Savings</p>
+               </div>
+            </div>
+            <div className="h-12 w-px bg-white/10 hidden md:block"></div>
+            <div className="flex items-center gap-6">
+               <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center"><Icon name="Globe" size={32} className="text-purple-400"/></div>
+               <div className="text-left">
+                 <p className="text-3xl font-bold">0% Fees</p>
+                 <p className="text-sm text-slate-400">Global Transactions</p>
+               </div>
+            </div>
+          </div>
+        </header>
+
+        <section className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h2 className="text-4xl md:text-5xl font-bold leading-tight">Live life on your terms.</h2>
+              <p className="text-lg text-slate-400">Whether you're traveling the world or building your future, Savi gives you the tools to manage your money effortlessly.</p>
+              <ul className="space-y-4 pt-4">
+                <li className="flex items-center gap-3 text-lg"><Icon name="Check" className="text-savi-green"/> No hidden fees, ever.</li>
+                <li className="flex items-center gap-3 text-lg"><Icon name="Check" className="text-savi-green"/> Instant transfers globally.</li>
+                <li className="flex items-center gap-3 text-lg"><Icon name="Check" className="text-savi-green"/> Premium metal cards.</li>
+              </ul>
+            </div>
+            <div className="relative">
+              <div className="absolute inset-0 bg-savi-bright blur-[100px] opacity-20"></div>
+              <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80" alt="Lifestyle" className="rounded-[2rem] shadow-2xl border border-white/10 relative z-10 object-cover h-[500px] w-full" />
+            </div>
+          </div>
+        </section>
+
+        <div className="relative z-10 py-12 text-center border-t border-white/5">
+          <p className="text-[10px] text-slate-600 uppercase tracking-[0.2em]">Demo — Not a real bank. All data is simulated.</p>
         </div>
       </div>
-      <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => onNavigate('home')}>
-            <div className="w-8 h-8 grad-premium rounded-lg flex items-center justify-center text-white shadow-lg"><Icon name="Logo" size={20}/></div>
-            <span className="text-xl font-extrabold text-savi-navy tracking-tight">Savi Bank</span>
-          </div>
-          <div className="hidden lg:flex gap-6 items-center">
-            <div className="relative">
-              <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-1 text-sm font-semibold text-savi-grey hover:text-savi-navy">
-                <Icon name="Globe" size={16} /> {selectedLang} <Icon name="ChevronDown" size={14} />
-              </button>
-              {langOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white border border-slate-100 rounded-2xl shadow-2xl max-h-64 overflow-y-auto z-50 p-2">
-                  {LANGUAGES.map((lang, i) => (
-                    <div key={i} onClick={() => { setSelectedLang(lang); setLangOpen(false); }} className="px-4 py-2 text-sm text-savi-navy hover:bg-slate-50 rounded-xl cursor-pointer">
-                      {lang}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            <button onClick={() => onNavigate('login')} className="text-sm font-bold text-savi-navy">Sign In</button>
-            <button onClick={() => onNavigate('signup')} className="grad-blue text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-lg">Open Account</button>
-          </div>
-        </div>
-      </nav>
-      <header className="relative bg-slate-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 py-20 md:py-28 flex flex-col md:flex-row items-center gap-12 relative z-10">
-          <div className="flex-1 space-y-8">
-            <h1 className="text-5xl md:text-7xl font-extrabold text-savi-navy leading-[1.1] tracking-tight">Your future,<br/>your way.</h1>
-            <p className="text-xl text-savi-grey max-w-lg leading-relaxed">Wherever you are on your financial journey, we're here to help with premium banking solutions.</p>
-            <button onClick={() => onNavigate('signup')} className="bg-savi-bright text-white px-8 py-4 rounded-xl font-bold shadow-xl">Explore Now</button>
-          </div>
-          <div className="flex-1 relative">
-            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80" alt="Happy Couple" className="rounded-[2.5rem] shadow-2xl border-4 border-white object-cover h-[400px] w-full" />
-          </div>
-        </div>
-      </header>
-      <div className="py-12 bg-slate-50 text-center border-t border-slate-100"><p className="text-[8px] text-slate-300 uppercase tracking-[0.2em]">Demo — Not a real bank. All data is simulated.</p></div>
     </div>
   );
 };
